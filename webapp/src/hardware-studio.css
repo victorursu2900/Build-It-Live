@@ -1,0 +1,1669 @@
+/*
+  BUILD IT LIVE / HARDWARE STUDIO
+  ===============================
+  Consolidated hardware-specific UI styles.
+
+  Contents
+  --------
+  01  Hardware workspace & settings
+  02  Color picker & simulator UI
+  03  ESP32 connection controls
+  04  Scrolling, mode switch & connect action
+  05  Glass surfaces & disabled states
+  06  Transparent fields & exit-demo styling
+  07  Disconnect & dialog dismiss actions
+
+  Important: sections intentionally retain their original cascade order.
+  Later refinements can override earlier styles. Keep that order when editing
+  so the rendered UI remains unchanged.
+*/
+
+/* ======================================================================
+   01 / HARDWARE WORKSPACE & SETTINGS
+   Main workspace controls, hardware setup dialog, dimensions, profiles, responsive layout.
+   ====================================================================== */
+
+/* SIMULATE AND CONNECT ARE THE SAME BUTTON, INCLUDING HOVER AND FOCUS.
+   Do not introduce a separate visual variant for the simulator. */
+#app.studio-app .studio-top-actions :is(#connectSerial, #simulateHardware) {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 0 89px;
+  width: 89px;
+  min-width: 89px;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 7px;
+  border: 1px solid var(--ink);
+  border-radius: 6px;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--studio-control-font, inherit);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  line-height: 1;
+  text-align: center;
+  box-shadow: none;
+  transform: none;
+  transition: background-color 200ms var(--studio-ease), color 200ms var(--studio-ease),
+    border-color 200ms var(--studio-ease), box-shadow 200ms var(--studio-ease), transform 200ms var(--studio-ease);
+}
+@media (hover:hover) and (pointer:fine) {
+  #app.studio-app .studio-top-actions :is(#connectSerial, #simulateHardware):hover:not(:disabled) {
+    background: #fffefa;
+    color: var(--ink);
+    border-color: var(--ink);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(15,15,15,.09);
+  }
+}
+#app.studio-app .studio-top-actions :is(#connectSerial, #simulateHardware):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+@media (max-width:1100px) {
+  #app.studio-app .studio-top-actions :is(#connectSerial, #simulateHardware) { flex-basis:78px; width:78px; min-width:78px; }
+}
+@media (max-width:420px) {
+  #app.studio-app .studio-top-actions :is(#connectSerial, #simulateHardware) { flex-basis:71px; width:71px; min-width:71px; font-size:8px; }
+}
+
+/* Main dialog — sober V21 cream glass, strong hierarchy, no ornamental glare. */
+#app.studio-app .hardware-setup-modal {
+  z-index: 9000;
+  padding: 20px;
+  font-family: var(--studio-control-font, inherit);
+}
+#app.studio-app .hardware-setup-modal__backdrop {
+  background: rgba(22,22,19,.42);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+#app.studio-app .hardware-setup-modal__panel {
+  box-sizing: border-box;
+  width: min(820px, calc(100vw - 40px));
+  max-height: calc(100dvh - 40px);
+  padding: 24px 26px 0;
+  border: 1px solid rgba(17,17,17,.18);
+  border-radius: 15px;
+  background: rgba(247,246,241,.95);
+  color: var(--ink);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 30px 80px rgba(17,17,17,.20), 0 2px 14px rgba(17,17,17,.07);
+  clip-path: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(17,17,17,.28) transparent;
+  transition: opacity 220ms ease, transform 320ms cubic-bezier(.22,1,.36,1), border-radius 320ms ease;
+  transform: translate3d(0,12px,0) scale(.985);
+}
+#app.studio-app .hardware-setup-modal__panel::before { display: none; }
+#app.studio-app .hardware-setup-modal.is-open .hardware-setup-modal__panel {
+  border-radius:15px;
+  clip-path:none;
+  transform:translate3d(0,0,0) scale(1);
+}
+#app.studio-app .hardware-setup-modal__panel > * { position:relative; z-index:1; }
+#app.studio-app .hardware-setup-modal__header {
+  padding:0 0 13px;
+  align-items:center;
+  border-bottom:1px solid rgba(17,17,17,.15);
+}
+#app.studio-app .hardware-setup-modal__header .panel-label {
+  font-size:10px;
+  font-weight:850;
+  line-height:1.3;
+  letter-spacing:.12em;
+  color:var(--studio-text-soft, #77736d);
+}
+#app.studio-app .hardware-setup-modal__header h2 {
+  margin:7px 0 0;
+  font-size:clamp(34px,4vw,48px);
+  line-height:.96;
+  letter-spacing:-.075em;
+  font-weight:950;
+}
+#app.studio-app .hardware-setup-modal__header h2 span { color:var(--accent); }
+#app.studio-app .hardware-setup-modal .modal-close {
+  flex:0 0 38px;
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(17,17,17,.14);
+  border-radius:8px;
+  background:rgba(255,255,255,.72);
+  color:var(--ink);
+  font-size:24px;
+  line-height:1;
+  transition:background .2s,color .2s,transform .2s;
+}
+#app.studio-app .hardware-setup-modal .modal-close:hover { background:var(--ink); color:#fff; transform:rotate(90deg); }
+#app.studio-app .hardware-setup-modal__intro {
+  padding:11px 0 15px;
+  gap:16px;
+  align-items:center;
+}
+#app.studio-app .hardware-setup-modal__intro p {
+  max-width:525px;
+  margin:0;
+  color:#65625c;
+  font-size:12px;
+  line-height:1.5;
+  font-weight:500;
+}
+#app.studio-app .hardware-setup-modal__status {
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-height:27px;
+  padding:0 10px;
+  border:1px solid rgba(17,17,17,.13);
+  border-radius:6px;
+  background:rgba(255,255,255,.57);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.05em;
+  white-space:nowrap;
+}
+#app.studio-app .hardware-setup-modal__status i { width:6px; height:6px; box-shadow:none; }
+
+/* Form: section heading is the same kind of information marker as 01/CREATE. */
+#app.studio-app .hardware-setup-form { display:grid; gap:14px; }
+#app.studio-app .hardware-setup-group { min-width:0; margin:0; padding:0; border:0; background:transparent; backdrop-filter:none; -webkit-backdrop-filter:none; }
+#app.studio-app .hardware-setup-group legend {
+  box-sizing:border-box;
+  display:flex;
+  width:100%;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:0 0 9px;
+  padding:0;
+}
+#app.studio-app .hardware-setup-group legend span {
+  color:var(--ink);
+  font-size:11px;
+  line-height:1.3;
+  font-weight:900;
+  letter-spacing:.10em;
+}
+#app.studio-app .hardware-setup-group legend small {
+  color:#77736d;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.065em;
+  text-align:right;
+}
+#app.studio-app .hardware-setup-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  align-items:stretch;
+}
+#app.studio-app .hardware-setup-field,
+#app.studio-app .hardware-extra-profile {
+  min-width:0;
+  box-sizing:border-box;
+  padding:14px 15px;
+  gap:8px;
+  border:1px solid rgba(17,17,17,.14);
+  border-radius:9px;
+  background:rgba(247,246,241,.64);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  box-shadow:none;
+  transition:background .22s ease,border-color .22s ease,box-shadow .22s ease;
+}
+#app.studio-app .hardware-setup-field:hover,
+#app.studio-app .hardware-setup-field:focus-within,
+#app.studio-app .hardware-extra-profile:focus-within {
+  background:rgba(255,255,255,.53);
+  border-color:rgba(17,17,17,.33);
+}
+#app.studio-app .hardware-setup-field:focus-within { box-shadow: 0 0 0 1px rgba(15,15,15,.16); }
+#app.studio-app .hardware-setup-field__head { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+#app.studio-app .hardware-setup-field__head b {
+  display:inline-flex; align-items:center; gap:7px;
+  color:var(--ink); font-size:11px; font-weight:900; letter-spacing:.055em; line-height:1.3;
+}
+#app.studio-app .hardware-setup-field__head em {
+  color:#79746d; font-size:9px; font-weight:850; font-style:normal;
+}
+#app.studio-app .hardware-setup-field__description {
+  max-width:none;
+  min-height:31px;
+  margin:0;
+  color:#68635e;
+  font-size:11px;
+  line-height:1.45;
+  font-weight:450;
+}
+#app.studio-app .hardware-setup-field__control,
+#app.studio-app .hardware-dimensions .hardware-setup-field__control {
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  min-width:0;
+  min-height:52px;
+  gap:8px;
+  padding:4px 10px;
+  border:1px solid rgba(17,17,17,.09);
+  border-radius:7px;
+  background:rgba(17,17,17,.045);
+  transition:border-color .2s ease,background .2s ease;
+}
+#app.studio-app .hardware-setup-field__control:focus-within {
+  border-color:rgba(17,17,17,.46);
+  background:rgba(255,255,255,.65);
+}
+#app.studio-app .hardware-setup-field__control:has(input:disabled) {
+  opacity:.60;
+  background:rgba(17,17,17,.018);
+}
+#app.studio-app .hardware-setup-field__control input,
+#app.studio-app .hardware-dimensions .hardware-setup-field__control input {
+  width:100%; min-width:0; min-height:40px;
+  padding:0; outline:none; border:0;
+  background:transparent;
+  color:var(--ink);
+  font-family:var(--studio-control-font, inherit);
+  font-size:clamp(27px,2.9vw,35px);
+  line-height:1;
+  letter-spacing:-.06em;
+  font-weight:900;
+  font-variant-numeric:tabular-nums;
+}
+#app.studio-app .hardware-setup-field__unit { flex:0 0 auto; color:#77736d; font-size:9px; font-weight:900; letter-spacing:.05em; }
+#app.studio-app .hardware-setup-field__example {
+  min-height:auto;
+  margin-top:auto;
+  color:#827c74;
+  font-size:9px;
+  font-weight:800;
+  line-height:1.3;
+  letter-spacing:.015em;
+}
+#app.studio-app .hardware-dimensions {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 13px minmax(0,1fr);
+  gap:8px;
+  align-items:center;
+}
+#app.studio-app .hardware-dimensions__times { font-size:18px; text-align:center; color:#7e7972; }
+#app.studio-app .hardware-setup-toggle {
+  display:inline-flex;
+  min-height:21px;
+  align-items:center;
+  gap:8px;
+  margin:0;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.07em;
+  cursor:pointer;
+}
+#app.studio-app .hardware-setup-toggle input { width:16px; height:16px; accent-color:var(--ink); cursor:pointer; }
+#app.studio-app .hardware-setup-toggle:hover span { text-decoration:underline; text-underline-offset:3px; }
+#app.studio-app .hardware-setup-field--red .hardware-setup-field__control input { color:var(--ink); }
+#app.studio-app .hardware-setup-field__swatch { flex:0 0 10px; width:10px; height:10px; border-radius:3px; }
+
+/* Cube-profile palettes: 5 × 2 like the main editor's color grid. */
+#app.studio-app .hardware-color-palette {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  align-items:stretch;
+  gap:6px;
+  width:100%;
+  margin:6px 0 0;
+}
+#app.studio-app .hardware-color-palette .hardware-color-preset,
+#app.studio-app .hardware-color-palette .hardware-color-custom {
+  position:relative;
+  box-sizing:border-box;
+  display:block;
+  width:100%;
+  min-width:0;
+  height:32px;
+  padding:0;
+  border:1px solid rgba(17,17,17,.22);
+  border-radius:6px;
+  outline:0;
+  box-shadow:none;
+  transform:none;
+  cursor:pointer;
+  transition:border-color .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+#app.studio-app .hardware-color-palette .hardware-color-custom {
+  background:conic-gradient(#ff3c1d,#f2c94c,#27ae60,#2f80ed,#9b51e0,#ff3c1d);
+  isolation:isolate;
+}
+#app.studio-app .hardware-color-palette .hardware-color-preset::after,
+#app.studio-app .hardware-color-palette .hardware-color-custom::after {
+  content:'';
+  position:absolute;
+  inset:4px;
+  border:1.5px solid transparent;
+  border-radius:3px;
+  pointer-events:none;
+  transition:border-color .16s ease;
+}
+#app.studio-app .hardware-color-palette :is(.hardware-color-preset,.hardware-color-custom):is(:hover,:focus-visible,.is-active)::after {
+  border-color:rgba(255,255,255,.96);
+  box-shadow:0 0 0 .65px rgba(17,17,17,.25);
+}
+#app.studio-app .hardware-color-palette :is(.hardware-color-preset,.hardware-color-custom):is(:hover,:focus-visible) {
+  transform:translateY(-1px);
+  box-shadow:0 4px 9px rgba(17,17,17,.10);
+}
+#app.studio-app .hardware-color-palette .hardware-color-custom.has-custom-color::before {
+  z-index:1;
+  top:3px; right:3px; inset:auto 3px 3px auto;
+  width:8px; height:8px; border:1px solid white; border-radius:2px;
+  background:var(--selected-hardware-color);
+}
+#app.studio-app .hardware-color-palette .block-color-custom__label {
+  position:absolute;
+  left:50%; right:auto; bottom:5px;
+  transform:translateX(-50%);
+  z-index:2;
+  margin:0;
+  padding:2px 3px;
+  background:rgba(255,255,255,.90);
+  color:var(--ink);
+  border-radius:2px;
+  font-size:7px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:.025em;
+  pointer-events:none;
+}
+#app.studio-app .hardware-profile-colors {
+  display:flex; align-items:center; min-height:13px;
+  gap:8px;
+  margin:0;
+  color:#77736d;
+  font-size:10px; letter-spacing:.06em; font-weight:850;
+}
+#app.studio-app .hardware-extra-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:13px 0 0;
+  margin:6px 0 11px;
+  border-top:1px solid rgba(17,17,17,.12);
+}
+#app.studio-app .hardware-extra-heading > span {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+  color:var(--ink);
+  font-size:10px; font-weight:900; letter-spacing:.08em;
+}
+#app.studio-app .hardware-extra-heading small {
+  color:#878078; font-size:9px; font-weight:800; letter-spacing:.06em;
+}
+#app.studio-app .hardware-extra-heading button,
+#app.studio-app .hardware-extra-profile__remove {
+  min-height:31px;
+  padding:0 11px;
+  border:1px solid rgba(17,17,17,.2);
+  border-radius:6px;
+  background:rgba(255,255,255,.70);
+  color:var(--ink);
+  font-family:var(--studio-control-font, inherit);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.03em;
+  cursor:pointer;
+  transition:background .18s ease,color .18s ease,border-color .18s ease;
+}
+#app.studio-app .hardware-extra-heading button:hover,
+#app.studio-app .hardware-extra-profile__remove:hover {
+  color:#fff; border-color:var(--ink); background:var(--ink);
+}
+#app.studio-app .hardware-extra-profiles { margin-top:0; }
+#app.studio-app .hardware-extra-profile { display:grid; gap:10px; }
+#app.studio-app .hardware-extra-profile__heading { min-height:25px; font-size:10px; line-height:1.3; letter-spacing:.035em; }
+#app.studio-app .hardware-extra-profile__inputs { display:flex; gap:10px; align-items:center; }
+#app.studio-app .hardware-extra-profile__inputs label { font-size:10px; font-weight:900; }
+#app.studio-app .hardware-extra-profile__inputs label span { font-size:9px; }
+#app.studio-app .hardware-extra-profile__resistance {
+  min-height:38px;
+  width:110px;
+  padding:5px 10px;
+  border:1px solid rgba(17,17,17,.16);
+  border-radius:6px;
+  background:rgba(17,17,17,.045);
+  font-family:var(--studio-control-font, inherit);
+  font-size:21px;
+  font-weight:900;
+}
+#app.studio-app .hardware-resistance-note {
+  margin:10px 0 0;
+  max-width:740px;
+  color:#726c65;
+  font-size:10px;
+  line-height:1.5;
+}
+#app.studio-app .hardware-custom-color-panel {
+  box-sizing:border-box;
+  width:100%;
+  margin:0;
+  border-radius:8px;
+  transform-origin:top center;
+}
+#app.studio-app .hardware-custom-color-panel.is-open { margin-top:8px; }
+#app.studio-app .hardware-custom-color-panel .custom-color-panel__head strong { font-size:12px; }
+#app.studio-app .hardware-custom-color-panel .custom-color-apply { min-height:35px; }
+
+/* Footer stays visually separate from editable fields and doesn't float across them. */
+#app.studio-app .hardware-setup-form__footer {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:12px 0 15px;
+  margin-top:0;
+  border-top:1px solid rgba(17,17,17,.15);
+}
+#app.studio-app .hardware-setup-form__footer p {
+  max-width:320px;
+  margin:0;
+  font-size:10px;
+  line-height:1.5;
+  color:#6e6962;
+}
+#app.studio-app .hardware-setup-form__actions { display:flex; flex-wrap:nowrap; align-items:center; gap:8px; }
+#app.studio-app .hardware-setup-button {
+  box-sizing:border-box;
+  min-height:39px;
+  padding:0 15px;
+  border:1px solid rgba(17,17,17,.16);
+  border-radius:6px;
+  background:rgba(255,255,255,.75);
+  color:var(--ink);
+  font-family:var(--studio-control-font, inherit);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.035em;
+  cursor:pointer;
+}
+#app.studio-app .hardware-setup-button--submit {
+  min-width:215px;
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+}
+#app.studio-app .hardware-setup-button--submit span { font-size:14px; margin-left:3px; padding-left:6px; }
+#app.studio-app .hardware-setup-button:hover:not(:disabled) { transform:translateY(-1px); background:var(--ink); border-color:var(--ink); color:#fff; }
+#app.studio-app .hardware-setup-button--submit:hover:not(:disabled) { background:#fffefa; color:var(--accent); border-color:var(--accent); }
+#app.studio-app .hardware-setup-button:focus-visible,
+#app.studio-app .hardware-extra-heading button:focus-visible,
+#app.studio-app .hardware-extra-profile__remove:focus-visible {
+  outline:2px solid var(--accent); outline-offset:2px;
+}
+
+/* Simulator mode is visually part of the same editor, not a separate product. */
+#app.studio-app .hardware-mode-tabs {
+  display:flex;
+  gap:4px;
+  padding:4px;
+  margin:0 0 16px;
+  border:1px solid rgba(17,17,17,.13);
+  border-radius:7px;
+  background:rgba(17,17,17,.045);
+}
+#app.studio-app .hardware-mode-tabs button {
+  flex:1;
+  min-height:34px;
+  border-radius:5px;
+  font-family:var(--studio-control-font, inherit);
+  font-size:10px;
+  font-weight:900;
+}
+#app.studio-app .hardware-mode-tabs button.is-active { background:var(--ink); color:#fff; }
+#app.studio-app .hardware-simulation {
+  padding:14px;
+  border:1px solid rgba(17,17,17,.14);
+  border-radius:9px;
+  background:rgba(247,246,241,.64);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+#app.studio-app .hardware-simulation__heading { align-items:center; font-size:11px; }
+#app.studio-app .hardware-simulation__heading small { font-size:9px; }
+#app.studio-app .hardware-simulation > p { font-size:11px; line-height:1.5; }
+#app.studio-app .hardware-simulation__body { gap:16px; }
+#app.studio-app .hardware-sim-cells {
+  padding:10px;
+  gap:5px;
+  border:1px solid rgba(17,17,17,.14);
+  border-radius:7px;
+  background:rgba(255,255,255,.56);
+}
+#app.studio-app .hardware-sim-cells button { border-radius:4px; }
+#app.studio-app .hardware-simulation__label { font-size:10px; }
+#app.studio-app .hardware-simulation__controls select,
+#app.studio-app .hardware-simulation__controls input {
+  min-height:39px;
+  border-radius:6px;
+  background:rgba(255,255,255,.70);
+  font-family:var(--studio-control-font, inherit);
+}
+#app.studio-app .hardware-simulation__actions button,
+#app.studio-app .hardware-simulation__clear {
+  min-height:39px;
+  border-radius:6px;
+  font-family:var(--studio-control-font, inherit);
+  font-size:10px;
+}
+
+@media (max-width:780px) {
+  #app.studio-app .hardware-setup-modal { padding:12px; }
+  #app.studio-app .hardware-setup-modal__panel { width:min(100%,700px); max-height:calc(100dvh - 24px); padding:18px 19px 0; }
+  #app.studio-app .hardware-setup-modal__header h2 { font-size:clamp(32px,5.2vw,43px); }
+  #app.studio-app .hardware-setup-modal__intro { flex-wrap:wrap; }
+  #app.studio-app .hardware-setup-grid { gap:9px; }
+  #app.studio-app .hardware-setup-field { padding:11px; }
+}
+@media (max-width:570px) {
+  #app.studio-app .hardware-setup-modal__panel { padding:15px 15px 0; }
+  #app.studio-app .hardware-setup-modal__header { gap:10px; }
+  #app.studio-app .hardware-setup-modal__header h2 { font-size:clamp(29px,7.5vw,39px); }
+  #app.studio-app .hardware-setup-modal__intro { padding:10px 0 15px; }
+  #app.studio-app .hardware-setup-grid { grid-template-columns:minmax(0,1fr); gap:9px; }
+  #app.studio-app .hardware-setup-field__description { min-height:0; }
+  #app.studio-app .hardware-setup-field__control input { font-size:31px; }
+  #app.studio-app .hardware-setup-group legend { align-items:flex-start; }
+  #app.studio-app .hardware-setup-group legend small { max-width:140px; }
+  #app.studio-app .hardware-setup-form__footer { flex-direction:column; align-items:stretch; gap:11px; }
+  #app.studio-app .hardware-setup-form__footer p { max-width:none; }
+  #app.studio-app .hardware-setup-form__actions { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.6fr); }
+  #app.studio-app .hardware-setup-button--submit { min-width:0; }
+  #app.studio-app .hardware-resistance-note { font-size:10px; }
+}
+@media (max-width:390px) {
+  #app.studio-app .hardware-setup-modal__status { display:none; }
+  #app.studio-app .hardware-setup-modal__header .panel-label { font-size:8px; }
+  #app.studio-app .hardware-setup-modal__header h2 { font-size:29px; }
+  #app.studio-app .hardware-setup-form__actions { grid-template-columns:minmax(0,1fr) minmax(0,1.5fr); }
+  #app.studio-app .hardware-setup-button { padding:0 8px; font-size:9px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  #app.studio-app .hardware-setup-modal__panel,
+  #app.studio-app .hardware-setup-modal__backdrop,
+  #app.studio-app .hardware-color-palette :is(.hardware-color-preset,.hardware-color-custom) {
+    transition:none!important;
+    transform:none!important;
+  }
+}
+
+
+/* V25 / Integrated cube palette, quiet interaction states and compact actions */
+#app.studio-app .hardware-setup-modal__status i { background:#88827a; box-shadow:none; }
+#app.studio-app .hardware-setup-grid--profiles {
+  grid-template-columns: minmax(0, 1.72fr) minmax(0, 1fr);
+  align-items: stretch;
+}
+#app.studio-app .hardware-setup-grid--profiles .hardware-setup-field--red {
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(0, 1.15fr);
+  align-items: stretch;
+  gap: 15px;
+}
+#app.studio-app .hardware-profile-core,
+#app.studio-app .hardware-profile-palette { display: flex; flex-direction: column; min-width: 0; gap: 8px; }
+#app.studio-app .hardware-profile-core .hardware-setup-field__control { margin-top: auto; }
+#app.studio-app .hardware-profile-palette { justify-content: space-between; }
+#app.studio-app .hardware-profile-colors {
+  min-height: auto; display: flex; justify-content: space-between; gap: 8px;
+  align-items: center; margin: 0; color: var(--ink);
+  font-size: 9px; font-weight: 900; letter-spacing: .07em;
+}
+#app.studio-app .hardware-profile-colors #hardwareDefaultHex {
+  color: #77736d; font-size: 9px; letter-spacing: .04em; white-space: nowrap;
+}
+#app.studio-app .hardware-setup-palette-inline { display: grid; gap: 7px; min-width: 0; }
+#app.studio-app .hardware-setup-palette-inline .hardware-color-palette {
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 5px; margin: 0;
+}
+#app.studio-app .hardware-setup-palette-inline .hardware-color-palette :is(.hardware-color-preset,.hardware-color-custom) {
+  height: 31px; border-radius: 5px;
+}
+#app.studio-app .hardware-setup-palette-inline .hardware-color-palette .block-color-custom__label {
+  bottom: 5px; font-size: 7px;
+}
+#app.studio-app .hardware-setup-grid--profiles .hardware-setup-field--black {
+  justify-content: space-between;
+}
+#app.studio-app .hardware-setup-grid--profiles .hardware-setup-field--black .hardware-setup-field__control {
+  margin-top: auto;
+}
+#app.studio-app .hardware-setup-grid--profiles .hardware-setup-field__description { min-height: 0; }
+#app.studio-app .hardware-setup-grid--profiles .hardware-setup-field__control {
+  min-height: 48px;
+}
+#app.studio-app .hardware-setup-grid--profiles .hardware-setup-field__control input { min-height: 38px; font-size: 30px; }
+#app.studio-app .hardware-setup-palette-inline .hardware-custom-color-panel { width: 100%; max-width: 100%; }
+
+/* Inputs: no orange/red outlines on focus or while editing. Keep a neutral visible focus. */
+#app.studio-app .hardware-setup-modal :is(input:not([type="checkbox"]),select,textarea):focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+#app.studio-app .hardware-setup-modal .hardware-setup-field:focus-within,
+#app.studio-app .hardware-setup-modal .hardware-extra-profile:focus-within {
+  border-color: rgba(15,15,15,.34);
+  box-shadow: 0 0 0 1px rgba(15,15,15,.09);
+}
+#app.studio-app .hardware-setup-modal :is(.hardware-setup-field__control,.hardware-extra-profile__resistance):focus-within {
+  border-color: rgba(15,15,15,.4);
+  box-shadow: 0 0 0 1px rgba(15,15,15,.06);
+}
+#app.studio-app .hardware-setup-modal :is(input[type="checkbox"],input[type="range"]) { accent-color: var(--ink); }
+#app.studio-app .hardware-setup-modal button:focus-visible {
+  outline: 2px solid var(--ink) !important;
+  outline-offset: 2px;
+}
+
+/* Footer actions use the same two-button language as the editor's Save/Load controls. */
+#app.studio-app .hardware-setup-form__footer {
+  align-items: center;
+  padding: 13px 0 15px;
+}
+#app.studio-app .hardware-setup-form__actions { gap: 8px; }
+#app.studio-app .hardware-setup-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  min-height: 38px;
+  padding: 0 15px;
+  border: 1px solid var(--studio-edge);
+  border-radius: 6px;
+  background: var(--studio-card);
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .035em;
+  line-height: 1;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+#app.studio-app .hardware-setup-button--submit {
+  min-width: 205px;
+  border-color: var(--ink);
+  background: var(--ink);
+  color: white;
+}
+#app.studio-app .hardware-setup-button--submit span:last-child {
+  margin-left: 4px; padding: 0; font-size: 13px; font-weight: 800;
+}
+@media (hover:hover) and (pointer:fine) {
+  #app.studio-app .hardware-setup-button--cancel:hover:not(:disabled) {
+    color: #fff; border-color: var(--ink); background: var(--ink); transform: translateY(-1px);
+  }
+  #app.studio-app .hardware-setup-button--submit:hover:not(:disabled) {
+    color: var(--ink); border-color: var(--ink); background: #fffefa; transform: translateY(-1px);
+  }
+}
+/* Deliberately thin and quieter modal scrollbar, never overlay content. */
+#app.studio-app .hardware-setup-modal__panel {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(15,15,15,.24) transparent;
+}
+#app.studio-app .hardware-setup-modal__panel::-webkit-scrollbar { width: 5px; }
+#app.studio-app .hardware-setup-modal__panel::-webkit-scrollbar-track { background: transparent; }
+#app.studio-app .hardware-setup-modal__panel::-webkit-scrollbar-thumb {
+  border-radius: 8px; background: rgba(15,15,15,.22);
+}
+#app.studio-app .hardware-setup-modal__panel::-webkit-scrollbar-thumb:hover { background: rgba(15,15,15,.42); }
+
+@media (max-width: 780px) {
+  #app.studio-app .hardware-setup-grid--profiles { grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); }
+  #app.studio-app .hardware-setup-grid--profiles .hardware-setup-field--red {
+    grid-template-columns: minmax(0,1fr);
+    gap: 9px;
+  }
+  #app.studio-app .hardware-profile-core .hardware-setup-field__description { min-height: 0; }
+}
+@media (max-width: 570px) {
+  #app.studio-app .hardware-setup-grid--profiles { grid-template-columns: minmax(0,1fr); }
+  #app.studio-app .hardware-setup-grid--profiles .hardware-setup-field--red { grid-template-columns: minmax(0,1fr); }
+  #app.studio-app .hardware-setup-palette-inline .hardware-color-palette { gap: 6px; }
+  #app.studio-app .hardware-setup-palette-inline .hardware-color-palette :is(.hardware-color-preset,.hardware-color-custom) { height: 34px; }
+  #app.studio-app .hardware-setup-button--submit { min-width: 0; }
+}
+
+/* V25 final refinement — place the Standard palette UNDER resistance, not beside it. */
+#app.studio-app .hardware-setup-grid--profiles {
+  grid-template-columns: minmax(0,1.60fr) minmax(0,1fr);
+  align-items: stretch;
+}
+#app.studio-app .hardware-setup-grid--profiles .hardware-setup-field--red {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+#app.studio-app .hardware-profile-core {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+#app.studio-app .hardware-profile-core .hardware-setup-field__control {
+  box-sizing: border-box;
+  margin-top: 0;
+  width: min(100%, 210px);
+}
+#app.studio-app .hardware-profile-palette {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 7px;
+  margin-top: 1px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(15,15,15,.12);
+}
+#app.studio-app .hardware-setup-palette-inline .hardware-color-palette {
+  grid-template-columns: repeat(10,minmax(0,1fr));
+  gap: 5px;
+}
+#app.studio-app .hardware-setup-palette-inline .hardware-color-palette :is(.hardware-color-preset,.hardware-color-custom) {
+  min-width: 0;
+  height: 31px;
+  border-radius: 5px;
+}
+/* Keep focus neutral, including inputs in nested profile editors. */
+#app.studio-app .hardware-setup-modal :is(input,select,textarea):focus {
+  outline: none;
+  box-shadow: none;
+  border-color: rgba(15,15,15,.34);
+}
+#app.studio-app .hardware-setup-modal :is(.hardware-setup-field,.hardware-extra-profile):focus-within {
+  border-color: rgba(15,15,15,.32);
+  box-shadow: 0 0 0 1px rgba(15,15,15,.09);
+}
+#app.studio-app .hardware-setup-modal :is(.hardware-setup-field__control,.hardware-extra-profile__resistance):focus-within {
+  border-color: rgba(15,15,15,.46);
+  box-shadow: 0 0 0 1px rgba(15,15,15,.06);
+}
+@media (max-width: 780px) {
+  #app.studio-app .hardware-setup-grid--profiles { grid-template-columns: minmax(0,1.25fr) minmax(0,1fr); }
+  #app.studio-app .hardware-setup-grid--profiles .hardware-setup-field--red { display: flex; flex-direction: column; }
+  #app.studio-app .hardware-setup-palette-inline .hardware-color-palette { grid-template-columns: repeat(5,minmax(0,1fr)); }
+}
+@media (max-width: 570px) {
+  #app.studio-app .hardware-setup-grid--profiles { grid-template-columns: minmax(0,1fr); }
+  #app.studio-app .hardware-profile-core .hardware-setup-field__control { width: 100%; }
+  #app.studio-app .hardware-setup-palette-inline .hardware-color-palette { grid-template-columns: repeat(5,minmax(0,1fr)); }
+}
+
+/* V26 / Final layout corrections — internal inset scroller, balanced profiles, matching type.
+   Scroll the inner viewport, leaving a quiet gutter between thumb and dialog border. */
+#app.studio-app .hardware-setup-modal__panel {
+  overflow: hidden;
+  padding: 0;
+  scrollbar-width: none;
+}
+#app.studio-app .hardware-setup-modal__scroll {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  max-height: calc(100dvh - 40px);
+  min-width: 0;
+  margin-right: 9px;
+  padding: 24px 16px 16px 26px;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(15,15,15,.25) transparent;
+}
+#app.studio-app .hardware-setup-modal__scroll::-webkit-scrollbar { width: 8px; }
+#app.studio-app .hardware-setup-modal__scroll::-webkit-scrollbar-track {
+  margin-block: 17px;
+  background: transparent;
+}
+#app.studio-app .hardware-setup-modal__scroll::-webkit-scrollbar-thumb {
+  background: rgba(15,15,15,.28);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+}
+#app.studio-app .hardware-setup-modal__scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(15,15,15,.46);
+}
+/* Both Cube Profile cards take exactly half the available menu width. */
+#app.studio-app .hardware-setup-grid--profiles {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+/* Five columns keep the Standard palette usable inside its equal-width card. */
+#app.studio-app .hardware-setup-palette-inline .hardware-color-palette {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+/* Earlier global span rules enlarged the Start Simulation label to 14px.
+   Match the Cancel button's actual type, but retain the separate arrow glyph. */
+#app.studio-app .hardware-setup-button--submit #hardwareSubmitLabel {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-transform: inherit;
+  padding: 0;
+  margin: 0;
+}
+@media (max-width:780px) {
+  #app.studio-app .hardware-setup-modal__scroll {
+    max-height: calc(100dvh - 24px);
+    margin-right: 8px;
+    padding: 18px 11px 14px 19px;
+  }
+  #app.studio-app .hardware-setup-grid--profiles { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width:570px) {
+  #app.studio-app .hardware-setup-modal__scroll {
+    padding: 15px 8px 14px 15px;
+    margin-right: 7px;
+  }
+  #app.studio-app .hardware-setup-grid--profiles { grid-template-columns: minmax(0,1fr); }
+}
+@media (prefers-reduced-motion:reduce) {
+  #app.studio-app .hardware-setup-modal__scroll { scroll-behavior: auto; }
+}
+
+/* V27 — hardware menu polish.
+   The large Standard color editor must never stretch the neighboring Support card. */
+#app.studio-app .hardware-setup-grid--profiles {
+  align-items: start;
+}
+#app.studio-app .hardware-setup-grid--profiles > .hardware-setup-field {
+  align-self: start;
+  height: auto;
+  min-height: 0;
+}
+#app.studio-app .hardware-setup-grid--profiles .hardware-setup-field--black {
+  justify-content: flex-start;
+}
+#app.studio-app .hardware-setup-grid--profiles .hardware-setup-field--black .hardware-setup-field__control {
+  margin-top: 7px;
+}
+#app.studio-app .hardware-setup-grid--profiles .hardware-setup-field--black .hardware-setup-field__example {
+  margin-top: 11px;
+}
+
+/* Orange is the active simulation action; editor typography/size remain unchanged. */
+#app.studio-app .hardware-setup-modal.is-simulation-start .hardware-setup-button--submit {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+@media (hover: hover) and (pointer: fine) {
+  #app.studio-app .hardware-setup-modal.is-simulation-start .hardware-setup-button--submit:hover:not(:disabled) {
+    background: #fffefa;
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+}
+
+/* A purpose-built inset rail with true 20px top/bottom offsets and a fine thumb.
+   Scrolling still works natively (wheel, touch, keyboard, scrollbar drag). */
+#app.studio-app .hardware-setup-modal__panel {
+  position: relative;
+  overflow: hidden;
+}
+#app.studio-app .hardware-setup-modal__scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  margin-right: 18px;
+  padding-right: 11px;
+  /* The scroller always stays inside the modal; the separate thumb is outside it. */
+}
+#app.studio-app .hardware-setup-modal__scroll::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+#app.studio-app .hardware-setup-modal__scrollbar {
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 5;
+  top: 20px;
+  bottom: 20px;
+  right: 11px;
+  width: 9px;
+  border-radius: 999px;
+  background: transparent;
+  touch-action: none;
+  cursor: pointer;
+  transition: background-color 180ms ease;
+}
+#app.studio-app .hardware-setup-modal__scrollbar[hidden] { display: none !important; }
+#app.studio-app .hardware-setup-modal__scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  left: 2.5px;
+  width: 4px;
+  min-height: 34px;
+  border-radius: 999px;
+  background: rgba(17,17,17,.31);
+  will-change: transform;
+  transition: background-color 160ms ease;
+}
+#app.studio-app .hardware-setup-modal__scrollbar:hover {
+  background: rgba(17,17,17,.09);
+}
+#app.studio-app .hardware-setup-modal__scrollbar:hover .hardware-setup-modal__scrollbar-thumb {
+  background: rgba(17,17,17,.52);
+}
+@media (max-width: 780px) {
+  #app.studio-app .hardware-setup-modal__scroll { margin-right: 14px; padding-right: 9px; }
+  #app.studio-app .hardware-setup-modal__scrollbar { right: 8px; top: 16px; bottom: 16px; }
+}
+@media (max-width: 570px) {
+  #app.studio-app .hardware-setup-modal__scroll { margin-right: 12px; padding-right: 7px; }
+  #app.studio-app .hardware-setup-modal__scrollbar { right: 7px; top: 14px; bottom: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #app.studio-app .hardware-setup-modal__scrollbar,
+  #app.studio-app .hardware-setup-modal__scrollbar-thumb { transition: none; }
+}
+
+/* ======================================================================
+   02 / COLOR PICKER & SIMULATOR UI
+   Custom-color panel, simulator elements, and scrolling details.
+   ====================================================================== */
+
+/* Compact custom-color mixer for the Standard Cube and additional profiles. */
+#app.studio-app .hardware-custom-color-panel {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 7px !important;
+  background: rgba(240,238,231,.91);
+}
+#app.studio-app .hardware-custom-color-panel.is-open {
+  max-height: 255px;
+  margin-top: 6px;
+  padding: 9px 10px;
+}
+#app.studio-app .hardware-custom-color-panel .custom-color-panel__head {
+  margin-bottom: 6px;
+  gap: 6px;
+}
+#app.studio-app .hardware-custom-color-panel .custom-color-panel__head > div { gap: 2px; }
+#app.studio-app .hardware-custom-color-panel .custom-color-panel__head strong {
+  font-size: 11px;
+  line-height: 1.1;
+}
+#app.studio-app .hardware-custom-color-panel .custom-color-panel__head span { font-size: 8px; }
+#app.studio-app .hardware-custom-color-panel .custom-color-close {
+  width: 24px;
+  height: 24px;
+  font-size: 17px;
+}
+#app.studio-app .hardware-custom-color-panel .custom-color-preview-row {
+  grid-template-columns: 39px minmax(0,1fr);
+  gap: 7px;
+  margin-bottom: 7px;
+}
+#app.studio-app .hardware-custom-color-panel .custom-color-preview {
+  min-height: 37px;
+  border-radius: 5px;
+}
+#app.studio-app .hardware-custom-color-panel .custom-color-hex-wrap {
+  min-width: 0;
+  padding: 6px 8px;
+}
+#app.studio-app .hardware-custom-color-panel .custom-color-hex { font-size: 11px; }
+#app.studio-app .hardware-custom-color-panel .custom-color-controls { gap: 4px; }
+#app.studio-app .hardware-custom-color-panel .custom-color-control {
+  grid-template-columns: 37px minmax(0,1fr);
+  gap: 7px;
+}
+#app.studio-app .hardware-custom-color-panel .custom-color-control > span { font-size: 8px; }
+#app.studio-app .hardware-custom-color-panel .custom-color-control input[type="range"] { height: 18px; }
+#app.studio-app .hardware-custom-color-panel .custom-color-apply {
+  min-height: 30px;
+  margin-top: 8px;
+  padding: 0 9px;
+  font-size: 10px;
+  border-radius: 5px;
+}
+
+/* An almost invisible inset rail, shown only when the dialog actually overflows.
+   Top/bottom are independent of the scrolling content; the thumb is proportional. */
+#app.studio-app .hardware-setup-modal__scroll {
+  margin-right: 11px;
+  padding-right: 13px;
+  scrollbar-width: none;
+}
+#app.studio-app .hardware-setup-modal__scrollbar {
+  top: 28px;
+  bottom: 28px;
+  right: 13px;
+  width: 8px;
+  background: rgba(17,17,17,.045);
+  border: 1px solid rgba(17,17,17,.035);
+  border-radius: 999px;
+}
+#app.studio-app .hardware-setup-modal__scrollbar-thumb {
+  left: 2px;
+  width: 2px;
+  min-height: 42px;
+  background: rgba(17,17,17,.29);
+  border-radius: 999px;
+  box-shadow: none;
+}
+#app.studio-app .hardware-setup-modal__scrollbar:hover {
+  background: rgba(17,17,17,.07);
+}
+#app.studio-app .hardware-setup-modal__scrollbar:hover .hardware-setup-modal__scrollbar-thumb {
+  background: rgba(17,17,17,.56);
+}
+
+/* The V4 simulator is available immediately after activation and through the
+   SIMULATOR MENU action; style it like the main V21 creative workspace. */
+#app.studio-app .hardware-mode-tabs[hidden],
+#app.studio-app .hardware-mode-tabs button[hidden],
+#app.studio-app .hardware-simulation[hidden],
+#app.studio-app .hardware-setup-form[hidden] { display: none !important; }
+#app.studio-app .hardware-mode-tabs {
+  margin: 0 0 13px;
+  padding: 3px;
+  border-radius: 7px;
+}
+#app.studio-app .hardware-mode-tabs button {
+  min-height: 34px;
+  font-size: 10px;
+  letter-spacing: .055em;
+}
+#app.studio-app .hardware-simulation {
+  padding: 15px;
+  border: 1px solid rgba(17,17,17,.14);
+  border-radius: 9px;
+  background: rgba(247,246,241,.64);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+#app.studio-app .hardware-simulation > p { margin: 8px 0 14px; }
+#app.studio-app .hardware-simulation__body {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  align-items: start;
+  gap: 14px;
+}
+#app.studio-app .hardware-simulation__body > div { min-width: 0; }
+#app.studio-app .hardware-sim-cells {
+  max-width: 100%;
+  max-height: 390px;
+  overflow: auto;
+  padding: 10px;
+  border: 1px solid rgba(17,17,17,.13);
+  background: rgba(255,255,255,.46);
+  border-radius: 7px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(17,17,17,.27) transparent;
+}
+#app.studio-app .hardware-sim-cells button {
+  min-width: 28px;
+  min-height: 28px;
+  font-family: var(--studio-control-font,inherit);
+  font-weight: 900;
+  border-radius: 5px;
+}
+#app.studio-app .hardware-sim-cells button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+#app.studio-app .hardware-simulation__controls {
+  gap: 0;
+  padding: 12px;
+  border: 1px solid rgba(17,17,17,.13);
+  border-radius: 7px;
+  background: rgba(255,255,255,.3);
+}
+#app.studio-app .hardware-simulation__controls select,
+#app.studio-app .hardware-simulation__controls input {
+  min-width: 0;
+  min-height: 37px;
+  margin: 0 0 12px;
+  font-family: var(--studio-control-font,inherit);
+  font-size: 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(17,17,17,.2);
+}
+#app.studio-app .hardware-simulation__actions { gap: 7px; }
+#app.studio-app .hardware-simulation__actions button,
+#app.studio-app .hardware-simulation__clear {
+  min-height: 36px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .01em;
+  border-radius: 6px;
+}
+#app.studio-app .hardware-simulation__clear { margin-top: 7px; }
+#app.studio-app #hardwareSimFeedback {
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 1px solid rgba(17,17,17,.13);
+  font-size: 10px;
+  line-height: 1.5;
+}
+@media (max-width: 780px) {
+  #app.studio-app .hardware-setup-modal__scroll { margin-right: 9px; padding-right: 10px; }
+  #app.studio-app .hardware-setup-modal__scrollbar { right: 10px; top: 24px; bottom: 24px; }
+}
+@media (max-width: 620px) {
+  #app.studio-app .hardware-simulation__body { grid-template-columns: minmax(0,1fr); }
+  #app.studio-app .hardware-sim-cells { max-height: 280px; }
+  #app.studio-app .hardware-setup-modal__scroll { margin-right: 7px; padding-right: 8px; }
+  #app.studio-app .hardware-setup-modal__scrollbar { right: 8px; top: 19px; bottom: 19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #app.studio-app .hardware-custom-color-panel { transition: none !important; }
+}
+
+/* ======================================================================
+   03 / ESP32 CONNECTION CONTROLS
+   Serial toolbar, connection actions, and navigation controls.
+   ====================================================================== */
+
+/* Same soft grey grouped housing as the BLOCKS / SMOOTH control deck. */
+#app.studio-app .studio-top-actions .top-serial {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 6px;
+  padding: 4px 6px 4px 10px;
+  background: #eae8e1;
+  border: 1px solid var(--studio-edge, rgba(17,17,17,.13));
+  border-radius: 7px;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+#app.studio-app .studio-top-actions #hardwareMenuButton.top-serial__menu--accent {
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--studio-control-font, inherit);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .035em;
+  white-space: nowrap;
+  width: max-content;
+  min-width: max-content;
+  flex: 0 0 auto;
+  transition: background-color 180ms ease, color 180ms ease,
+              border-color 180ms ease, transform 180ms ease;
+}
+#app.studio-app .studio-top-actions #hardwareMenuButton.top-serial__menu--accent[hidden] {
+  display: none !important;
+}
+@media (hover:hover) and (pointer:fine) {
+  #app.studio-app .studio-top-actions #hardwareMenuButton.top-serial__menu--accent:hover:not(:disabled) {
+    background: #fffefa !important;
+    color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    transform: translateY(-1px);
+  }
+}
+
+/* Both Settings and Simulator exist from the first visit, including before
+   hardware is connected. The preflight view is informational, not interactive. */
+#app.studio-app .hardware-mode-tabs { display: flex; }
+#app.studio-app .hardware-simulation__preflight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 13px;
+  padding: 9px 11px;
+  background: rgba(234,232,225,.72);
+  border: 1px solid rgba(17,17,17,.12);
+  border-radius: 7px;
+}
+#app.studio-app .hardware-simulation__preflight[hidden] { display: none !important; }
+#app.studio-app .hardware-simulation__preview-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .045em;
+  line-height: 1.4;
+}
+#app.studio-app .hardware-simulation__preview-dot {
+  flex: 0 0 6px;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+#app.studio-app .hardware-simulation__start {
+  min-height: 34px;
+  height: 34px;
+  padding: 0 14px;
+  white-space: nowrap;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+#app.studio-app .hardware-simulation__start[hidden] { display: none !important; }
+#app.studio-app .hardware-simulation :is(button,input,select):disabled {
+  cursor: default;
+  opacity: .52;
+}
+#app.studio-app .hardware-setup-modal.is-settings-editing .hardware-setup-button--submit {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+@media (hover:hover) and (pointer:fine) {
+  #app.studio-app .hardware-setup-modal.is-settings-editing .hardware-setup-button--submit:hover:not(:disabled),
+  #app.studio-app .hardware-simulation__start:hover:not(:disabled) {
+    background: #fffefa;
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+}
+@media (max-width: 1040px) {
+  #app.studio-app .studio-top-actions .top-serial { gap: 4px; padding: 4px 5px; }
+  #app.studio-app .studio-top-actions #hardwareMenuButton.top-serial__menu--accent { padding: 0 7px; font-size: 9px; }
+}
+@media (max-width: 570px) {
+  #app.studio-app .hardware-simulation__preflight { align-items: stretch; }
+  #app.studio-app .hardware-simulation__start { width: 100%; }
+}
+
+/* Only the connection actions relevant to the current session should occupy
+   space in the grey deck; this prevents crowded/overlapping mobile buttons. */
+#app.studio-app .studio-top-actions .top-serial :is(#connectSerial,#simulateHardware):disabled {
+  display: none !important;
+}
+@media (max-width: 620px) {
+  #app.studio-app .studio-top-actions .top-serial {
+    max-width: calc(100vw - 24px);
+    gap: 4px;
+  }
+  #app.studio-app .studio-top-actions .top-serial .baud-picker { display: none; }
+  #app.studio-app .studio-top-actions #hardwareMenuButton.top-serial__menu--accent {
+    font-size: 8px;
+    padding-inline: 7px;
+  }
+}
+
+/* ======================================================================
+   04 / SCROLLING, MODE SWITCH & CONNECT ACTION
+   Inset scrollbar, hardware mode tabs, and connect-button styling.
+   ====================================================================== */
+
+/* Move the same inset scroll rail slightly right without touching the edge.
+   Applies to both Settings and Simulator, as both use the same modal scroller. */
+#app.studio-app .hardware-setup-modal__scroll {
+  margin-right: 7px;
+  padding-right: 13px;
+}
+#app.studio-app .hardware-setup-modal__scrollbar {
+  right: 7px;
+}
+@media (max-width: 780px) {
+  #app.studio-app .hardware-setup-modal__scroll { margin-right: 6px; padding-right: 10px; }
+  #app.studio-app .hardware-setup-modal__scrollbar { right: 5px; }
+}
+@media (max-width: 620px) {
+  #app.studio-app .hardware-setup-modal__scroll { margin-right: 5px; padding-right: 8px; }
+  #app.studio-app .hardware-setup-modal__scrollbar { right: 4px; }
+}
+
+/* Match the physical BLOCKS / SMOOTH sliding selector in Control Deck. */
+#app.studio-app .hardware-mode-tabs {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid #d7d4cb;
+  border-radius: 8px;
+  background: #e8e6de;
+}
+#app.studio-app .hardware-mode-tabs::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: 4px;
+  left: 4px;
+  width: calc((100% - 12px)/2);
+  height: calc(100% - 8px);
+  border-radius: 5px;
+  background: var(--ink);
+  box-shadow: 0 2px 6px rgba(15,15,15,.12);
+  transform: translateX(0);
+  transition: transform 350ms cubic-bezier(.2,.85,.2,1);
+}
+#app.studio-app .hardware-mode-tabs.is-simulator::before {
+  transform: translateX(calc(100% + 4px));
+}
+#app.studio-app .hardware-mode-tabs button,
+#app.studio-app .hardware-mode-tabs button:hover,
+#app.studio-app .hardware-mode-tabs button.is-active:hover {
+  flex: 1 1 0;
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transform: none;
+  color: #55514b;
+  font-weight: 850;
+  transition: color 210ms ease;
+}
+#app.studio-app .hardware-mode-tabs button.is-active,
+#app.studio-app .hardware-mode-tabs button.is-active:hover { color: #fff; }
+@media (hover:hover) and (pointer:fine) {
+  #app.studio-app .hardware-mode-tabs button:not(.is-active):hover { color: var(--ink); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #app.studio-app .hardware-mode-tabs::before,
+  #app.studio-app .hardware-mode-tabs button { transition: none; }
+}
+
+/* The CONNECT action is orange, while SIMULATE retains its original black style. */
+#app.studio-app .studio-top-actions #connectSerial {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+@media (hover:hover) and (pointer:fine) {
+  #app.studio-app .studio-top-actions #connectSerial:hover:not(:disabled) {
+    background: #fffefa;
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+}
+
+/* ======================================================================
+   05 / GLASS SURFACES & DISABLED STATES
+   Dialog translucency, shared serial button treatments, simulation lock styling.
+   ====================================================================== */
+
+#app.studio-app .hardware-setup-modal__panel {
+  background: rgba(247,246,241,.64);
+  border-color: rgba(17,17,17,.19);
+  backdrop-filter: blur(12px) saturate(110%);
+  -webkit-backdrop-filter: blur(12px) saturate(110%);
+}
+#app.studio-app .hardware-setup-modal__backdrop {
+  background: rgba(20,20,18,.26);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+#app.studio-app .hardware-setup-modal :is(
+  .hardware-setup-field, .hardware-extra-profile, .hardware-simulation,
+  .hardware-simulation__controls, .hardware-sim-cells,
+  .hardware-profile-palette, .hardware-custom-color-panel,
+  .hardware-simulation__preflight, .hardware-setup-modal__status
+) {
+  background-color: rgba(247,246,241,.64);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+#app.studio-app .hardware-setup-modal :is(input,select) {
+  background-color: rgba(255,255,255,.75);
+}
+/* Uniform 32px ESP32 actions: same font, radius, alignment and interaction. */
+#app.studio-app .studio-top-actions .top-serial :is(
+  #connectSerial,#simulateHardware,#hardwareMenuButton,#disconnectSerial
+) {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
+  padding: 0 10px;
+  border-radius: 6px;
+  border-width: 1px;
+  border-style: solid;
+  font-family: var(--studio-control-font,inherit);
+  font-size: 9px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: .02em;
+  white-space: nowrap;
+  text-align: center;
+}
+#app.studio-app .studio-top-actions #hardwareMenuButton {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  min-width: max-content;
+  width: auto;
+  flex: 0 0 auto;
+}
+#app.studio-app .studio-top-actions #disconnectSerial {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+  min-width: max-content;
+  width: auto;
+  flex: 0 0 auto;
+}
+@media (hover:hover) and (pointer:fine) {
+  #app.studio-app .studio-top-actions #hardwareMenuButton:hover:not(:disabled) {
+    background: #fffefa; color: var(--accent); border-color: var(--accent); transform: translateY(-1px);
+  }
+  #app.studio-app .studio-top-actions #disconnectSerial:hover:not(:disabled) {
+    background: #fffefa; color: var(--ink); border-color: var(--ink); transform: translateY(-1px);
+  }
+}
+#app.studio-app.simulation-editing-locked .studio-sidebar :is(
+  .tool-button:disabled, .secondary-button:disabled, .render-mode-button:disabled,
+  .autosave-toggle:disabled, .feature-button:disabled
+) {
+  opacity: .48; cursor: not-allowed;
+}
+@media (max-width: 620px) {
+  #app.studio-app .studio-top-actions .top-serial :is(#hardwareMenuButton,#disconnectSerial) {
+    font-size: 8px; padding-inline: 7px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #app.studio-app .studio-top-actions .top-serial :is(#hardwareMenuButton,#disconnectSerial) {
+    transition: none; transform: none;
+  }
+}
+
+/* ======================================================================
+   06 / TRANSPARENT FIELDS & EXIT-DEMO STYLING
+   Unfilled hardware inputs and boxed disconnect/exit treatment.
+   ====================================================================== */
+
+#app.studio-app .hardware-setup-modal .hardware-setup-field__control,
+#app.studio-app .hardware-setup-modal .hardware-dimensions .hardware-setup-field__control,
+#app.studio-app .hardware-setup-modal .hardware-setup-field__control:focus-within,
+#app.studio-app .hardware-setup-modal .hardware-setup-field__control:has(input:disabled),
+#app.studio-app .hardware-setup-modal .hardware-extra-profile__resistance,
+#app.studio-app .hardware-setup-modal .hardware-extra-profile__resistance:focus {
+  background: transparent;
+  background-color: transparent;
+}
+#app.studio-app .hardware-setup-modal .hardware-setup-field__control input,
+#app.studio-app .hardware-setup-modal .hardware-dimensions .hardware-setup-field__control input,
+#app.studio-app .hardware-setup-modal .hardware-extra-profile__resistance {
+  background: transparent;
+  background-color: transparent;
+}
+
+/* Restore the V30 DISCONNECT/EXIT DEMO behavior rather than V31's
+   new inverted hover. Keep the shared 32px sizing and bold type. */
+#app.studio-app .studio-top-actions .top-serial #disconnectSerial:not(:disabled) {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+@media (hover: hover) and (pointer: fine) {
+  #app.studio-app .studio-top-actions .top-serial #disconnectSerial:hover:not(:disabled) {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
+  }
+}
+
+/* ======================================================================
+   07 / DISCONNECT & DIALOG DISMISS ACTIONS
+   Text-only disconnect, exit-demo exception, and dialog close controls.
+   ====================================================================== */
+
+/* DISCONNECT alone is text-only. EXIT DEMO retains its previous boxed style. */
+#app.studio-app .studio-top-actions .top-serial #disconnectSerial:not(.is-exit-demo),
+#app.studio-app .studio-top-actions .top-serial #disconnectSerial:not(.is-exit-demo):not(:disabled) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
+  width: auto;
+  min-width: 0;
+  flex: 0 0 auto;
+  padding: 0 5px;
+  background: transparent;
+  background-color: transparent;
+  background-image: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--ink);
+  font-family: var(--studio-control-font, inherit);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 180ms ease, opacity 180ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  #app.studio-app .studio-top-actions .top-serial #disconnectSerial:not(.is-exit-demo):hover:not(:disabled) {
+    background: transparent;
+    background-color: transparent;
+    background-image: none;
+    border: 0;
+    box-shadow: none;
+    color: var(--accent);
+    transform: none;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+#app.studio-app .studio-top-actions .top-serial #disconnectSerial:not(.is-exit-demo):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+@media (max-width: 620px) {
+  #app.studio-app .studio-top-actions .top-serial #disconnectSerial:not(.is-exit-demo) { font-size: 8px; padding-inline: 3px; }
+}
+
+/* All three Hardware Mode X buttons: modal close, color-editor close,
+   and added-profile remove, use precisely the same 30px icon treatment. */
+#app.studio-app .hardware-setup-modal :is(
+  .modal-close, .hardware-custom-color-panel .custom-color-close,
+  .hardware-extra-profile__remove
+) {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 0 30px;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  min-width: 30px;
+  max-width: 30px;
+  height: 30px;
+  min-height: 30px;
+  max-height: 30px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(17,17,17,.16);
+  border-radius: 7px;
+  background: rgba(255,255,255,.70);
+  color: var(--ink);
+  font-size: 0; /* Hide text glyph; both X strokes are drawn identically. */
+  line-height: 0;
+  letter-spacing: 0;
+  box-shadow: none;
+  cursor: pointer;
+  transform: none;
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+#app.studio-app .hardware-setup-modal :is(
+  .modal-close, .hardware-custom-color-panel .custom-color-close,
+  .hardware-extra-profile__remove
+)::before,
+#app.studio-app .hardware-setup-modal :is(
+  .modal-close, .hardware-custom-color-panel .custom-color-close,
+  .hardware-extra-profile__remove
+)::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 13px;
+  height: 1.8px;
+  border-radius: 2px;
+  background: currentColor;
+  pointer-events: none;
+}
+#app.studio-app .hardware-setup-modal :is(
+  .modal-close, .hardware-custom-color-panel .custom-color-close,
+  .hardware-extra-profile__remove
+)::before { transform: translate(-50%, -50%) rotate(45deg); }
+#app.studio-app .hardware-setup-modal :is(
+  .modal-close, .hardware-custom-color-panel .custom-color-close,
+  .hardware-extra-profile__remove
+)::after { transform: translate(-50%, -50%) rotate(-45deg); }
+@media (hover: hover) and (pointer: fine) {
+  #app.studio-app .hardware-setup-modal :is(
+    .modal-close, .hardware-custom-color-panel .custom-color-close,
+    .hardware-extra-profile__remove
+  ):hover:not(:disabled) {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
+    transform: none;
+  }
+}
+#app.studio-app .hardware-setup-modal :is(
+  .modal-close, .hardware-custom-color-panel .custom-color-close,
+  .hardware-extra-profile__remove
+):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}

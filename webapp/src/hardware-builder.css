@@ -1,0 +1,779 @@
+/* BUILD IT LIVE — HARDWARE BUILDER
+   Only hardware-specific differences from the shared Digital Builder UI.
+   Preserve the existing engine IDs, camera, file tools and ESP32 behavior. */
+
+@media (min-width: 861px) {
+  /* Match the Digital Builder's proportions, including collapsed sidebars. */
+  #app.studio-app.hardware-builder .studio-workspace {
+    grid-template-columns: var(--studio-left-width) minmax(0, 1fr) var(--studio-right-width);
+  }
+  #app.studio-app.hardware-builder.tools-collapsed .studio-workspace {
+    grid-template-columns: 0 minmax(0, 1fr) var(--studio-right-width);
+  }
+  #app.studio-app.hardware-builder.inspector-collapsed .studio-workspace {
+    grid-template-columns: var(--studio-left-width) minmax(0, 1fr) 0;
+  }
+  #app.studio-app.hardware-builder.tools-collapsed.inspector-collapsed .studio-workspace {
+    grid-template-columns: 0 minmax(0, 1fr) 0;
+  }
+  #app.studio-app.hardware-builder .studio-sidebar--tools .studio-rail-scroll {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+#app.studio-app.hardware-builder .studio-sidebar .studio-rail-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+#app.studio-app.hardware-builder .studio-sidebar .studio-rail-scroll::-webkit-scrollbar { display: none; }
+/* Reuse the shared Build Kit / Inspector footer treatment in Hardware Builder. */
+
+/* WORKBENCH — the existing color library is laid out inline, not scaled via
+   transform and not duplicated inside an extra card. Only Hardware Builder. */
+#app.studio-app.hardware-builder .hardware-kit {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0;
+  min-height: 0;
+  width: 100%;
+  padding: 0;
+}
+#app.studio-app.hardware-builder .hardware-kit__appearance,
+#app.studio-app.hardware-builder .hardware-kit__files {
+  display: block;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+#app.studio-app.hardware-builder .hardware-kit__appearance { margin: 0 0 19px; }
+#app.studio-app.hardware-builder .hardware-section-heading {
+  margin: 0 0 10px;
+  padding: 0;
+  color: var(--studio-text-soft);
+  font: 850 10px/1.3 var(--studio-control-font, Arial, sans-serif);
+  letter-spacing: .07em;
+}
+
+/* Inline variant: restore normal document flow and remove floating-menu
+   presentation. Scoped overrides leave the Digital Builder popup unchanged. */
+#app.studio-app.hardware-builder .hardware-kit .hardware-color-inline,
+#app.studio-app.hardware-builder .hardware-kit .hardware-color-inline.is-open {
+  position: relative !important;
+  display: block !important;
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  inset: auto !important;
+  margin: 0;
+  padding: 0 !important;
+  overflow: visible !important;
+  transform: none !important;
+  opacity: 1 !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: none !important;
+  z-index: auto !important;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-popover__head {
+  margin: 0 0 15px;
+  padding: 0 0 13px;
+  gap: 9px;
+  align-items: center;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-popover__title { gap: 4px; justify-content: center; }
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-popover__title > span {
+  font-size: 9px;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-popover__title > strong {
+  font-size: 14px;
+  letter-spacing: -.04em;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-current {
+  flex: 0 1 auto;
+  gap: 5px;
+  padding: 4px 6px 4px 4px;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-current i {
+  width: 18px;
+  height: 18px;
+  flex-basis: 18px;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-current strong {
+  max-width: 62px;
+  font-size: 9px;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-target > span {
+  margin: 0 0 8px;
+  font-size: 9px;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-target__buttons {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 6px;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-target__button {
+  min-width: 0;
+  min-height: 48px;
+  padding: 8px 7px;
+  gap: 4px;
+  align-items: flex-start;
+  border-radius: 6px;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-target__button strong {
+  font-size: 10px;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-target__button small {
+  font-size: 8px;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-scope-hint {
+  min-height: 0;
+  margin: 6px 0 0;
+  padding: 5px 0 0;
+  border: 0;
+  font-size: 10px;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-scope-spacer { display: none; }
+#app.studio-app.hardware-builder .hardware-color-inline .color-palette-caption {
+  margin: 18px 0 8px;
+  font-size: 9px;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .color-palette-caption span:last-child { font-size: 9px; }
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-grid {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 7px;
+  width: 100%;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-choice,
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-custom {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: 1;
+  border-radius: 6px !important;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-choice--standard > span,
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-custom__label {
+  font-size: 8px;
+  padding: 3px 2px;
+  max-width: calc(100% - 3px);
+}
+#app.studio-app.hardware-builder .hardware-color-inline .custom-color-panel {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .custom-color-panel.is-open {
+  padding: 11px;
+  margin-top: 13px;
+  max-height: 330px;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .custom-color-control {
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 6px;
+}
+#app.studio-app.hardware-builder .hardware-color-inline .custom-color-hex-wrap { min-width: 0; }
+
+#app.studio-app.hardware-builder .hardware-kit__files {
+  margin-top: 0;
+  border-top: 1px solid var(--studio-edge);
+  padding-top: 15px;
+}
+#app.studio-app.hardware-builder .hardware-kit__files .panel-actions--files {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 8px;
+  margin: 0 !important;
+  padding: 0;
+}
+#app.studio-app.hardware-builder .hardware-kit__files .panel-actions--files #saveBuild,
+#app.studio-app.hardware-builder .hardware-kit__files .panel-actions--files #exportBuild {
+  grid-row: 1;
+  grid-column: auto;
+  min-width: 0;
+  min-height: 40px;
+  margin: 0;
+  font-size: 10px;
+  white-space: nowrap;
+}
+#app.studio-app.hardware-builder .hardware-kit__files .panel-actions--files #exportBuild {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+#app.studio-app.hardware-builder .hardware-kit__files .panel-actions--files #exportBuild:hover {
+  background: var(--accent);
+  color: white;
+}
+#app.studio-app.hardware-builder .hardware-kit__files .panel-actions--small {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 8px;
+  margin: 13px 0 0;
+  padding-top: 13px;
+  border-top: 1px solid var(--studio-edge);
+}
+#app.studio-app.hardware-builder .hardware-kit__files .panel-actions--small .secondary-button {
+  min-width: 0;
+  min-height: 37px;
+  margin: 0;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+
+/* V52 / SWATCH LABELS: preserve the original bottom-aligned y-position,
+   center horizontally, and fit DEFAULT/CUSTOM inside narrow color tiles.
+   Scoped to Hardware Builder; the Digital Builder palette is untouched. */
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-choice--standard > span,
+#app.studio-app.hardware-builder .hardware-color-inline .block-color-custom__label {
+  position: absolute;
+  inset: auto auto 5px 50%;
+  top: auto;
+  right: auto;
+  bottom: 5px;
+  left: 50%;
+  width: max-content;
+  max-width: calc(100% - 10px);
+  min-height: 0;
+  box-sizing: border-box;
+  padding: 2px 3px !important;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7px !important;
+  line-height: 1 !important;
+  letter-spacing: -.025em;
+  transform: translateX(-50%) !important;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* The normal Workbench has no extra trailing scroll range. Expanded panels
+   retain content-driven scrolling when they need more space. */
+#app.studio-app.hardware-builder .hardware-kit::after { content: none; }
+
+/* INSPECTOR — identical three-card style, typography and separators to Digital.
+   Hardware-only distinction: a compact connection-state row under Live Data. */
+#app.studio-app.hardware-builder .hardware-metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 5px; }
+#app.studio-app.hardware-builder .hardware-metrics .stat-card { min-width: 0; }
+#app.studio-app.hardware-builder .hardware-metrics .stat-card span { white-space: nowrap; }
+#app.studio-app.hardware-builder .hardware-sensor-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 0 1px;
+  min-height: 20px;
+}
+#app.studio-app.hardware-builder .hardware-sensor-status span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--studio-text-soft);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: .045em;
+}
+#app.studio-app.hardware-builder .hardware-sensor-status i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+#app.studio-app.hardware-builder #hardwareInputMetric {
+  color: #e93222;
+  font-size: 10px;
+  font-weight: 850;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+#app.studio-app.hardware-builder:has(#serialStatus.is-connected) .hardware-sensor-status i { background: #268159; }
+#app.studio-app.hardware-builder:has(#serialStatus.is-connected) #hardwareInputMetric { color: #21734e; }
+
+/* Do not distribute the Control Deck vertically with 'space-between'.
+   That inherited rule caused the oversized blank strips in the screenshot. */
+@media (min-width: 861px) {
+  #app.studio-app.hardware-builder .studio-sidebar--inspector .feature-panel {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 0;
+  }
+  #app.studio-app.hardware-builder .studio-sidebar--inspector .feature-section { flex: 0 0 auto; }
+}
+#app.studio-app.hardware-builder .feature-panel { padding-top: 11px; }
+#app.studio-app.hardware-builder .feature-section { padding: 11px 0; }
+#app.studio-app.hardware-builder .feature-section:first-of-type { padding-top: 6px; }
+#app.studio-app.hardware-builder .feature-heading { margin-bottom: 7px; }
+#app.studio-app.hardware-builder .hardware-view-state { display: none; } /* The active segment already reads BLOCKS. */
+#app.studio-app.hardware-builder .autosave-row { display: flex; flex-direction: column; align-items: stretch; gap: 6px; }
+#app.studio-app.hardware-builder .autosave-row #openRecentModels { width: 100%; }
+#app.studio-app.hardware-builder .autosave-meta { font-size: 9px; }
+#app.studio-app.hardware-builder .layer-scale { margin-top: 4px; }
+/* Keep the legend exactly as wide as the Digital Builder reference: 337px.
+   Only the final shortcut text differs (ESP32 vs click-placement). */
+#app.studio-app.hardware-builder .studio-shortcuts .helpbar {
+  width: 337px;
+  max-width: calc(100% - 24px);
+  justify-content: space-between;
+}
+
+/* Existing V47 physical-grid settings remain the sole hardware size control. */
+#app.studio-app.hardware-builder .hardware-setup-grid--physical { display: grid; grid-template-columns: minmax(0,1fr); }
+#app.studio-app.hardware-builder .hardware-setup-grid--physical .hardware-setup-field { max-width: none; width: 100%; }
+
+/* On very short windows keep every button accessible without visible scrollbars. */
+@media (min-width: 861px) and (max-height: 745px) {
+  #app.studio-app.hardware-builder .studio-sidebar--tools .studio-rail-scroll { padding-top: 10px; padding-bottom: 10px; }
+  #app.studio-app.hardware-builder .hardware-kit__appearance { margin-bottom: 13px; }
+  #app.studio-app.hardware-builder .hardware-kit__files { padding-top: 10px; }
+  #app.studio-app.hardware-builder .feature-section { padding: 7px 0; }
+}
+@media (max-width: 860px) {
+  #app.studio-app.hardware-builder .hardware-kit { min-height: 0; }
+  #app.studio-app.hardware-builder .hardware-kit__files { margin-top: 17px; }
+  #app.studio-app.hardware-builder .hardware-kit__appearance { margin-bottom: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #app.studio-app.hardware-builder .block-color-popover { transition: none !important; }
+}
+
+/* Rectangular physical setup: 2 columns × 4 rows by default. */
+#app.studio-app.hardware-builder .hardware-setup-grid--physical {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 10px;
+}
+#app.studio-app.hardware-builder .hardware-setup-grid--physical .hardware-setup-field {
+  min-width: 0;
+  width: 100%;
+}
+#app.studio-app.hardware-builder .hardware-setup-grid--physical .hardware-grid-help {
+  grid-column: 1 / -1;
+  font-size: 10px;
+}
+@media (max-width: 440px) {
+  #app.studio-app.hardware-builder .hardware-setup-grid--physical { gap: 6px; }
+}
+
+/* Shared Hardware sensor, calibration and capture widgets.
+   V59 places diagnostics in Inspector and actions in Workbench. */
+#app.studio-app.hardware-builder .hardware-workbench-tools {
+  flex: 0 0 auto;
+  min-width: 0;
+  margin-top: 16px;
+  padding-top: 15px;
+  border-top: 1px solid var(--studio-edge);
+}
+#app.studio-app.hardware-builder .hardware-tool-panel button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+#app.studio-app.hardware-builder .hardware-tool-panel { min-width: 0; padding-top: 13px; }
+#app.studio-app.hardware-builder .hardware-tool-panel__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 9px;
+}
+#app.studio-app.hardware-builder .hardware-tool-panel__top strong {
+  font: 900 11px/1.1 var(--studio-control-font, Arial, sans-serif);
+}
+#app.studio-app.hardware-builder .hardware-tool-panel__top span {
+  font: 800 8px/1.2 var(--studio-control-font, Arial, sans-serif);
+  letter-spacing: .04em;
+  color: #77746e;
+}
+#app.studio-app.hardware-builder .hardware-sensor-map { display: grid; gap: 5px; }
+#app.studio-app.hardware-builder .hardware-sensor-cell {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 38px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 6px 7px;
+  border: 1px solid #d4d1ca;
+  border-radius: 5px;
+  background: rgba(255,255,255,.46);
+}
+#app.studio-app.hardware-builder .hardware-sensor-cell span {
+  font: 800 8px/1 var(--studio-control-font, Arial, sans-serif);
+  color: #77746e;
+}
+#app.studio-app.hardware-builder .hardware-sensor-cell strong {
+  font: 900 11px/1 var(--studio-control-font, Arial, sans-serif);
+  color: #222;
+}
+#app.studio-app.hardware-builder .hardware-sensor-cell.is-occupied { background: #111; border-color: #111; }
+#app.studio-app.hardware-builder .hardware-sensor-cell.is-occupied :is(span, strong) { color: #fff; }
+#app.studio-app.hardware-builder .hardware-sensor-cell.is-rejected { border-color: var(--accent); background: #fff3f0; }
+#app.studio-app.hardware-builder .hardware-sensor-cell.is-rejected strong { color: var(--accent); }
+#app.studio-app.hardware-builder .hardware-sensor-cell.is-observed { background: #e3ebe6; border-color: #b7cbbb; }
+#app.studio-app.hardware-builder .hardware-sensor-reading {
+  margin-top: 9px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 5px;
+  font-size: 9px;
+}
+#app.studio-app.hardware-builder .hardware-sensor-reading b { font-weight: 900; }
+#app.studio-app.hardware-builder .hardware-sensor-reading span { font-weight: 700; color: #625f5a; }
+#app.studio-app.hardware-builder .hardware-tools-note {
+  margin: 9px 0 0;
+  color: #77716a;
+  font: 500 10px/1.5 var(--studio-control-font, Arial, sans-serif);
+}
+#app.studio-app.hardware-builder .hardware-profile-targets { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; }
+#app.studio-app.hardware-builder .hardware-profile-targets button {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  padding: 8px;
+  min-width: 0;
+  border-radius: 5px;
+  border: 1px solid #d7d3cc;
+  background: rgba(255,255,255,.5);
+  font: 900 10px/1 var(--studio-control-font, Arial, sans-serif);
+  cursor: pointer;
+}
+#app.studio-app.hardware-builder .hardware-profile-targets button span { font-size: 9px; font-weight: 700; opacity: .7; }
+#app.studio-app.hardware-builder .hardware-profile-targets button.is-active { background: #111; color: #fff; border-color: #111; }
+#app.studio-app.hardware-builder .hardware-calibration-values {
+  display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; margin: 9px 0;
+}
+#app.studio-app.hardware-builder .hardware-calibration-values div {
+  padding: 9px 8px; display: flex; flex-direction: column; gap: 5px;
+  background: #eae8e2; border: 1px solid #dad6cf; border-radius: 5px;
+}
+#app.studio-app.hardware-builder .hardware-calibration-values small { font: 850 8px/1.2 var(--studio-control-font, Arial, sans-serif); color: #6b6863; }
+#app.studio-app.hardware-builder .hardware-calibration-values strong { font: 900 16px/1 var(--studio-control-font, Arial, sans-serif); }
+#app.studio-app.hardware-builder .hardware-calibration-actions { display: grid; grid-template-columns: 2fr 1fr; gap: 6px; margin-bottom: 6px; }
+#app.studio-app.hardware-builder .hardware-calibration-actions button,
+#app.studio-app.hardware-builder .hardware-tool-primary {
+  box-sizing: border-box;
+  border: 1px solid #111;
+  border-radius: 5px;
+  padding: 9px 8px;
+  min-height: 34px;
+  font: 900 10px/1 var(--studio-control-font, Arial, sans-serif);
+  cursor: pointer;
+}
+#app.studio-app.hardware-builder .hardware-calibration-actions button { background: #fff; color: #111; }
+#app.studio-app.hardware-builder .hardware-tool-primary { display: block; width: 100%; background: #111; color: #fff; }
+#app.studio-app.hardware-builder .hardware-tool-panel button:disabled { opacity: .4; cursor: not-allowed; }
+#app.studio-app.hardware-builder .hardware-tools-error { font-size: 10px; color: #b92b1d; }
+#app.studio-app.hardware-builder .hardware-snapshots { margin-top: 9px; display: grid; gap: 6px; }
+#app.studio-app.hardware-builder .hardware-snapshot {
+  display: grid;
+  grid-template-columns: 60px minmax(0,1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 5px;
+  border: 1px solid #d7d4cc;
+  border-radius: 5px;
+  background: rgba(255,255,255,.42);
+}
+#app.studio-app.hardware-builder .hardware-snapshot img {
+  width: 60px; height: 41px; object-fit: cover; border-radius: 3px; background: #eee;
+}
+#app.studio-app.hardware-builder .hardware-snapshot div { min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+#app.studio-app.hardware-builder .hardware-snapshot strong { font: 900 10px/1 var(--studio-control-font, Arial, sans-serif); }
+#app.studio-app.hardware-builder .hardware-snapshot small { color: #77716a; font-size: 9px; }
+#app.studio-app.hardware-builder .hardware-snapshot button,
+#app.studio-app.hardware-builder .hardware-snapshot-clear {
+  border: 0; background: transparent; color: #111; cursor: pointer;
+  padding: 6px; font: 900 9px/1 var(--studio-control-font, Arial, sans-serif);
+}
+#app.studio-app.hardware-builder .hardware-snapshot-clear { color: #746e68; text-align: right; }
+@media (max-width: 860px) {
+  #app.studio-app.hardware-builder .hardware-workbench-tools { margin-top: 17px; }
+}
+#app.studio-app.hardware-builder .hardware-log-export {
+  width: 100%; margin-top: 9px; padding: 8px; border-radius: 5px;
+  border: 1px solid #d7d3cc; background: rgba(255,255,255,.45);
+  font: 900 9px/1 var(--studio-control-font, Arial, sans-serif);
+  cursor: pointer; color: #111;
+}
+#app.studio-app.hardware-builder .hardware-log-export:disabled { opacity: .4; cursor: not-allowed; }
+
+/* V59 / TOOLS LIVE WHERE THEY BELONG — action on left, readings on right. */
+#app.studio-app.hardware-builder .hardware-calibration {
+  margin: 0 0 12px;
+  padding: 8px 0 0;
+  border-top: 1px solid var(--studio-edge);
+}
+#app.studio-app.hardware-builder .hardware-diagnostics {
+  flex: 0 0 auto;
+  margin: 3px 0 14px;
+  padding: 0 0 14px;
+  border-top: 0;
+  border-bottom: 1px solid var(--studio-edge);
+}
+/* V60 / HARDWARE DISCLOSURES — smooth in both directions, keyboard accessible.
+   Keep children mounted for live data, but inert while collapsed. */
+#app.studio-app.hardware-builder .hardware-tool-summary {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+  width: 100%;
+  min-height: 34px;
+  margin: 0;
+  padding: 3px 0;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: #252422;
+  text-align: left;
+  cursor: pointer;
+  font: 850 10px/1.2 var(--studio-control-font, Arial, sans-serif);
+  letter-spacing: .04em;
+}
+#app.studio-app.hardware-builder .hardware-tool-summary__label { min-width: 0; }
+#app.studio-app.hardware-builder .hardware-tool-summary__tail {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+#app.studio-app.hardware-builder .hardware-tool-summary__meta {
+  font: 850 9px/1.2 var(--studio-control-font, Arial, sans-serif);
+  letter-spacing: .02em;
+  color: #77736d;
+}
+/* Bare chevron, aligned with the title and meta (no button-like housing). */
+#app.studio-app.hardware-builder .hardware-tool-chevron {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 20px;
+  flex: 0 0 18px;
+  color: #56524d;
+  transition: transform 260ms cubic-bezier(.22, 1, .36, 1),
+    color 190ms ease;
+}
+#app.studio-app.hardware-builder .hardware-tool-chevron svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+#app.studio-app.hardware-builder .hardware-disclosure.is-open .hardware-tool-chevron {
+  transform: rotate(180deg);
+}
+#app.studio-app.hardware-builder .hardware-tool-summary:hover .hardware-tool-chevron {
+  color: #111;
+}
+#app.studio-app.hardware-builder .hardware-tool-summary:hover .hardware-tool-summary__label {
+  color: var(--accent);
+}
+#app.studio-app.hardware-builder .hardware-tool-summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+#app.studio-app.hardware-builder .hardware-tool-reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows 340ms cubic-bezier(.22, 1, .36, 1),
+    opacity 200ms ease, visibility 340ms;
+}
+#app.studio-app.hardware-builder .hardware-disclosure.is-open .hardware-tool-reveal {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition: grid-template-rows 340ms cubic-bezier(.22, 1, .36, 1),
+    opacity 220ms ease 55ms, visibility 0s;
+}
+#app.studio-app.hardware-builder .hardware-tool-reveal-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+/* Match Color Palette exactly to the Calibration heading, not the lighter
+   legacy palette caption style; change is hardware-only. */
+#app.studio-app.hardware-builder .hardware-color-inline .color-palette-caption > span:first-child {
+  color: #252422;
+  /* The common button style forces 900 + .035em on Calibration headings. */
+  font: 900 10px/1.2 var(--studio-control-font, Arial, sans-serif);
+  letter-spacing: .035em;
+}
+#app.studio-app.hardware-builder .hardware-capture-tools { margin-top: 10px; min-width: 0; }
+#app.studio-app.hardware-builder .hardware-capture-button {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; min-height: 37px; padding: 10px 12px;
+  font: 850 10px/1 var(--studio-control-font, Arial, sans-serif);
+  background: rgba(255,255,255,.6); border: 1px solid #d7d3cc;
+  color: #111; border-radius: 5px; cursor: pointer;
+}
+#app.studio-app.hardware-builder .hardware-capture-button span { color: var(--accent); }
+#app.studio-app.hardware-builder .hardware-capture-button:hover { border-color: #111; }
+#app.studio-app.hardware-builder .hardware-capture-history { margin-top: 8px; padding: 8px 0 0; border-top: 1px solid var(--studio-edge); }
+#app.studio-app.hardware-builder .hardware-capture-history .hardware-tool-panel { padding-top: 5px; }
+#app.studio-app.hardware-builder .hardware-diagnostics .hardware-tool-panel { padding-top: 9px; }
+#app.studio-app.hardware-builder .hardware-calibration .hardware-tool-panel { padding-top: 12px; }
+@media (max-width: 860px) {
+  #app.studio-app.hardware-builder .hardware-diagnostics { margin-top: 10px; }
+}
+
+/* Keep reduced-motion users from waiting for panels or chevrons. */
+@media (prefers-reduced-motion: reduce) {
+  #app.studio-app.hardware-builder .hardware-tool-reveal,
+  #app.studio-app.hardware-builder .hardware-disclosure.is-open .hardware-tool-reveal,
+  #app.studio-app.hardware-builder .hardware-tool-chevron {
+    transition: none !important;
+  }
+}
+
+/* V61 / COMPACT ESP32 BAR — match Undo's 35px outer height.
+   Keep existing connection status, menu states, baud dropdown and actions intact. */
+#app.studio-app.hardware-builder .studio-top-actions .top-serial {
+  box-sizing: border-box;
+  height: 35px;
+  min-height: 35px;
+  max-height: 35px;
+  padding: 2px 5px 2px 9px;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: nowrap;
+  border-radius: 6px;
+}
+#app.studio-app.hardware-builder .studio-top-actions .top-serial__identity {
+  gap: 5px;
+  margin-right: 0;
+  align-items: center;
+}
+#app.studio-app.hardware-builder .studio-top-actions .glass-select--baud {
+  flex: 0 0 82px;
+  width: 82px;
+}
+#app.studio-app.hardware-builder .studio-top-actions .glass-select--baud .glass-select__trigger {
+  box-sizing: border-box;
+  height: 29px;
+  min-height: 29px;
+  max-height: 29px;
+  padding-inline: 9px;
+  font-size: 10px;
+  border-radius: 5px;
+}
+#app.studio-app.hardware-builder .studio-top-actions .top-serial :is(
+  #connectSerial, #disconnectSerial, #hardwareMenuButton, #simulateHardware
+) {
+  box-sizing: border-box;
+  height: 29px;
+  min-height: 29px;
+  max-height: 29px;
+  align-self: center;
+  border-radius: 5px;
+  padding-inline: 9px;
+  font-size: 8.5px;
+  line-height: 1;
+}
+/* Preserve the text-only Disconnect treatment and its established hover behavior. */
+#app.studio-app.hardware-builder .studio-top-actions .top-serial #disconnectSerial:not(.is-exit-demo) {
+  border-radius: 0;
+  padding-inline: 4px;
+}
+@media (max-width: 1040px) {
+  #app.studio-app.hardware-builder .studio-top-actions .top-serial {
+    gap: 4px;
+    padding-inline: 6px 4px;
+  }
+  #app.studio-app.hardware-builder .studio-top-actions .glass-select--baud {
+    flex-basis: 76px;
+    width: 76px;
+  }
+}
+@media (max-width: 620px) {
+  #app.studio-app.hardware-builder .studio-top-actions .top-serial {
+    padding-inline: 5px;
+  }
+}
+
+/* The shared header reduces Undo/Redo to 34px at tablet widths. */
+@media (max-width: 860px) {
+  #app.studio-app.hardware-builder .studio-top-actions .top-serial {
+    height: 34px;
+    min-height: 34px;
+    max-height: 34px;
+  }
+  #app.studio-app.hardware-builder .studio-top-actions .glass-select--baud .glass-select__trigger,
+  #app.studio-app.hardware-builder .studio-top-actions .top-serial :is(
+    #connectSerial, #disconnectSerial, #hardwareMenuButton, #simulateHardware
+  ) {
+    height: 28px;
+    min-height: 28px;
+    max-height: 28px;
+  }
+}
+
+/* V64 / Slightly tighter Hardware Inspector header-to-Live Data interval.
+   Digital Inspector retains V63's original 8px (6px on short windows). */
+#app.studio-app.hardware-builder .studio-sidebar--inspector .studio-rail-scroll {
+  padding-top: 6px;
+}
+@media (min-width: 861px) and (max-height: 740px) {
+  #app.studio-app.hardware-builder .studio-sidebar--inspector .studio-rail-scroll {
+    padding-top: 4px;
+  }
+}
+
+/* V66 / More visible air below Layer View without pushing the control deck
+   off-screen: recover the same space from the interior section intervals.
+   Changes affect only the Hardware Inspector (not Digital Builder). */
+#app.studio-app.hardware-builder .studio-sidebar--inspector .stats-panel {
+  margin-bottom: 12px;
+}
+#app.studio-app.hardware-builder .studio-sidebar--inspector .hardware-diagnostics {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+#app.studio-app.hardware-builder .studio-sidebar--inspector .feedback-card {
+  margin-bottom: 12px;
+}
+#app.studio-app.hardware-builder .studio-sidebar--inspector .feature-panel {
+  padding-top: 8px;
+}
+#app.studio-app.hardware-builder .studio-sidebar--inspector .studio-rail-scroll {
+  padding-bottom: 32px;
+}
+
+/* V67 / Hardware inspector: one source of connection truth (the ESP32 toolbar).
+   Omit redundant row underneath the three Live Data cards. Retain the space
+   below Layer View while avoiding a phantom scroll range in compact state. */
+#app.studio-app.hardware-builder .studio-sidebar--inspector .hardware-sensor-status {
+  display: none;
+}
+#app.studio-app.hardware-builder .studio-sidebar--inspector .studio-rail-scroll {
+  overflow-y: auto !important;
+}
+#app.studio-app.hardware-builder .studio-sidebar--inspector .hardware-tool-summary__meta:empty {
+  display: none;
+}
+
+/* Reserve breathing room only while this rail actually needs scrolling.
+   The observer measures the content without the gutter to avoid a scroll latch. */
+#app.studio-app.hardware-builder .studio-sidebar--tools .studio-rail-scroll.has-workbench-scroll-gutter .hardware-kit::after {
+ content:'';display:block;flex:0 0 24px;width:100%;pointer-events:none;
+}

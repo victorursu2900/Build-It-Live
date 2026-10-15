@@ -1,0 +1,29 @@
+{
+  "name": "build-it-live-react-ts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test:hardware": "node --experimental-strip-types --test tests/hardware-rules.test.mjs",
+    "test:brick": "node --experimental-strip-types --test tests/screw-block.test.mjs tests/merged-screw.test.mjs",
+    "test:smoothing": "node --test tests/smoothing.test.mjs tests/smooth-cutouts.test.mjs tests/smooth-towers.test.mjs tests/smooth-worker-kernel.test.mjs"
+  },
+  "dependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/three": "^0.185.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "@vitejs/plugin-react": "^4.4.1"
+  }
+}

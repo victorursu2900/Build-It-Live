@@ -1,0 +1,177 @@
+/* V78 / Guide interactions — scoped to the Guide; does not alter Builder controls. */
+body.tutorial-body .guide-reading-progress { position:fixed;top:0;left:0;width:100%;height:3px;z-index:1500;pointer-events:none; }
+body.tutorial-body .guide-reading-progress__fill {display:block;width:0;height:100%;background:var(--accent);will-change:width;}
+body.tutorial-body .guide-chapter-nav a.is-current {border-color:var(--accent);}
+body.tutorial-body .guide-lab {padding:clamp(20px,3.2vw,38px);overflow:hidden;}
+body.tutorial-body .guide-lab__head {display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:24px;}
+body.tutorial-body .guide-lab__head h3 {font-family:var(--studio-display-font,Inter,Arial,sans-serif);font-size:clamp(29px,3.7vw,52px);font-weight:900;line-height:.98;letter-spacing:-.065em;margin:11px 0;}
+body.tutorial-body .guide-lab__head h3 i {font-family:var(--tutorial-serif,Georgia,serif);font-weight:700;color:var(--accent);}
+body.tutorial-body .guide-lab__head p {max-width:660px;margin:0;color:var(--muted);font-size:14px;line-height:1.55;}
+body.tutorial-body .guide-lab__reset {flex:none;min-height:37px;border:1px solid var(--line);border-radius:8px;padding:0 16px;background:var(--paper-2);font-weight:900;font-size:10px;letter-spacing:.07em;cursor:pointer;transition:background .2s,color .2s;}
+body.tutorial-body .guide-lab__reset:hover {background:var(--ink);color:var(--paper-2);}
+body.tutorial-body .guide-hardware-sim {display:grid;grid-template-columns:minmax(0,1fr) minmax(80px,.2fr) minmax(0,1fr);gap:14px;align-items:center;}
+body.tutorial-body .guide-sim-panel {min-width:0;border:1px solid var(--line);background:var(--paper-2);padding:22px;border-radius:12px;}
+body.tutorial-body .guide-sim-panel__heading {display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:17px;font-weight:900;font-size:10px;letter-spacing:.09em;}
+body.tutorial-body .guide-sim-panel__heading span {color:var(--accent);white-space:nowrap;}
+body.tutorial-body .guide-sensor-grid,.guide-twin-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-width:300px;margin-inline:auto;}
+body.tutorial-body .guide-sensor-cell {position:relative;aspect-ratio:1.65;display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border:1px solid color-mix(in srgb,var(--ink) 21%,transparent);background:var(--paper);border-radius:5px;color:var(--ink);cursor:pointer;transition:background .22s,border-color .22s,transform .22s;}
+body.tutorial-body .guide-sensor-cell:hover {transform:translateY(-2px);border-color:var(--accent);}
+body.tutorial-body .guide-sensor-cell.is-occupied {background:var(--ink);color:var(--paper);border-color:var(--ink);}
+body.tutorial-body .guide-sensor-cell span {font-size:9px;font-weight:900;opacity:.65;align-self:start;}
+body.tutorial-body .guide-sensor-cell strong {font-size:23px;line-height:1;font-weight:900;}
+body.tutorial-body .guide-sim-transfer {text-align:center;display:grid;gap:7px;justify-items:center;color:var(--muted);}
+body.tutorial-body .guide-sim-transfer span {font-size:9px;letter-spacing:.12em;font-weight:900;}
+body.tutorial-body .guide-sim-transfer b {color:var(--accent);font-size:37px;font-weight:400;line-height:1;}
+body.tutorial-body .guide-twin-cell {height:clamp(55px,5.2vw,73px);border:1px dashed color-mix(in srgb,var(--ink) 25%,transparent);background:color-mix(in srgb,var(--paper) 68%,transparent);position:relative;border-radius:5px;overflow:hidden;}
+body.tutorial-body .guide-twin-block {position:absolute;left:15%;width:70%;height:16px;background:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 74%,black);box-shadow:inset 0 2px 0 rgba(255,255,255,.22);border-radius:2px;animation:guide-block-enter .25s ease-out both;}
+body.tutorial-body .guide-twin-empty {position:absolute;left:48%;top:46%;height:4px;width:4px;border-radius:50%;background:var(--line-strong);}
+body.tutorial-body .guide-sim-hint {display:block;margin-top:15px;text-align:center;color:var(--muted);font-size:9px;font-weight:900;letter-spacing:.07em;}
+body.tutorial-body .guide-lab__disclaimer {margin:18px 0 0;padding-top:12px;border-top:1px solid var(--line);font-size:10px;letter-spacing:.025em;line-height:1.5;color:var(--muted);}
+/* Assembly step highlighting respects the original 4 magnet + 2 screw + 1 resistor schematic. */
+body.tutorial-body .hwg-block-svg .hwg-part {transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1);transform-box:fill-box;transform-origin:center;}
+body.tutorial-body .hwg-block-svg--stage-0 .hwg-part:not(.hwg-part--magnets),
+body.tutorial-body .hwg-block-svg--stage-1 .hwg-part:not(.hwg-part--screws):not(.hwg-part--threads),
+body.tutorial-body .hwg-block-svg--stage-2 .hwg-part:not(.hwg-part--resistor) {opacity:.18;}
+body.tutorial-body .hwg-block-svg--stage-0 .hwg-part--magnets,
+body.tutorial-body .hwg-block-svg--stage-1 .hwg-part--screws,
+body.tutorial-body .hwg-block-svg--stage-2 .hwg-part--resistor {filter:drop-shadow(0 0 4px rgba(233,50,34,.6));}
+body.tutorial-body .hwg-assembly-interactive {display:grid;gap:10px;margin-top:12px;border:1px solid var(--line);border-radius:10px;background:var(--paper-2);padding:14px;}
+body.tutorial-body .hwg-assembly-interactive__heading {display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:10px;font-weight:900;letter-spacing:.07em;}
+body.tutorial-body .hwg-assembly-interactive__heading strong {color:var(--accent);}
+body.tutorial-body .hwg-assembly-interactive__steps {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;}
+body.tutorial-body .hwg-assembly-interactive__steps button {min-height:36px;border:1px solid var(--line);border-radius:5px;background:var(--paper);font-size:9px;font-weight:900;letter-spacing:.02em;cursor:pointer;padding:6px 3px;transition:background .18s,color .18s;}
+body.tutorial-body .hwg-assembly-interactive__steps button.is-active {background:var(--ink);color:var(--paper);}
+body.tutorial-body .hwg-assembly-interactive p {margin:0;font-size:12px;line-height:1.4;color:var(--muted);min-height:34px;}
+/* Brick footprint is diagrammatic, not an STL renderer. */
+body.tutorial-body .guide-brick-sim {display:grid;grid-template-columns:minmax(0,1fr) 85px minmax(0,1fr);gap:17px;align-items:center;}
+body.tutorial-body .guide-brick-sim > div:not(.guide-sim-transfer) {background:var(--paper-2);border:1px solid var(--line);border-radius:10px;padding:20px;min-width:0;}
+body.tutorial-body .guide-brick-editor {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;max-width:250px;margin:auto;}
+body.tutorial-body .guide-brick-editor button {aspect-ratio:1;background:var(--paper);border:1px solid color-mix(in srgb,var(--ink) 19%,transparent);border-radius:4px;cursor:pointer;font-size:15px;color:var(--muted);transition:background .2s,transform .2s,color .2s;}
+body.tutorial-body .guide-brick-editor button:hover {transform:scale(.96);border-color:var(--accent);}
+body.tutorial-body .guide-brick-editor button.is-on {background:var(--accent);color:var(--paper);border-color:var(--accent);}
+body.tutorial-body .guide-brick-preview {display:grid;place-items:center;height:257px;overflow:hidden;perspective:500px;}
+body.tutorial-body .guide-brick-preview__grid {width:160px;height:160px;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;transform:rotateX(50deg) rotateZ(-35deg);transform-style:preserve-3d;}
+body.tutorial-body .guide-brick-preview__grid > span {position:relative;border:1px dashed var(--line-strong);background:var(--paper);}
+body.tutorial-body .guide-brick-preview__grid > span.is-on {background:var(--accent);border:1px solid #a92920;box-shadow:5px 6px 0 #92291f;}
+body.tutorial-body .guide-brick-preview__grid > span.is-on i {position:absolute;inset:15%;border:2px solid rgba(255,255,255,.8);border-radius:50%;}
+/* One reveal per section, not a scroll-tied loop. */
+body.tutorial-body .guide-reveal.guide-reveal--pending {opacity:0;transform:translateY(16px);}
+body.tutorial-body .guide-reveal {transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
+body.tutorial-body .guide-reveal.guide-reveal--visible {opacity:1;transform:none;}
+body.tutorial-body :is(.guide-sensor-cell,.guide-brick-editor button,.hwg-assembly-interactive button):focus-visible {outline:3px solid var(--accent);outline-offset:3px;}
+@media(max-width:950px) {
+  body.tutorial-body .guide-hardware-sim, body.tutorial-body .guide-brick-sim {grid-template-columns:1fr;}
+  body.tutorial-body .guide-sim-transfer {display:flex;align-items:center;justify-content:center;gap:12px;}
+  body.tutorial-body .guide-sim-transfer b {transform:rotate(90deg);}
+  body.tutorial-body .guide-brick-preview {height:220px;}
+}
+@media(max-width:610px) {
+  body.tutorial-body .guide-lab__head {align-items:start;}
+  body.tutorial-body .guide-lab__head p {font-size:12px;}
+  body.tutorial-body .guide-lab__reset {padding:0 10px;}
+  body.tutorial-body .guide-sim-panel {padding:14px;}
+  body.tutorial-body .hwg-assembly-interactive__steps {grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media(prefers-reduced-motion:reduce) {
+ body.tutorial-body .guide-reveal,body.tutorial-body .guide-reveal.guide-reveal--pending,body.tutorial-body .guide-reveal.guide-reveal--visible {transition:none;transform:none;opacity:1;}
+ body.tutorial-body .guide-twin-block {animation:none;}
+ body.tutorial-body .guide-lab *, body.tutorial-body .guide-block-svg *,body.tutorial-body .hwg-block-svg .hwg-part {transition:none!important;animation:none!important;}
+}
+
+/* V80 / Purposeful motion: one explanation per entrance, one response per action.
+   No scroll-linked parallax, looping decoration, or hidden content before JS runs. */
+@keyframes guide-v80-flow-node {
+  from { opacity:.48; transform:translateY(7px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes guide-v80-flow-arrow {
+  from { opacity:.3; transform:scale(.82); }
+  to   { opacity:1; transform:scale(1); }
+}
+@keyframes guide-v80-fade-up {
+  from { opacity:.38; transform:translateY(9px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes guide-v80-soft-flash {
+  0% { opacity:.45; transform:scale(.87); }
+  65% { opacity:1; transform:scale(1.07); }
+  100% { opacity:1; transform:scale(1); }
+}
+@keyframes guide-v80-swap {
+  from { opacity:.55; transform:translateY(7px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes guide-v80-shape-change {
+  from { opacity:.79; filter:brightness(1.13); transform:rotateX(50deg) rotateZ(-35deg) scale(.965); }
+  to { opacity:1; filter:brightness(1); transform:rotateX(50deg) rotateZ(-35deg) scale(1); }
+}
+
+/* The system relationship is introduced in real order, then remains static. */
+body.tutorial-body .concept-map.guide-sequence-played .concept-node {
+  animation:guide-v80-flow-node .45s cubic-bezier(.22,1,.36,1) both;
+}
+body.tutorial-body .concept-map.guide-sequence-played .concept-node--physical {animation-delay:0ms;}
+body.tutorial-body .concept-map.guide-sequence-played .concept-node--bridge {animation-delay:220ms;}
+body.tutorial-body .concept-map.guide-sequence-played .concept-node--digital {animation-delay:450ms;}
+body.tutorial-body .concept-map.guide-sequence-played .concept-node--output {animation-delay:680ms;}
+body.tutorial-body .concept-map.guide-sequence-played .concept-link i {
+  display:inline-block;animation:guide-v80-flow-arrow .32s cubic-bezier(.22,1,.36,1) both;
+}
+body.tutorial-body .concept-map.guide-sequence-played .concept-link--a i {animation-delay:130ms;}
+body.tutorial-body .concept-map.guide-sequence-played .concept-link--b i {animation-delay:360ms;}
+body.tutorial-body .concept-map.guide-sequence-played .concept-link--c i {animation-delay:580ms;}
+
+/* Technical flow and workflow lists appear in their reading order, once. */
+body.tutorial-body .hwg-hero-side.guide-sequence-played .hwg-flow-node,
+body.tutorial-body .guide-workflow__steps.guide-sequence-played > div {
+  animation:guide-v80-fade-up .42s cubic-bezier(.22,1,.36,1) both;
+}
+body.tutorial-body .hwg-hero-side.guide-sequence-played .hwg-flow-node:nth-child(2),
+body.tutorial-body .guide-workflow__steps.guide-sequence-played > div:nth-child(2) {animation-delay:110ms;}
+body.tutorial-body .hwg-hero-side.guide-sequence-played .hwg-flow-node:nth-child(3),
+body.tutorial-body .guide-workflow__steps.guide-sequence-played > div:nth-child(3) {animation-delay:220ms;}
+body.tutorial-body .hwg-hero-side.guide-sequence-played .hwg-flow-node:nth-child(4) {animation-delay:330ms;}
+body.tutorial-body .interface-map.guide-sequence-played .mock-panel {
+  animation:guide-v80-soft-flash .48s cubic-bezier(.22,1,.36,1) both;
+}
+body.tutorial-body .interface-map.guide-sequence-played .mock-panel--data {animation-delay:110ms;}
+body.tutorial-body .interface-map.guide-sequence-played .mock-panel--feedback {animation-delay:220ms;}
+body.tutorial-body .interface-map.guide-sequence-played .mock-panel--control {animation-delay:330ms;}
+
+/* Each UI action has one short reaction, with no automatic repetition. */
+body.tutorial-body .guide-motion-swap {animation:guide-v80-swap .3s cubic-bezier(.22,1,.36,1) both;}
+body.tutorial-body .hwg-assembly-interactive .guide-assembly-caption {animation:guide-v80-swap .27s cubic-bezier(.22,1,.36,1) both;}
+body.tutorial-body .step-content {animation:guide-v80-swap .33s cubic-bezier(.22,1,.36,1) both;}
+body.tutorial-body .guide-sim-transfer--active b {animation:guide-v80-soft-flash .32s cubic-bezier(.22,1,.36,1) both;}
+body.tutorial-body .guide-brick-preview__grid--motion {animation:guide-v80-shape-change .32s cubic-bezier(.22,1,.36,1) both;}
+
+/* Directional feedback on relevant chapter links, not entire cards. */
+body.tutorial-body .guide-chapter-nav a b,
+body.tutorial-body .hwg-jump-nav a b,
+body.tutorial-body .guide-workflow__bottom a span,
+body.tutorial-body .guide-brick-note__link span {
+  display:inline-block;
+  transition:transform .24s cubic-bezier(.22,1,.36,1);
+}
+body.tutorial-body .guide-chapter-nav a:hover b,
+body.tutorial-body .guide-chapter-nav a:focus-visible b,
+body.tutorial-body .hwg-jump-nav a:hover b,
+body.tutorial-body .hwg-jump-nav a:focus-visible b,
+body.tutorial-body .guide-workflow__bottom a:hover span,
+body.tutorial-body .guide-brick-note__link:hover span {transform:translate(2px,2px);}
+
+@media (prefers-reduced-motion: reduce) {
+  body.tutorial-body :is(
+    .guide-motion-swap,.guide-assembly-caption,.step-content,
+    .guide-sim-transfer--active b,.guide-brick-preview__grid--motion,
+    .concept-map.guide-sequence-played .concept-node,
+    .concept-map.guide-sequence-played .concept-link i,
+    .hwg-hero-side.guide-sequence-played .hwg-flow-node,
+    .guide-workflow__steps.guide-sequence-played > div,
+    .interface-map.guide-sequence-played .mock-panel
+  ) {animation:none!important;}
+  body.tutorial-body .guide-chapter-nav a b,
+  body.tutorial-body .hwg-jump-nav a b,
+  body.tutorial-body .guide-workflow__bottom a span,
+  body.tutorial-body .guide-brick-note__link span {transition:none!important;transform:none!important;}
+}

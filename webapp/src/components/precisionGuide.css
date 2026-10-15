@@ -1,0 +1,74 @@
+/* Precision practice stages: the application's materials, proportions and controls. */
+.precision-studio .studio-guide-stage{grid-template-columns:minmax(240px,.7fr) minmax(0,1.3fr);gap:32px;padding:30px}
+.precision-studio .step-copy h4{font-size:clamp(27px,2.7vw,40px);letter-spacing:-.045em;line-height:1.02;max-width:330px}
+.precision-studio .step-intro{font-size:14px!important;line-height:1.6!important}
+.precision-studio .studio-guide-demo{padding:0;gap:0;background:var(--studio-glass-inset);overflow:hidden;border:1px solid var(--studio-edge);box-shadow:0 10px 35px #17171705}
+.precision-stage-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--studio-edge);font:750 9px var(--studio-ui-font);letter-spacing:.025em}
+.precision-stage-head .panel-label{margin:0}.precision-stage-head>span:last-child{color:var(--studio-text-soft)}
+.precision-viewport-wrap{min-width:0;background:#efede7}.precision-viewport{height:310px;position:relative;overflow:hidden;touch-action:none}.precision-viewport canvas{display:block;width:100%;height:100%;outline-offset:-3px;cursor:grab}.precision-viewport canvas:active{cursor:grabbing}.precision-viewport canvas:focus-visible{outline:2px solid var(--accent)}
+.precision-viewport-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-top:1px solid #17171712;font:700 8px var(--studio-control-font);color:var(--studio-text-soft);min-height:34px}
+.precision-viewport-bar button,.precision-stage-head button{padding:5px 8px;border:1px solid var(--studio-edge);background:var(--paper);color:var(--ink);border-radius:5px;font:800 9px var(--studio-control-font);cursor:pointer;white-space:nowrap}
+.precision-viewport-bar>span{flex:1}.precision-error{padding:25px;font:500 13px/1.5 var(--studio-ui-font)}
+.precision-specs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--studio-edge);border-radius:var(--studio-radius-card);overflow:hidden;margin:22px 0;background:var(--studio-glass-inset)}
+.precision-specs>div{padding:13px 10px;border-right:1px solid var(--studio-edge)}.precision-specs>div:last-child{border:0}.precision-specs span{display:block;font:800 8px var(--studio-control-font);color:var(--studio-text-soft);margin-bottom:8px;letter-spacing:.06em}.precision-specs strong{font:850 23px var(--studio-ui-font);letter-spacing:-.04em}.precision-specs strong small{font-size:9px;letter-spacing:0}
+.precision-open,.precision-reset{font:800 10px var(--studio-control-font);color:var(--ink);text-decoration:none;border:1px solid var(--studio-edge);border-radius:var(--studio-radius-control);padding:11px 13px;background:var(--paper);cursor:pointer;white-space:nowrap}.precision-studio .walkthrough-head{align-items:center}.precision-studio .walkthrough-head p{max-width:640px}.precision-reset{margin-top:15px}
+.precision-actions{padding:18px!important;gap:8px!important;align-items:center}.precision-actions .guide-action-group{padding-bottom:12px!important;margin-bottom:4px}.precision-actions button{min-height:33px;font:800 10px var(--studio-control-font)!important;background:var(--paper)!important;transition:background .16s,color .16s,border-color .16s}.precision-actions button[aria-pressed=true],.precision-tool-switch button[aria-pressed=true]{background:var(--ink)!important;color:var(--paper)!important;border-color:var(--ink)!important}
+.precision-actions button:disabled{opacity:.4!important;cursor:not-allowed!important}.precision-actions button:not(:disabled):hover{border-color:var(--ink)}
+.precision-actions select{border:1px solid var(--studio-edge);border-radius:var(--studio-radius-control);padding:8px;background:var(--paper);color:var(--ink);font:650 10px var(--studio-ui-font);max-width:100%}
+.precision-offsets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%}.precision-offsets label{font:800 8px var(--studio-control-font);letter-spacing:.02em}.precision-offsets label>span{display:grid;grid-template-columns:32px 1fr 32px;align-items:center;border:1px solid var(--studio-edge);border-radius:var(--studio-radius-control);background:var(--paper);margin-top:7px;overflow:hidden}.precision-offsets button{border:0!important;border-radius:0!important}.precision-offsets output{text-align:center;font:750 13px var(--studio-ui-font);font-variant-numeric:tabular-nums}
+.precision-actions .precision-primary{background:var(--ink)!important;color:var(--paper)!important}.precision-actions>.precision-primary{width:100%}.precision-validation{width:100%;padding:10px 0;font:650 11px/1.5 var(--studio-ui-font);color:var(--studio-text-soft);min-height:34px;box-sizing:border-box}.precision-validation.invalid{color:#a6271b}
+.precision-demo .studio-guide-status{border-top:1px solid var(--studio-edge);margin:0;padding:13px 18px;font:500 12px/1.5 var(--studio-ui-font);min-height:60px;box-sizing:border-box;background:var(--studio-glass-inset)}
+.precision-legend{display:flex;flex-wrap:wrap;gap:14px;padding:13px 16px;border-bottom:1px solid var(--studio-edge);font:700 10px var(--studio-ui-font)}.precision-legend i{display:inline-block;width:9px;height:9px;background:var(--accent);margin-right:5px;border-radius:2px}.precision-legend .past{background:#d7d3c9}.precision-legend .support{background:transparent;border:1px solid var(--ink)}
+.precision-layer-count{font:800 9px var(--studio-control-font)}.precision-actions input[type=range]{flex:1;min-width:70px;accent-color:var(--ink)}
+.precision-compare{display:grid;grid-template-columns:1fr 1fr;min-width:0}.precision-compare>div+div{border-left:1px solid var(--studio-edge)}.precision-model-label{display:block;padding:12px;font:800 9px var(--studio-control-font);border-bottom:1px solid var(--studio-edge)}.precision-compare .precision-viewport{height:275px}.precision-compare .precision-viewport-bar{flex-wrap:wrap}.precision-compare .precision-viewport-bar>span{flex-basis:100%;font-size:7px}.precision-compare-note{margin:0;font:500 11px/1.5 var(--studio-ui-font)!important}
+.precision-report{width:100%;font:750 10px var(--studio-control-font)}.precision-report>strong{display:block;padding-bottom:10px;border-bottom:1px solid var(--studio-edge)}.precision-report>div{padding:12px 0;border-bottom:1px solid var(--studio-edge)}.precision-report span{font-size:8px;color:#a6271b;display:block;margin-bottom:6px}.precision-report b{font-size:10px}.precision-report p{font:500 12px/1.5 var(--studio-ui-font)!important;margin:5px 0 0!important;color:var(--studio-text-soft)}
+.precision-repair{width:100%;border:1px solid var(--accent);border-radius:var(--studio-radius-card);padding:12px;background:#ff321c08;box-sizing:border-box}.precision-repair strong{font:850 9px var(--studio-control-font);color:#a6271b}.precision-repair p{font:500 12px/1.5 var(--studio-ui-font)!important;margin:8px 0!important}.precision-repair button{margin-right:6px;margin-top:5px}
+.precision-repair-pulse{animation:precision-repair 450ms ease-in-out 3}@keyframes precision-repair{50%{box-shadow:inset 0 0 0 3px var(--accent)}}
+.precision-tool-switch{display:flex;gap:5px;margin:13px 0 17px}.precision-tool-switch button{border:1px solid var(--studio-edge);border-radius:var(--studio-radius-control);background:var(--paper);padding:9px 12px;font:800 10px var(--studio-control-font);text-transform:uppercase;cursor:pointer}
+body.tutorial-body .precision-hardware .guide-hardware-sim,body.tutorial-body .precision-brick .guide-brick-sim{grid-template-columns:minmax(0,1fr) 60px minmax(0,1.3fr);gap:20px}
+body.tutorial-body .precision-board{max-width:none}.precision-board .guide-sensor-cell{aspect-ratio:2!important;display:flex;flex-direction:column;justify-content:space-between;gap:9px;position:relative;padding:13px!important;border-radius:var(--studio-radius-control)!important;min-height:80px}.precision-board .guide-sensor-cell strong{font-size:24px!important;line-height:1!important}.precision-board .guide-sensor-cell span{font:800 8px var(--studio-control-font)!important}.precision-contacts{position:absolute;right:12px;bottom:12px;display:flex;gap:7px}.precision-contacts i{display:block;width:4px;height:4px;border:1px solid currentColor;border-radius:50%}.precision-stack-strip{display:flex;gap:3px;min-height:10px}.precision-stack-strip i{height:10px;width:18px;background:var(--ink);border-radius:1px;font:800 8px var(--studio-control-font);line-height:10px;color:white;font-style:normal}.precision-stack-strip i.support{background:transparent;border:1px solid currentColor;color:inherit;line-height:8px;box-sizing:border-box}
+.precision-twin-stats{display:flex;gap:16px;padding-top:14px;font:800 9px var(--studio-control-font)}.precision-frame-status{padding:14px 0 0;margin:0;font:600 12px var(--studio-ui-font);min-height:35px}
+body.tutorial-body .precision-brick-grid{grid-template-columns:repeat(4,minmax(0,1fr));max-width:280px;gap:5px}.precision-brick-grid button{aspect-ratio:2!important;border-radius:2px!important;font-size:11px!important;transition:background .12s!important}.precision-brick-grid button:hover{transform:none!important}
+.precision-brick .precision-specs{margin:15px 0 0}.precision-brick .precision-viewport{height:260px}.precision-brick .guide-sim-hint{display:block;margin-top:14px}.precision-brick .guide-lab__head p{max-width:650px}
+.precision-actions :is(button,select,input):focus-visible,.precision-tool-switch button:focus-visible,.precision-reset:focus-visible,.precision-open:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(max-width:1000px){.precision-studio .studio-guide-stage{grid-template-columns:1fr;padding:22px}.precision-studio .step-copy h4{max-width:none}.precision-studio .step-copy .step-tip{display:none}.precision-studio .precision-specs{margin:15px 0}.precision-studio .walkthrough-head{align-items:start}.precision-open{display:none}body.tutorial-body .precision-hardware .guide-hardware-sim,body.tutorial-body .precision-brick .guide-brick-sim{grid-template-columns:1fr}.precision-hardware .guide-sim-transfer,.precision-brick .guide-sim-transfer{padding:8px}.precision-brick-grid{max-width:280px!important;margin:auto}}
+@media(max-width:600px){.precision-studio .studio-guide-stage{padding:14px;gap:20px}.precision-studio .step-copy h4{font-size:29px}.precision-actions{padding:13px!important}.precision-viewport{height:260px}.precision-compare{grid-template-columns:1fr}.precision-compare>div+div{border-left:0;border-top:1px solid var(--studio-edge)}.precision-compare .precision-viewport{height:235px}.precision-specs strong{font-size:21px}.precision-offsets label{font-size:7px}.precision-viewport-bar>span{font-size:7px}.precision-brick .precision-viewport{height:250px}}
+@media(prefers-reduced-motion:reduce){.precision-repair-pulse{animation:none;box-shadow:inset 0 0 0 2px var(--accent)}.precision-actions button,.precision-brick-grid button{transition:none!important}}
+/* Outrank legacy diagram rules loaded after the React demo stylesheet. */
+body.tutorial-body .precision-brick .guide-brick-editor.precision-brick-grid {
+  grid-template-columns:repeat(4,minmax(0,1fr));max-width:280px;margin:24px auto;gap:5px;
+}
+body.tutorial-body .precision-hardware .guide-sensor-grid.precision-board {
+  max-width:none;gap:6px;
+}
+body.tutorial-body .precision-hardware .guide-hardware-sim {align-items:stretch}
+.precision-hardware .precision-viewport {height:390px}
+.precision-studio .step-copy .step-tip {background:transparent;border:1px solid var(--studio-edge);border-left:2px solid var(--accent);padding:16px;gap:14px}
+.precision-studio .step-copy .step-tip p {font:500 13px/1.55 var(--studio-ui-font);margin:0}
+@media(max-width:1000px){.precision-studio .step-copy .step-tip{display:flex}.precision-hardware .precision-viewport{height:310px}}
+body.tutorial-body .precision-brick .guide-brick-sim {align-items:stretch}
+body.tutorial-body :is(.precision-hardware,.precision-brick) .guide-sim-transfer {align-self:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+.precision-board .guide-sensor-cell.is-occupied .precision-stack-strip i.standard {background:var(--paper);color:var(--ink)}
+
+/* Presentation changes the existing card palette without moving its camera or layout. */
+.precision-studio .precision-demo{transition:background .22s,color .22s}
+.precision-studio .precision-presenting{background:#171717;color:#efede7;border-color:#45453f}
+.precision-presenting .precision-viewport-wrap{background:#171717}
+.precision-presenting .precision-stage-head,.precision-presenting .studio-guide-status,.precision-presenting .precision-viewport-bar{border-color:#ffffff25;color:#d4d0c6}
+.precision-presenting .precision-stage-head .panel-label{color:#efede7}
+.precision-presenting .precision-stage-head>span:last-child{color:#bcb8ae}
+.precision-presenting .studio-guide-status{background:transparent}
+.precision-assembly-control{width:100%;min-width:0}
+.precision-assembly-label{display:flex;justify-content:space-between;align-items:center;gap:12px;font:800 9px var(--studio-control-font);margin-bottom:12px}
+.precision-assembly-label label{color:var(--studio-text-soft)}
+.precision-assembly-label output{font:850 16px var(--studio-ui-font);color:var(--ink);font-variant-numeric:tabular-nums;margin-left:8px}
+.precision-actions .precision-assembly-control input[type=range]{appearance:none;-webkit-appearance:none;display:block;width:100%;height:32px;min-width:0;margin:0;background-color:transparent;background-size:100% 5px;background-repeat:no-repeat;background-position:center;border:0;border-radius:0;cursor:pointer}
+.precision-assembly-control input::-webkit-slider-runnable-track{height:5px;background:transparent;border-radius:3px}
+.precision-assembly-control input::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-6.5px;border:3px solid var(--paper);border-radius:50%;background:var(--accent);box-shadow:0 0 0 1px #ff321c80,0 2px 6px #17171720}
+.precision-assembly-control input::-moz-range-track{height:5px;background:transparent}
+.precision-assembly-control input::-moz-range-thumb{width:12px;height:12px;border:3px solid var(--paper);border-radius:50%;background:var(--accent);box-shadow:0 0 0 1px #ff321c80}
+.precision-layer-ticks{display:flex;justify-content:space-between;font:800 9px var(--studio-control-font);color:var(--studio-text-soft);padding:0 3px;margin:1px 0 15px}
+.precision-layer-ticks .is-placed{color:var(--accent)}
+.precision-layer-navigation{display:flex;justify-content:space-between;gap:10px}
+@media(prefers-reduced-motion:reduce){.precision-studio .precision-demo{transition:none}}
+.precision-presenting .precision-actions button:not([aria-pressed=true]){color:var(--ink)!important}

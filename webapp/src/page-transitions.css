@@ -1,0 +1,50 @@
+/* Shared panels move between the builders and Brick Maker. */
+@view-transition { navigation: auto; }
+.studio-topbar { view-transition-name: bil-navigation; }
+.studio-sidebar--tools, .brick-workspace { view-transition-name: bil-workbench; }
+.studio-scene, .brick-preview-panel { view-transition-name: bil-workspace; }
+.studio-sidebar--inspector { view-transition-name: bil-inspector; }
+::view-transition-group(*) {
+  animation-duration: 360ms;
+  animation-timing-function: cubic-bezier(.22,.8,.22,1);
+}
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 240ms; }
+
+@keyframes bil-panel-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+/* Each panel gets its own entrance, starting once it mounts. The header stays put. */
+html.bil-page-enter .studio-workspace > .studio-sidebar,
+html.bil-page-enter .studio-workspace > .studio-scene,
+html.bil-page-enter .brick-main > .brick-panel,
+html.bil-page-enter #root > .tutorial-page > :not(.studio-topbar) {
+  animation: bil-panel-enter 400ms cubic-bezier(.22,.8,.22,1) both;
+}
+html.bil-page-enter .studio-scene,
+html.bil-page-enter .brick-preview-panel { animation-delay: 35ms; }
+html.bil-page-enter .studio-sidebar--inspector { animation-delay: 65ms; }
+html.bil-page-exit #root > .studio-app .studio-workspace,
+html.bil-page-exit #root > .brick-page .brick-main,
+html.bil-page-exit #root > .tutorial-page > :not(.studio-topbar) {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 170ms ease-in, transform 170ms ease-in !important;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  html.bil-page-enter :is(.studio-sidebar,.studio-scene,.brick-panel),
+  html.bil-page-enter #root > .tutorial-page > :not(.studio-topbar) { animation: none !important; }
+  html.bil-page-exit #root > :is(.studio-app,.brick-page,.tutorial-page) > * {
+    opacity: 1 !important; transform: none !important; transition: none !important;
+  }
+}
+/* WebGL engines mount asynchronously; reveal their canvases when they arrive. */
+@keyframes bil-canvas-ready { from { opacity: 0; } to { opacity: 1; } }
+.studio-scene canvas, .brick-preview canvas {
+  animation: bil-canvas-ready 280ms ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .studio-scene canvas, .brick-preview canvas { animation: none !important; }
+}

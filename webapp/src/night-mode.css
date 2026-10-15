@@ -1,0 +1,150 @@
+@import url('./night-neutral-generated.css');
+/* Dark mode changes colors only. All geometry, alpha, blur and lines come from light CSS. */
+:root {color-scheme:light}
+html:root[data-theme="dark"]{
+ color-scheme:dark;--paper:#17181c;--paper-2:#1d1e22;--ink:#efede7;
+ --muted:#b7b6b1;--line:rgba(235,232,224,.12);--line-strong:rgba(235,232,224,.18);
+ --panel:rgba(38,39,44,.82);--panel-strong:rgba(38,39,44,.94);
+ --studio-edge:#45464c;--studio-text-soft:#b7b6b1;--studio-card:#1d1e22;
+ --studio-glass-inset:rgba(38,39,44,.64);--studio-glass-blur:12px;
+ --night-ink-fill:#2f3035;--shadow-soft:0 12px 32px rgba(0,0,0,.08);
+ --shadow-card:0 10px 28px rgba(0,0,0,.10);
+ --return-surface:#2f3035;--return-ink:#efede7;--return-hover:#2f3035;--return-hover-ink:#fff;
+ scrollbar-color:#515258 #1a1b1e;
+}
+.studio-theme-toggle {
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 16;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 91px;
+  height: 35px;
+  padding: 0 10px;
+  border: 1px solid var(--studio-edge);
+  border-radius: 6px;
+  background: var(--studio-card);
+  color: var(--ink);
+  font: 850 9px/1 Inter, Arial, sans-serif;
+  letter-spacing: .055em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+.studio-theme-toggle svg { width: 16px; height: 16px; display: block; flex: 0 0 auto; }
+.studio-theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.studio-theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+:root[data-theme="dark"] .studio-theme-toggle { background: #303137; color: #f0eee8; }
+:root[data-theme="dark"] .studio-theme-toggle:hover { color: #ff5a48; background: #393a40; }
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] #root,
+:root[data-theme="dark"] #app.studio-app { background-color: var(--paper); color: var(--ink); }
+:root[data-theme="dark"] .studio-topbar { border-bottom-color: var(--studio-edge); }
+:root[data-theme="dark"] .studio-primary-nav a.is-current { background: rgba(255,50,28,.11); }
+:root[data-theme="dark"] ::selection { background: #e93222; color: #fff; }
+:root[data-theme="dark"] input:not([type="color"]),
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] select { color-scheme: dark; }
+:root[data-theme="dark"] input:not([type="color"])::placeholder,
+:root[data-theme="dark"] textarea::placeholder { color: #96969a; }
+:root[data-theme="dark"] img, :root[data-theme="dark"] canvas { filter: none!important; }
+
+@media (max-width: 1150px) {
+  .studio-topbar { gap: 9px; }
+  .studio-theme-toggle { min-width: 35px; width: 35px; padding: 0; }
+  .studio-theme-toggle span { display: none; }
+}
+@media (max-width: 860px) {
+  .studio-topbar .studio-theme-toggle { width: 32px; min-width: 32px; height: 32px; margin-left: 0; }
+  .studio-topbar .studio-theme-toggle svg { width: 15px; height: 15px; }
+  .studio-topbar .studio-primary-nav { flex: 0 1 auto; }
+  .studio-app .studio-top-actions .studio-theme-toggle { margin-left: auto; }
+  .studio-topbar .studio-primary-nav a { white-space: nowrap; }
+}
+@media (max-width: 570px) {
+  .studio-topbar .studio-primary-nav { gap: 0; }
+  .studio-topbar .studio-primary-nav a { font-size: 8px; padding: 0 5px; }
+  .studio-topbar .studio-home { min-width: 0; }
+  .studio-topbar .studio-wordmark small { display: none; }
+}
+
+@media (max-width: 570px) {
+  .studio-app .studio-top-actions .top-serial { gap: 4px; }
+  .studio-app .studio-top-actions .top-serial__identity { display: none; }
+  .studio-app .studio-top-actions .top-history { padding-right: 6px; }
+}
+
+/* The extra theme action must never displace the mobile nav or overlap Undo/Redo. */
+@media (max-width: 860px) {
+  #app.studio-app > .studio-topbar {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: 58px 52px;
+    align-content: stretch;
+    align-items: center;
+    gap: 0 8px;
+    flex-wrap: nowrap;
+  }
+  #app.studio-app > .studio-topbar .studio-home {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 135px;
+    min-width: 0;
+    height: 58px;
+    margin: 0;
+  }
+  #app.studio-app > .studio-topbar .studio-primary-nav {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: 58px;
+    margin: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    scrollbar-width: none;
+  }
+  #app.studio-app > .studio-topbar .studio-top-actions {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    min-width: 0;
+    height: 52px;
+    margin: 0;
+    order: 0;
+  }
+}
+html[data-theme="dark"] :is(input,textarea,select){color-scheme:dark}
+html[data-theme="dark"] #studioTools :is(.studio-tools-content,.studio-tools-message){color:var(--ink)}
+html[data-theme="dark"] :is(.stat-card--accent,.guide-workflow.tool-story--accent){color:#fff}
+html[data-theme="dark"] :is(.tool-button.is-active,.secondary-button--primary,.simple-build-apply,.render-mode-button.is-active,.layer-all.is-active,.smooth-profile-button.is-active){color:#fff}
+html[data-theme="dark"] .tool-button.is-active .tool-copy :is(strong,small){color:#fff}
+
+/* Semantic accents stay exact; neutral palette generation must not remap these. */
+html[data-theme="dark"]{--studio-progress:#E93222}
+html[data-theme="dark"] :is(.smooth-loading-track,.capture-progress-track,.assembly-progress-track,.walkthrough-progress__track)>i{background:#E93222}
+html[data-theme="dark"] .twin-range::-webkit-slider-runnable-track{background:linear-gradient(to right,#E93222 0 var(--range-progress),rgba(237,235,229,.18) var(--range-progress) 100%)}
+html[data-theme="dark"] .twin-range::-moz-range-track{background:linear-gradient(to right,#E93222 0 var(--range-progress),rgba(237,235,229,.18) var(--range-progress) 100%)}
+html[data-theme="dark"] #studioTools .studio-assembly-map .assembly-grid-coordinate{fill:#f6f5f1}
+/* The guide uses the same readable action treatment as the builder controls. */
+html[data-theme="dark"] .tutorial-page :is(.hwg-jump-nav a,.hwg-supply-row a,.tutorial-secondary,.precision-actions button,.precision-reset):hover:not(:disabled){background:var(--night-ink-fill);color:#fff;border-color:var(--night-ink-fill)}
+html[data-theme="dark"] .tutorial-page .hwg-jump-nav a:hover span{color:#fff}
+html[data-theme="dark"] .tutorial-page :is(.step-tab.is-active,.hwg-bom-switch button.is-active,.hwg-assembly-interactive__steps button.is-active){color:#fff}
+
+html[data-theme="dark"] .tutorial-page :is(.precision-actions,.precision-tool-switch) button[aria-pressed=true]{background:var(--night-ink-fill)!important;color:#fff!important;border-color:var(--ink)!important}
+html[data-theme="dark"] .tutorial-page .precision-actions button:not(:disabled):hover{background:var(--night-ink-fill)!important;color:#fff!important;border-color:var(--night-ink-fill)!important}
+html[data-theme="dark"] .tutorial-page input[type=range]{accent-color:#E93222}
+html[data-theme="dark"] .tutorial-page :is(.precision-assembly-control,.digital-walk-layer) input::-webkit-slider-thumb{background:#E93222}
+html[data-theme="dark"] .tutorial-page :is(.precision-assembly-control,.digital-walk-layer) input::-moz-range-thumb{background:#E93222}
+html[data-theme="dark"] .tutorial-page .tutorial-primary{color:#efede7!important}
+
+html:root[data-theme="dark"]{--guide-hover-bg:#2f3035;--guide-active-hover-bg:#414248}
+html[data-theme="dark"] body.tutorial-body .concept-node--physical{background:var(--studio-glass-inset);border:1px solid var(--studio-edge);color:var(--ink)}
+html[data-theme="dark"] body.tutorial-body .concept-node--physical>span{color:#E93222;opacity:1}
+html[data-theme="dark"] body.tutorial-body .concept-node--physical small{color:var(--studio-text-soft);opacity:1}
+html[data-theme="dark"] body.tutorial-body .concept-node--physical .voxel-stack i{background:rgba(233,50,34,.22);border:1px solid rgba(255,126,106,.8)}
+html:root[data-theme="dark"]{--bom-selected-bg:#42434a;--bom-selected-hover:#4c4d54;--bom-idle-hover:rgba(239,237,231,.07)}

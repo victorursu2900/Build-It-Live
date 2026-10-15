@@ -1,0 +1,151 @@
+/* STUDIO V43 / ONE genuine frosted dropdown treatment for serial speed and
+   simulator resistance. Open menus portal to document.body to avoid the
+   backdrop-filter isolation of the top bar and Hardware Mode dialog. */
+#app.studio-app .glass-select {
+  position: relative;
+  min-width: 0;
+}
+#app.studio-app .studio-top-actions .glass-select--baud {
+  width: 90px;
+  flex: 0 0 90px;
+  align-self: center;
+}
+#app.studio-app .hardware-simulation__controls .glass-select--profile { width: 100%; margin-bottom: 9px; }
+#app.studio-app .glass-select__native,
+#app.studio-app #hardwareSimProfile {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+#app.studio-app .glass-select__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 11px;
+  border: 1px solid rgba(18,18,18,.16);
+  border-radius: 6px;
+  background: rgba(247,246,241,.64);
+  backdrop-filter: blur(var(--studio-glass-blur));
+  -webkit-backdrop-filter: blur(var(--studio-glass-blur));
+  color: #151515;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--studio-control-font,inherit);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+#app.studio-app .studio-top-actions .glass-select--baud .glass-select__trigger { height: 32px; min-height: 32px; font-size: 10px; }
+#app.studio-app .hardware-simulation__controls .glass-select--profile .glass-select__trigger { height: 36px; min-height: 36px; }
+#app.studio-app .glass-select__trigger:hover:not(:disabled),
+#app.studio-app .glass-select.is-open .glass-select__trigger { border-color: rgba(15,15,15,.5); background: rgba(247,246,241,.74); }
+#app.studio-app .glass-select__trigger:focus-visible { outline: 2px solid #171717; outline-offset: 2px; }
+#app.studio-app .glass-select__trigger:disabled { opacity: .45; cursor: default; }
+#app.studio-app .glass-select__value { overflow: hidden; text-overflow: ellipsis; }
+#app.studio-app .glass-select__trigger svg { width: 13px; height: 13px; flex: 0 0 13px; stroke: currentColor; stroke-width: 1.9; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 210ms cubic-bezier(.2,.8,.2,1); }
+#app.studio-app .glass-select.is-open svg { transform: rotate(180deg); }
+/* Detached from the topbar's backdrop root. True backdrop blur remains visible. */
+body > .glass-select__menu {
+  z-index: 12000;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(17,17,17,.18);
+  background-color: rgba(247,246,241,.64);
+  backdrop-filter: blur(var(--studio-glass-blur));
+  -webkit-backdrop-filter: blur(var(--studio-glass-blur));
+  box-shadow: 0 14px 36px rgba(16,16,16,.14);
+  color: #151515;
+  animation: studio-glass-select-appear 175ms cubic-bezier(.2,.85,.2,1) both;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(17,17,17,.25) transparent;
+}
+body > .glass-select__menu .glass-select__caption { margin: 3px 8px 8px; color: #77736f; font-family: var(--studio-control-font,Arial,sans-serif); font-size: 9px; font-weight: 900; letter-spacing: .09em; }
+body > .glass-select__menu .glass-select__option {
+  display: flex; align-items: center; justify-content: space-between; gap: 9px;
+  width: 100%; height: 34px; min-height: 34px; padding: 0 10px;
+  border-radius: 6px; border: none; background: transparent;
+  color: #161616; cursor: pointer;
+  text-align: left; font-family: var(--studio-control-font,Arial,sans-serif);
+  font-size: 11px; font-weight: 900; letter-spacing: .015em;
+  transition: color 170ms ease, background-color 170ms ease;
+}
+body > .glass-select__menu .glass-select__option:hover:not(:disabled),
+body > .glass-select__menu .glass-select__option:focus-visible { outline: none; background: #171717; color: #fff; }
+body > .glass-select__menu .glass-select__option.is-selected { background: rgba(16,16,16,.075); }
+body > .glass-select__menu .glass-select__option.is-selected:hover,
+body > .glass-select__menu .glass-select__option.is-selected:focus-visible { background: #171717; color: #fff; }
+body > .glass-select__menu .glass-select__option:disabled { opacity: .38; cursor: not-allowed; }
+body > .glass-select__menu .glass-select__selected-mark { color: #ed3626; font-size: 9px; }
+@keyframes studio-glass-select-appear { from { opacity: 0; transform: translateY(-5px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+/* Simulator: no unnecessary modal or inner-grid scrollbar at normal desktop
+   heights, even with a configured 8 x 8 physical board. On phones and short
+   windows normal scrolling remains available so nothing gets cut off. */
+@media (min-width: 721px) and (min-height: 720px) {
+  #app.studio-app .hardware-setup-modal:has(#hardwareSimulationPanel:not([hidden])) .hardware-setup-modal__panel {
+    width: min(790px, calc(100vw - 40px));
+  }
+  #app.studio-app .hardware-setup-modal:has(#hardwareSimulationPanel:not([hidden])) .hardware-setup-modal__scroll {
+    padding-block: 0;
+  }
+  #app.studio-app .hardware-setup-modal:has(#hardwareSimulationPanel:not([hidden])) .hardware-setup-modal__header { margin-bottom: 5px; }
+  #app.studio-app .hardware-setup-modal:has(#hardwareSimulationPanel:not([hidden])) .hardware-setup-modal__intro { margin-bottom: 10px; }
+  #app.studio-app .hardware-setup-modal:has(#hardwareSimulationPanel:not([hidden])) .hardware-mode-tabs { margin-bottom: 10px; }
+  #app.studio-app .hardware-setup-modal:has(#hardwareSimulationPanel:not([hidden])) .hardware-simulation { padding: 11px 13px; }
+  #app.studio-app .hardware-setup-modal:has(#hardwareSimulationPanel:not([hidden])) .hardware-simulation > p { margin: 5px 0 10px; font-size: 10px; line-height: 1.4; }
+  #app.studio-app .hardware-setup-modal:has(#hardwareSimulationPanel:not([hidden])) .hardware-simulation__body { gap: 12px; }
+}
+#app.studio-app .hardware-simulation__body .hardware-sim-cells {
+  width: min(100%, 265px);
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  aspect-ratio: 1;
+  margin-inline: auto;
+  padding: 8px;
+  gap: 4px;
+  grid-template-columns: repeat(var(--board-width,4), minmax(0,1fr));
+  grid-auto-rows: minmax(0,1fr);
+  overflow: visible;
+}
+#app.studio-app .hardware-simulation__body .hardware-sim-cells button {
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  padding: 0;
+  font-size: clamp(8px, 1vw, 11px);
+}
+#app.studio-app .hardware-simulation__body .hardware-simulation__controls { padding: 11px; }
+#app.studio-app .hardware-simulation__controls .hardware-simulation__label { margin-bottom: 5px; }
+#app.studio-app .hardware-simulation__controls #hardwareSimResistance { min-height: 36px; height: 36px; margin-bottom: 10px; }
+#app.studio-app .hardware-simulation__actions button,
+#app.studio-app .hardware-simulation__clear { min-height: 34px; }
+#app.studio-app .hardware-simulation__clear { margin-top: 6px; }
+#app.studio-app .hardware-simulation__controls #hardwareSimFeedback { margin-top: 8px; padding-top: 8px; }
+@media (max-width: 720px), (max-height: 719px) {
+  #app.studio-app .hardware-simulation__body .hardware-sim-cells { width: min(100%, 270px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body > .glass-select__menu { animation: none; }
+  #app.studio-app .glass-select__trigger svg { transition: none; }
+}
+/* Preserve V42's narrow-screen ESP32 header: the baud selector is hidden when
+   the available top-bar width is reserved for connection/session actions. */
+@media (max-width: 620px) {
+  #app.studio-app .studio-top-actions .top-serial .glass-select--baud { display: none; }
+}

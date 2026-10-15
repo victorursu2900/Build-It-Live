@@ -1,0 +1,80 @@
+@import './theme-tokens.css';
+/* One radius hierarchy across builders, Brick Maker and Guide. Circles stay circular. */
+:is(.studio-app,.brick-page,.tutorial-page) :is(.secondary-button,.feature-button,.glass-select__trigger,.render-mode-button,.format-action,.hardware-tool-primary,.hardware-log-export,.studio-canvas-toggle){border-radius:var(--studio-radius-control)!important}
+:is(.studio-app,.brick-page,.tutorial-page) :is(.tool-button,.stat-card,.feedback-card,.hardware-tool-panel,.format-card,.recent-item,.guide-workflow,.tutorial-detail-card,.brick-stat,.studio-build-preview,.assembly-layer,.simple-build-mirror){border-radius:var(--studio-radius-card)!important}
+:is(.save-modal__panel,.load-modal__panel,.recent-modal__panel,.studio-tools){border-radius:var(--studio-radius-dialog)!important}
+:is(.grid-settings-popover,.block-color-popover,.custom-color-popover,.glass-select__menu){border-radius:var(--studio-radius-menu)!important}
+#app.studio-app #studioTools h2{letter-spacing:var(--tools-title-tracking,-.06em)!important}
+#app.studio-app dialog#studioTools.has-build-preview{width:min(980px,calc(100vw - 36px))}
+#studioTools .simple-select-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+#app.studio-app #studioTools .simple-select-actions button{padding:8px 6px;font-size:9px;min-width:0}
+#app.studio-app #studioTools :is([data-action=single],[data-action=multiple])[aria-pressed=true]{background:var(--ink);color:white}
+#app.studio-app #studioTools .simple-build-stepper button{border-radius:0!important}
+@media(min-width:701px){#studioTools .studio-build-workspace{align-items:stretch}#studioTools .studio-build-preview{position:relative;align-self:stretch;display:flex;flex-direction:column;min-height:0}#studioTools.has-build-preview #buildPreview{flex:1 1 0;height:0!important;min-height:220px}#studioTools .studio-build-preview-head{flex:0 0 auto}#studioTools .studio-build-preview>p{flex:0 0 auto}}
+.layer-repair-notice{display:grid;gap:7px;padding:10px;margin-top:10px;background:rgba(255,50,28,.055);border:1px solid rgba(255,50,28,.25);border-radius:var(--studio-radius-card);font:550 10px/1.45 var(--studio-ui-font);color:#ad3825}
+.layer-repair-notice[hidden]{display:none!important}.layer-repair-notice strong{font:900 9px var(--studio-control-font)}.layer-repair-notice .feature-button{min-height:30px;font-size:8px}
+.warning-highlight-bar{position:absolute;z-index:30;left:50%;bottom:54px;transform:translateX(-50%);display:flex;gap:12px;align-items:center;max-width:calc(100% - 32px);box-sizing:border-box;padding:10px 12px;background:var(--studio-glass-inset);border:1px solid var(--studio-edge);border-radius:var(--studio-radius-card);backdrop-filter:blur(var(--studio-glass-blur));font:800 9px var(--studio-control-font)}
+.warning-highlight-bar[hidden]{display:none!important}.warning-highlight-bar button{padding:8px 10px;white-space:nowrap;border:1px solid var(--studio-edge);border-radius:var(--studio-radius-control);background:var(--ink);color:white;font:900 9px var(--studio-control-font);cursor:pointer}
+@media(max-width:700px){.warning-highlight-bar{top:62px;bottom:auto;max-width:calc(100% - 20px);gap:7px}.warning-highlight-bar span{font-size:8px}.warning-highlight-bar button{font-size:8px;padding:7px}#studioTools .simple-select-actions button{font-size:8px!important}}
+@media(min-width:701px){#app.studio-app #studioTools .studio-build-workspace{align-items:stretch}#app.studio-app #studioTools .studio-build-preview{position:relative;align-self:stretch;display:flex;flex-direction:column;min-height:0}}
+#app.studio-app dialog#studioTools.has-build-preview{width:min(980px,calc(100vw - 36px))!important}
+:is(.brick-page,.tutorial-page) :is(.brick-panel,.brick-grid-frame,.brick-preview,.glass-card,.concept-node,.step-tip,.tutorial-callout,.walkthrough-progress){border-radius:var(--studio-radius-card)!important}
+:is(.brick-page,.tutorial-page) :is(.brick-secondary,.brick-link-button,.step-tab){border-radius:var(--studio-radius-control)!important}
+
+.studio-app .export-model-view{border-radius:var(--studio-radius-card)!important}
+.studio-app .workspace-layer-edit{width:auto;min-height:30px;padding:7px 10px;font:900 9px var(--studio-control-font);cursor:pointer;background:var(--studio-glass-inset);border:1px solid var(--studio-edge);-webkit-backdrop-filter:blur(var(--studio-glass-blur));backdrop-filter:blur(var(--studio-glass-blur))}
+.studio-app .workspace-layer-edit[aria-pressed=true]{background:rgba(255,50,28,.72);background:color-mix(in srgb,var(--accent) 72%,transparent);color:white;border-color:var(--accent)}
+.studio-app .workspace-layer-edit[hidden]{display:none!important}
+@media(max-width:700px){.studio-app .workspace-layer-edit{font-size:8px;padding:6px}.studio-app .canvas-utilities:has(.workspace-layer-edit:not([hidden])) .canvas-view-label{display:none}}
+
+.workspace-layer-controls{position:absolute;top:72px;right:18px;z-index:35;width:min(285px,calc(100% - 32px));display:flex;align-items:flex-end;flex-direction:column;gap:9px;pointer-events:none}
+.workspace-layer-controls>*{pointer-events:auto}.workspace-layer-controls .layer-repair-notice{margin:0;background:var(--studio-glass-inset);backdrop-filter:blur(var(--studio-glass-blur));font-size:11px;box-shadow:0 4px 18px #00000008}
+.repair-attention{animation:repairAttention .38s ease-in-out 5}
+@keyframes repairAttention{50%{border-color:var(--accent);background:rgba(255,50,28,.18);transform:translateX(-3px)}}
+@media(prefers-reduced-motion:reduce){.repair-attention{animation:none;border:2px solid var(--accent)}}
+@media(max-width:700px){.workspace-layer-controls{top:62px;right:10px;width:min(255px,calc(100% - 20px))}}
+@media(min-width:861px){#app.studio-app .workspace-layer-controls{right:calc(var(--scene-right-inset,0px) + 18px);max-width:calc(100% - var(--scene-left-inset,0px) - var(--scene-right-inset,0px) - 32px)}}
+/* Final shared control pass: retain each panel's existing spacing. */
+:is(.studio-app,.brick-page,.tutorial-page) :is(button,a,input,select,[role=button]):focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+#app.studio-app #studioTools :is(#previewA,#previewB){border-radius:var(--studio-radius-card);border:1px solid var(--studio-edge);box-sizing:border-box}
+#app.studio-app #studioTools input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px;vertical-align:middle;cursor:pointer}
+#app.studio-app #studioTools .studio-row button{min-height:34px;font-family:var(--studio-control-font)}
+#app.studio-app .presentation-toolbar{border-radius:var(--studio-radius-menu)}
+.tutorial-page .studio-guide-actions button{min-height:32px;border-radius:var(--studio-radius-control)}
+.tutorial-page .studio-guide-demo{border-radius:var(--studio-radius-card)}
+@media(max-width:700px){.tutorial-page .studio-guide-actions button{min-height:40px}#app.studio-app #studioTools nav button{min-height:40px}}
+
+#app.studio-app .smooth-outline-toggle{min-height:32px;padding:7px 6px;font:850 9px var(--studio-control-font);background:var(--studio-glass-inset);border:1px solid var(--studio-edge);cursor:pointer}
+#app.studio-app .smooth-outline-toggle[aria-pressed=true]{background:var(--ink);color:white}
+#app.studio-app .smooth-outline-toggle{width:100%}.smooth-preview-help{display:block;font:500 10px/1.4 var(--studio-ui-font);color:var(--studio-text-soft);margin:7px 0}
+#app.studio-app .realtime-smoothing.is-revealed{max-height:380px}
+#app.studio-app .smooth-outline-toggle[aria-pressed=true]{background:var(--ink)!important;color:white!important}
+#app.studio-app .realtime-smoothing__meta{font-size:10px;line-height:1.3}
+
+#app.studio-app .smooth-outline-toggle{margin-top:9px}
+
+/* Opaque Back / close / return controls, retaining V114 glass elsewhere. */
+:is(.modal-close,.grid-settings-close,.custom-color-close,.rail-collapse,.model-size-toggle,
+  #closeHardwareSetup,#prevStep,.tutorial-footer a[href="#top"]) {
+  background: rgb(234,232,225) !important;
+  opacity: 1 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.presentation-actions [data-present="exit"] {
+  background: var(--ink,#171717) !important;
+  opacity: 1 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Opaque navigation controls retain the original black hover treatment. */
+@media (hover:hover) and (pointer:fine) {
+  :is(.modal-close,.grid-settings-close,.custom-color-close,.rail-collapse,.model-size-toggle,
+      #closeHardwareSetup,#prevStep,.tutorial-footer a[href="#top"]):not(:disabled):hover,
+  .presentation-actions [data-present="exit"]:not(:disabled):hover {
+    background:var(--ink,#171717)!important;
+    color:#fff!important;
+    border-color:var(--ink,#171717)!important;
+  }
+}

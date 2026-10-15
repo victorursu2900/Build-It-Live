@@ -1,0 +1,133 @@
+/* Studio V44 / physical build field guide — editorial system, shared with Studio V43 */
+.hardware-guide { display:grid; gap:18px; scroll-margin-top:26px; }
+.hardware-guide * { box-sizing:border-box; }
+.hardware-guide a { color:inherit; }
+.hwg-hero { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(275px,.55fr); overflow:hidden; }
+.hwg-hero-main { padding:clamp(25px,3.6vw,48px); display:flex; flex-direction:column; justify-content:center; gap:0; }
+.hwg-hero-main h2 { margin:15px 0 19px; font-size:clamp(48px,6.3vw,98px); font-weight:900; line-height:.88; letter-spacing:-.075em; max-width:900px; }
+.hwg-hero-main h2 i, .hwg-section-heading h3 i { color:var(--accent); }
+.hwg-hero-main p { font-size:clamp(15px,1.25vw,19px); font-weight:600; line-height:1.48; max-width:620px; color:var(--ink); }
+.hwg-hero-meta { margin-top:34px; border-top:1px solid rgba(0,0,0,.2); display:flex; gap:20px; justify-content:space-between; padding-top:13px; font-size:10px; line-height:1.5; letter-spacing:.1em; font-weight:900; }
+.hwg-hero-side { background:var(--ink); color:var(--paper); padding:26px 25px; display:flex; flex-direction:column; justify-content:center; gap:9px; }
+.hwg-hero-side-label { margin-bottom:22px; font-size:10px; letter-spacing:.12em; font-weight:900; opacity:.64; }
+.hwg-flow-node { border:1px solid rgba(255,255,255,.28); padding:15px 13px; display:flex; justify-content:space-between; align-items:center; font-size:12px; letter-spacing:.055em; font-weight:900; gap:12px; border-radius:8px; }
+.hwg-flow-node b { color:var(--accent); padding-right:12px; }
+.hwg-flow-node span { color:var(--accent); }
+.hwg-flow-node:last-child { border-color:var(--accent); }
+.hwg-jump-nav { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:9px; }
+.hwg-jump-nav a { min-width:0; border-radius:10px; display:flex; align-items:center; gap:9px; background:rgba(247,246,241,.72); border:1px solid rgba(0,0,0,.13); text-decoration:none; padding:14px 12px; font-weight:900; letter-spacing:.07em; font-size:10px; transition:background .2s ease,transform .2s ease,border-color .2s ease,color .2s ease; backdrop-filter:blur(12px); }
+.hwg-jump-nav a span { color:var(--muted); font-size:10px; }
+.hwg-jump-nav a b { margin-left:auto; font-size:13px; }
+.hwg-jump-nav a:hover,.hwg-jump-nav a:focus-visible { background:var(--ink); color:var(--paper); border-color:var(--ink); transform:translateY(-2px); }
+.hwg-jump-nav a:hover span { color:var(--paper); }
+.hwg-compatibility { border:1px solid rgba(0,0,0,.21); border-left:4px solid var(--accent); background:rgba(247,246,241,.8); border-radius:9px; padding:18px 20px; display:flex; gap:14px; align-items:flex-start; backdrop-filter:blur(12px); }
+.hwg-compatibility p { margin:0; max-width:1170px; font-size:12px; line-height:1.58; color:var(--muted); }
+.hwg-compatibility p strong { color:var(--ink); letter-spacing:.025em; }
+.hwg-alert-dot { width:10px; height:10px; background:var(--accent); border-radius:50%; flex:none; margin-top:5px; }
+.hwg-chapter { padding:clamp(22px,3vw,42px); scroll-margin-top:18px; }
+.hwg-section-heading { display:flex; align-items:flex-start; gap:24px; border-bottom:1px solid rgba(0,0,0,.16); padding-bottom:21px; margin-bottom:21px; }
+.hwg-index { font-size:clamp(46px,5vw,76px); font-weight:900; line-height:.88; letter-spacing:-.065em; color:var(--accent); min-width:90px; }
+.hwg-section-heading h3 { margin:9px 0 0; font-size:clamp(30px,4vw,60px); line-height:.94; letter-spacing:-.068em; font-weight:900; }
+.hwg-chapter-lead { margin:0 0 25px; max-width:840px; color:var(--muted); font-size:14px; line-height:1.56; }
+.hwg-bom-layout { display:grid; grid-template-columns:minmax(290px,.77fr) minmax(0,1.23fr); align-items:start; gap:15px; }
+.hwg-bom-common, .hwg-bom-options, .hwg-spec-panel, .hwg-wiring-card, .hwg-troubleshoot { background:rgba(247,246,241,.60); border:1px solid rgba(0,0,0,.12); border-radius:11px; padding:19px; backdrop-filter:blur(12px); }
+.hwg-subheading { display:flex; align-items:center; gap:12px; justify-content:space-between; margin-bottom:15px; padding-bottom:12px; border-bottom:1px solid rgba(0,0,0,.14); }
+.hwg-subheading span { font-weight:900; letter-spacing:.07em; font-size:12px; }
+.hwg-subheading b { color:var(--muted); font-size:9px; font-weight:900; letter-spacing:.08em; text-align:right; }
+.hwg-supply-table { display:grid; }
+.hwg-supply-row { display:grid; grid-template-columns:48px minmax(0,1fr) auto; align-items:center; gap:9px; padding:13px 0; border-bottom:1px solid rgba(0,0,0,.095); min-width:0; }
+.hwg-supply-row:last-child { border-bottom:none; }
+.hwg-supply-count { font-size:12px; font-weight:900; font-variant-numeric:tabular-nums; letter-spacing:-.015em; }
+.hwg-supply-description { min-width:0; display:grid; gap:4px; }
+.hwg-supply-description strong { font-size:12px; line-height:1.35; font-weight:800; }
+.hwg-supply-description small { font-size:11px; color:var(--muted); line-height:1.36; }
+.hwg-supply-row a { font-size:9px; font-weight:900; text-decoration:none; padding:8px; border-radius:5px; border:1px solid rgba(0,0,0,.2); transition:background .18s,color .18s; white-space:nowrap; }
+.hwg-supply-row a:hover,.hwg-supply-row a:focus-visible { background:var(--ink); color:var(--paper); }
+.hwg-supply-nolink { color:var(--muted); font-size:12px; margin:0 7px; }
+.hwg-bom-note { padding-top:18px; margin-top:11px; font-size:11px; color:var(--muted); line-height:1.5; }
+.hwg-bom-switch { border:1px solid rgba(0,0,0,.14); background:rgba(0,0,0,.055); padding:4px; display:grid; grid-template-columns:1fr 1fr; gap:4px; border-radius:9px; }
+.hwg-bom-switch button { border:0; min-height:39px; background:transparent; border-radius:6px; font-size:11px; font-weight:900; letter-spacing:.06em; color:var(--ink); cursor:pointer; transition:background .25s,color .25s,transform .25s; }
+.hwg-bom-switch button.is-active { color:var(--paper); background:var(--ink); }
+.hwg-bom-switch button:not(.is-active):hover { background:rgba(0,0,0,.1); }
+.hwg-option-title { display:flex; flex-wrap:wrap; gap:18px; align-items:flex-start; justify-content:space-between; border-bottom:1px solid rgba(0,0,0,.18); padding:17px 0 13px; }
+.hwg-option-title>div { display:flex; flex-direction:column; gap:5px; }
+.hwg-option-title span { font-size:9px; font-weight:900; color:var(--muted); letter-spacing:.08em; }
+.hwg-option-title strong { font-size:clamp(20px,2.2vw,31px); line-height:1; letter-spacing:-.06em; font-weight:900; }
+.hwg-option-title small { font-size:10px; font-weight:900; color:var(--muted); }
+.hwg-resistance-sources { display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin-top:15px; font-size:10px; font-weight:900; }
+.hwg-resistance-sources span { color:var(--muted); margin-right:auto; }
+.hwg-resistance-sources a { text-decoration:none; border-bottom:1px solid currentColor; }
+.hwg-two-column { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr); gap:20px; }
+.hwg-howto-step { display:grid; grid-template-columns:50px minmax(0,1fr); gap:13px; border-top:1px solid rgba(0,0,0,.15); padding:17px 0 20px; }
+.hwg-howto-step:first-child { border-top:0; padding-top:0; }
+.hwg-step-number { font-size:23px; font-weight:900; color:var(--accent); letter-spacing:-.08em; line-height:1.2; }
+.hwg-howto-step h4 { margin:0 0 7px; font-size:16px; line-height:1.3; letter-spacing:-.03em; font-weight:900; }
+.hwg-step-body { font-size:13px; color:var(--muted); line-height:1.56; }
+.hwg-step-body p { margin:0; }
+.hwg-step-body strong { color:var(--ink); }
+.hwg-step-body a { font-weight:900; color:var(--accent); text-underline-offset:3px; }
+.hwg-step-body code { background:rgba(0,0,0,.07); padding:2px 5px; border-radius:4px; }
+.hwg-spec-label { font-size:10px; letter-spacing:.09em; font-weight:900; }
+.hwg-spec-number { font-size:clamp(37px,4vw,59px); line-height:.98; font-weight:900; letter-spacing:-.075em; margin-top:24px; }
+.hwg-spec-number small { font-size:15px; letter-spacing:0; }
+.hwg-spec-panel>p { font-size:12px; font-weight:700; color:var(--muted); margin:7px 0 0; }
+.hwg-note { border-left:3px solid var(--accent); background:rgba(0,0,0,.045); padding:15px; font-size:11px; line-height:1.5; margin-top:24px; }
+.hwg-note strong { color:var(--ink); }
+/* Chapter 13 / interior assembly layout */
+.hwg-assembly-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; align-items:start; }
+.hwg-assembly-visuals { display:grid; gap:12px; min-width:0; }
+.hwg-component-diagram { margin:0; min-width:0; border-radius:11px; border:1px solid rgba(0,0,0,.15); padding:13px; display:flex; flex-direction:column; gap:11px; overflow:hidden; }
+.hwg-image-kicker { display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:9px; font-weight:900; letter-spacing:.09em; }
+.hwg-diagram-caption { font-size:9px; letter-spacing:.07em; font-weight:900; line-height:1.45; }
+.hwg-component-diagram { background:rgba(0,0,0,.055); }
+.hwg-component-diagram .hwg-image-kicker span:last-child { color:var(--muted); }
+.hwg-block-svg { width:100%; height:auto; display:block; overflow:visible; }
+.hwg-diagram-caption { color:var(--muted); }
+.hwg-component-key { display:flex; flex-wrap:wrap; gap:10px 17px; padding:3px 1px 6px; }
+.hwg-component-key span { display:inline-flex; align-items:center; gap:6px; font-size:9px; font-weight:900; letter-spacing:.04em; white-space:nowrap; }
+.hwg-component-key i { width:10px; height:10px; border:1px solid #494949; border-radius:2px; }
+.hwg-component-key .hwg-key-magnet { background:#d4d4ce; }
+.hwg-component-key .hwg-key-screw { background:#bd8f32; }
+.hwg-component-key .hwg-key-resistor { background:#1191bd; }
+.hwg-assembly-reminder { margin-top:12px; background:var(--ink); color:var(--paper); padding:17px; border-radius:9px; }
+.hwg-assembly-reminder span { color:var(--accent); font-size:9px; letter-spacing:.08em; font-weight:900; }
+.hwg-assembly-reminder p { font-size:12px; line-height:1.5; margin:8px 0 0; }
+.hwg-assembly-steps .hwg-howto-step { padding-bottom:15px; padding-top:13px; }
+.hwg-assembly-steps .hwg-howto-step:first-child { padding-top:0; }
+.hwg-safety-note { margin:25px 0 0; padding-top:14px; border-top:1px solid rgba(0,0,0,.16); font-size:11px; line-height:1.55; color:var(--muted); }
+.hwg-wiring-layout { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px; }
+.hwg-pin-list { display:grid; }
+.hwg-pin-list>div { display:grid; grid-template-columns:65px minmax(16px,1fr) 85px; gap:12px; padding:13px 0; border-bottom:1px solid rgba(0,0,0,.11); font-size:13px; }
+.hwg-pin-list span { font-weight:900; color:var(--muted); }
+.hwg-pin-list i { align-self:center; height:1px; border-top:1px dotted rgba(0,0,0,.4); }
+.hwg-pin-list strong { text-align:right; font-weight:900; }
+.hwg-wiring-card p { font-size:12px; color:var(--muted); line-height:1.6; margin:20px 0 0; }
+.hwg-connection-strip { margin-top:16px; background:var(--ink); color:var(--paper); border-radius:9px; padding:19px; display:flex; gap:10px; flex-wrap:wrap; justify-content:space-between; align-items:center; }
+.hwg-connection-strip span { font-size:10px; font-weight:900; letter-spacing:.07em; }
+.hwg-connection-strip b { color:var(--accent); font-size:18px; }
+.hwg-wiring-note { margin-top:17px; }
+.hwg-troubleshoot { align-self:start; }
+.hwg-troubleshoot>div:not(.hwg-subheading) { padding:13px 0; border-bottom:1px solid rgba(0,0,0,.12); }
+.hwg-troubleshoot>div:last-child { border-bottom:0; }
+.hwg-troubleshoot>div strong { font-size:12px; font-weight:900; }
+.hwg-troubleshoot>div p { margin:6px 0 0; line-height:1.58; font-size:12px; color:var(--muted); }
+.hwg-firmware-limit { border-left:3px solid var(--accent); padding-left:12px !important; }
+.hwg-connect-steps { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+.hwg-connect-steps .hwg-howto-step { grid-template-columns:40px minmax(0,1fr); }
+.hwg-cta { background:var(--ink); color:var(--paper); border-radius:10px; padding:24px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:20px; margin-top:15px; }
+.hwg-cta>div { display:grid; gap:8px; }
+.hwg-cta>div span { font-size:10px; font-weight:900; color:#c9c9c9; letter-spacing:.085em; }
+.hwg-cta>div strong { font-size:clamp(19px,2.4vw,34px); font-weight:900; line-height:1; letter-spacing:-.05em; }
+.hwg-cta a { display:inline-flex; align-items:center; justify-content:center; gap:20px; padding:15px 21px; border-radius:8px; background:var(--accent); color:var(--paper); border:1px solid var(--accent); font-size:11px; font-weight:900; letter-spacing:.06em; text-decoration:none; transition:background .2s,color .2s; }
+.hwg-cta a:hover,.hwg-cta a:focus-visible { background:var(--paper); color:var(--accent); }
+@media(max-width:1100px) { .hwg-hero { grid-template-columns:1.35fr .65fr; } .hwg-hero-side { padding:18px; } .hwg-jump-nav { grid-template-columns:repeat(3,minmax(0,1fr)); } .hwg-bom-layout { grid-template-columns:1fr 1.25fr; } .hwg-connect-steps { grid-template-columns:1fr; gap:0; } }
+@media(max-width:800px) { .hwg-hero { grid-template-columns:1fr; } .hwg-hero-side { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); padding:20px; gap:9px; } .hwg-hero-side-label { grid-column:1/-1; margin:0 0 6px; } .hwg-bom-layout,.hwg-two-column,.hwg-assembly-grid,.hwg-wiring-layout { grid-template-columns:1fr; } .hwg-connect-steps { grid-template-columns:1fr; } }
+@media(max-width:560px) { .hardware-guide { gap:12px; } .hwg-hero-main { padding:24px; } .hwg-hero-main h2 { font-size:clamp(43px,12vw,63px); } .hwg-hero-meta { flex-direction:column; gap:4px; } .hwg-hero-side { grid-template-columns:1fr 1fr; } .hwg-flow-node { flex-wrap:wrap; font-size:10px; padding:10px; } .hwg-jump-nav { grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; } .hwg-jump-nav a { padding:12px 9px; } .hwg-chapter { padding:19px; } .hwg-index { min-width:45px; font-size:45px; } .hwg-section-heading { gap:13px; } .hwg-section-heading h3 { font-size:clamp(29px,9vw,44px); } .hwg-bom-common,.hwg-bom-options,.hwg-wiring-card,.hwg-spec-panel,.hwg-troubleshoot { padding:13px; } .hwg-supply-row { grid-template-columns:38px minmax(0,1fr) auto; gap:7px; } .hwg-supply-row a { font-size:8px; padding:6px 5px; } .hwg-supply-description strong { font-size:11px; } .hwg-connection-strip { justify-content:flex-start; } .hwg-connect-steps .hwg-howto-step { grid-template-columns:37px minmax(0,1fr); } }
+@media(prefers-reduced-motion:reduce) { .hardware-guide *, .hardware-guide *::before,.hardware-guide *::after { transition:none !important; animation:none !important; } }
+
+/* V53 / hardware control overview in the connect chapter */
+.hwg-app-overview { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:22px 0 4px; }
+.hwg-app-overview>div { border:1px solid rgba(0,0,0,.13); border-radius:9px; padding:16px; background:rgba(247,246,241,.65); }
+.hwg-app-overview span { color:var(--accent); font-size:10px; font-weight:900; letter-spacing:.07em; }
+.hwg-app-overview p { margin:10px 0 0; color:var(--muted); font-size:12px; line-height:1.55; }
+@media(max-width:800px) { .hwg-app-overview { grid-template-columns:1fr; } }

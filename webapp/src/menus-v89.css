@@ -1,0 +1,106 @@
+#app.studio-app .recent-modal__panel {
+  display: grid;
+  grid-template-rows: auto auto auto auto minmax(0, 1fr) auto;
+  height: min(760px, calc(100dvh - 36px));
+  max-height: calc(100dvh - 36px);
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+#app.studio-app .recent-modal__panel .recent-list {
+  min-height: 0; height: 100%; max-height: none;
+  box-sizing: border-box; overflow-y: auto; overflow-x: hidden;
+  display: grid; grid-auto-rows: max-content; align-content: start; padding-bottom: 10px;
+  overscroll-behavior: contain; scrollbar-gutter: stable;
+}
+#app.studio-app .recent-modal__note { min-width: 0; margin-top: 8px; padding-top: 10px; gap: 8px 18px; }
+#app.studio-app .recent-modal__note > * { min-width: 0; overflow-wrap: anywhere; }
+#app.studio-app .printability-report { margin: 12px 0 16px; }
+#app.studio-app .printability-report__details .printability-report__compact-summary { min-height: 52px; box-sizing: border-box; padding: 12px 16px; gap: 12px; }
+#app.studio-app .printability-report__compact-title { font: 900 12px/1.2 Inter, Arial, sans-serif; letter-spacing: -.025em; }
+#app.studio-app .printability-report__compact-title i { font: italic 700 15px/1 Georgia, serif; color: #e93222; }
+#app.studio-app .printability-report__compact-status { margin-left: auto; display: flex; align-items: center; gap: 10px; font: 850 10px/1.3 Inter, Arial, sans-serif; text-align: right; }
+#app.studio-app .printability-report__compact-status small { white-space: nowrap; color: #77736b; font: 800 9px/1.2 Inter, Arial, sans-serif; }
+#app.studio-app .printability-report[data-status='review'] .printability-report__compact-status,
+#app.studio-app .printability-report[data-status='invalid'] .printability-report__compact-status { color: #ad3825; }
+#app.studio-app .printability-report__compact-summary .printability-report__chevron { flex: 0 0 8px; }
+#app.studio-app .printability-report__compact-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 16px; border-top: 1px solid var(--pf-line); font: 750 9px/1.5 Inter, Arial, sans-serif; color: #77736b; }
+#app.studio-app .printability-report__findings { max-height: 220px; overflow-y: auto; overscroll-behavior: contain; padding-bottom: 8px; }
+#app.studio-app .printability-report__issue { padding: 10px 1px; }
+#app.studio-app .printability-report__footnote { padding: 8px 16px; }
+@media (max-width: 600px) {
+  #app.studio-app .recent-modal__note { flex-direction: column; align-items: flex-start; gap: 5px; }
+  #app.studio-app .recent-modal__note span { text-align: left; }
+  #app.studio-app .printability-report__details .printability-report__compact-summary { padding: 10px 12px; gap: 9px; }
+  #app.studio-app .printability-report__compact-status { flex-direction: column; align-items: flex-end; gap: 3px; font-size: 9px; }
+}
+@media (max-height: 500px) {
+  #app.studio-app .recent-modal__panel { display: block; overflow-y: auto; }
+  #app.studio-app .recent-modal__panel .recent-list { height: 180px; }
+}
+
+/* V90: Recent Models fits its contents, with only the list shrinking. */
+#app.studio-app .recent-modal__panel {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  max-height: calc(100dvh - 36px);
+}
+#app.studio-app .recent-modal__panel > * { flex: 0 0 auto; }
+#app.studio-app .recent-modal__panel .recent-list {
+  flex: 0 1 auto;
+  height: auto;
+  min-height: 0;
+  max-height: 490px;
+}
+#app.studio-app .save-modal__panel {
+  box-sizing: border-box;
+  max-height: calc(100dvh - 40px);
+  overflow: hidden;
+}
+#app.studio-app .save-modal__header { flex: 0 0 auto; }
+#app.studio-app .save-modal__scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(15,15,15,.32) transparent;
+}
+#app.studio-app .save-modal__scroll::-webkit-scrollbar { width: 6px; }
+#app.studio-app .save-modal__scroll::-webkit-scrollbar-thumb { background: rgba(15,15,15,.32); border-radius: 4px; }
+@media (max-height: 500px) {
+  #app.studio-app .recent-modal__panel { display: block; overflow-y: auto; }
+  #app.studio-app .recent-modal__panel .recent-list { height: auto; max-height: 180px; }
+}
+
+/* V91: leave breathing room below the fixed export title. */
+#app.studio-app .save-modal__header { padding-bottom: 18px; }
+#app.studio-app .save-modal__scroll { border-radius: 8px; }
+/* Move the scrollbar into the dialog's padding, keeping cards aligned. */
+#app.studio-app .recent-modal__panel .recent-list {
+  width: calc(100% + var(--recent-scrollbar-width, 0px));
+  padding-left: 0;
+  padding-right: 0;
+  scrollbar-gutter: stable;
+}
+#app.studio-app .recent-item { animation: menu-card-reveal 240ms cubic-bezier(.2,.8,.2,1) both; }
+#app.studio-app .recent-item:nth-child(2) { animation-delay: 25ms; }
+#app.studio-app .recent-item:nth-child(n+3) { animation-delay: 50ms; }
+#app.studio-app .recent-library-status { animation: menu-status-reveal 220ms ease both; }
+@keyframes menu-card-reveal { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes menu-status-reveal { from { opacity: .5; } to { opacity: 1; } }
+
+#app.studio-app .printability-report__details[open] > :is(.printability-report__compact-toolbar, .printability-report__findings, .printability-report__footnote) {
+  animation: menu-card-reveal 240ms cubic-bezier(.2,.8,.2,1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  #app.studio-app .recent-item, #app.studio-app .recent-library-status,
+  #app.studio-app .printability-report__details[open] > :is(.printability-report__compact-toolbar, .printability-report__findings, .printability-report__footnote) { animation: none; }
+}
+
+/* V92: JS animates the disclosure body height in both directions. */
+#app.studio-app .printability-report__body { min-height: 0; }
+#app.studio-app .printability-report__body .printability-report__findings { animation: none; }

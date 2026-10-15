@@ -1,0 +1,4 @@
+/* Hardware-only Studio edition: preserve the shared engine's inert compatibility nodes,
+   but never expose virtual sensor controls to the user. */
+#simulateHardware, #hardwareModeTabs, #hardwareSimulationPanel,
+.top-serial__simulation { display: none !important; }

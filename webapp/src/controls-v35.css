@@ -1,0 +1,119 @@
+/* V35 — Shared close / remove icon language.
+   Match the 30 × 30 Hardware Mode controls throughout the application.
+   Keep the accessible button label and original click behavior intact.
+   The strokes are drawn by CSS, rather than by font-dependent × glyphs. */
+#app.studio-app :is(
+  .modal-close, .grid-settings-close, .custom-color-close,
+  .hardware-extra-profile__remove, .recent-delete
+) {
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  flex: 0 0 30px;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  min-width: 30px;
+  max-width: 30px;
+  height: 30px;
+  min-height: 30px;
+  max-height: 30px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid rgba(17, 17, 17, .16);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, .70);
+  box-shadow: none;
+  color: var(--ink, #111);
+  font-size: 0;
+  line-height: 0;
+  letter-spacing: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transform: none;
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+#app.studio-app :is(
+  .modal-close, .grid-settings-close, .custom-color-close,
+  .hardware-extra-profile__remove, .recent-delete
+)::before,
+#app.studio-app :is(
+  .modal-close, .grid-settings-close, .custom-color-close,
+  .hardware-extra-profile__remove, .recent-delete
+)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 13px;
+  height: 1.8px;
+  border-radius: 2px;
+  background: currentColor;
+  pointer-events: none;
+}
+#app.studio-app :is(
+  .modal-close, .grid-settings-close, .custom-color-close,
+  .hardware-extra-profile__remove, .recent-delete
+)::before { transform: translate(-50%, -50%) rotate(45deg); }
+#app.studio-app :is(
+  .modal-close, .grid-settings-close, .custom-color-close,
+  .hardware-extra-profile__remove, .recent-delete
+)::after { transform: translate(-50%, -50%) rotate(-45deg); }
+@media (hover: hover) and (pointer: fine) {
+  #app.studio-app :is(
+    .modal-close, .grid-settings-close, .custom-color-close,
+    .hardware-extra-profile__remove, .recent-delete
+  ):hover:not(:disabled) {
+    background: var(--ink, #111);
+    border-color: var(--ink, #111);
+    color: #fff;
+    transform: none;
+  }
+}
+#app.studio-app :is(
+  .modal-close, .grid-settings-close, .custom-color-close,
+  .hardware-extra-profile__remove, .recent-delete
+):focus-visible {
+  outline: 2px solid var(--ink, #111);
+  outline-offset: 2px;
+}
+/* V35 — Clear Recents is a secondary destructive action: easier to target,
+   with a restrained warm warning hover instead of a bare text recolor. */
+#app.studio-app .recent-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-height: 32px;
+  padding: 7px 11px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted, #777);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .075em;
+  line-height: 1.15;
+  cursor: pointer;
+  transform: none;
+  transition: background-color 200ms ease, border-color 200ms ease,
+              color 200ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  #app.studio-app .recent-clear:hover:not(:disabled) {
+    background: rgba(233, 50, 34, .08);
+    border-color: rgba(233, 50, 34, .24);
+    color: var(--accent, #e93222);
+    transform: none;
+  }
+}
+#app.studio-app .recent-clear:focus-visible {
+  outline: 2px solid var(--ink, #111);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  #app.studio-app .recent-clear,
+  #app.studio-app :is(.modal-close,.grid-settings-close,.custom-color-close,.hardware-extra-profile__remove,.recent-delete) {
+    transition: none;
+  }
+}

@@ -1,0 +1,210 @@
+/* Shared details: identical geometry in both themes. */
+:root{--return-surface:#fff;--return-ink:#0f0f0f;--return-hover:#0f0f0f;--return-hover-ink:#fff}
+html body .presentation-toolbar .presentation-actions [data-present="exit"]{
+ background:var(--return-surface)!important;color:var(--return-ink)!important;
+ opacity:1!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+html body .presentation-toolbar .presentation-actions [data-present="exit"]:hover:not(:disabled){
+ background:var(--return-hover)!important;color:var(--return-hover-ink)!important;border-color:var(--ink)!important;
+}
+:is(#app.studio-app,.brick-page,.tutorial-page) :is(.modal-close,.custom-color-close,
+ .rail-collapse,.grid-settings-close,.model-size-toggle,.save-modal__close,.load-modal__close,
+ .recent-modal__close,.project-action-dialog__close,#closeHardwareSetup,#prevStep,
+ .brick-back,.tutorial-back,.tutorial-footer a[href="#top"],.presentation-actions [data-present="exit"]){
+ background:var(--return-surface)!important;color:var(--return-ink)!important;
+ opacity:1!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+ box-shadow:none!important;
+}
+:is(#app.studio-app,.brick-page,.tutorial-page) :is(.modal-close,.custom-color-close,
+ .rail-collapse,.grid-settings-close,.model-size-toggle,.save-modal__close,.load-modal__close,
+ .recent-modal__close,.project-action-dialog__close,#closeHardwareSetup,#prevStep,
+ .brick-back,.tutorial-back,.tutorial-footer a[href="#top"],.presentation-actions [data-present="exit"]):hover:not(:disabled){
+ background:var(--return-hover)!important;color:var(--return-hover-ink)!important;
+ border-color:var(--ink)!important;
+}
+/* Closed Calibration needs less internal air; expanded controls stay readable. */
+#app.studio-app.hardware-builder .hardware-calibration{padding-top:2px;margin-bottom:8px}
+#app.studio-app.hardware-builder .hardware-calibration:not(.is-open) .hardware-tool-summary{min-height:28px;padding-block:1px}
+#app.studio-app.hardware-builder .hardware-calibration .hardware-tool-panel{padding-top:6px}
+#app.studio-app.hardware-builder .hardware-calibration .hardware-tool-panel__top{margin-bottom:6px}
+#app.studio-app.hardware-builder .hardware-calibration .hardware-profile-targets button{padding:6px 8px;gap:4px}
+#app.studio-app.hardware-builder .hardware-calibration .hardware-calibration-values{margin:6px 0}
+#app.studio-app.hardware-builder .hardware-calibration .hardware-calibration-values>div{padding:6px 8px;gap:4px}
+#app.studio-app.hardware-builder .hardware-calibration .hardware-tool-primary,
+#app.studio-app.hardware-builder .hardware-calibration .hardware-calibration-actions button{padding:7px 8px;min-height:30px}
+#app.studio-app.hardware-builder .hardware-calibration .hardware-tools-note{margin:7px 0 0;line-height:1.4}
+@media(min-width:861px){#app.studio-app.hardware-builder .hardware-kit__files{margin-top:auto}}
+#app.studio-app.hardware-builder .studio-sidebar--tools .studio-rail-scroll.has-workbench-scroll-gutter .hardware-kit::after{flex:0 0 16px;height:16px}
+/* Guide controls and teaching surfaces use the same tokens as the builders. */
+body.tutorial-body :is(.tutorial-primary,.tutorial-secondary,.precision-actions button,
+ .precision-reset,.guide-lab__reset,.hwg-layer-navigation button){
+ border-radius:var(--studio-radius-control);font-family:var(--studio-control-font);
+}
+body.tutorial-body :is(.guide-lab,.guide-sim-panel,.precision-specs,.step-tip,.precision-report,
+ .studio-guide-demo,.hwg-assembly-interactive,.guide-digital-hero){
+ background:var(--studio-glass-inset);border-color:var(--studio-edge);
+ border-radius:var(--studio-radius-card);
+ -webkit-backdrop-filter:blur(var(--studio-glass-blur));backdrop-filter:blur(var(--studio-glass-blur));
+}
+/* A compact four-area diagram, rather than a second full builder interface. */
+body.tutorial-body .guide-interface-v135 .mock-panel{
+ background:var(--studio-glass-inset);border:1px solid var(--studio-edge);
+ border-radius:var(--studio-radius-card);box-shadow:none;
+ -webkit-backdrop-filter:blur(var(--studio-glass-blur));backdrop-filter:blur(var(--studio-glass-blur));
+}
+body.tutorial-body .guide-interface-v135 .mock-panel--feedback{background:var(--accent);color:#fff}
+body.tutorial-body .guide-interface-v135 .mock-panel--control{background:#171717;color:#fff}
+body.tutorial-body .guide-interface-v135 .mock-panel :is(b,small,span,i){font-family:var(--studio-control-font)}
+body.tutorial-body .guide-interface-v135 .mock-panel__top span{font-size:22px;letter-spacing:-.04em}
+body.tutorial-body .guide-interface-v135 .mock-panel>b{font-size:15px;line-height:1.15}
+body.tutorial-body .guide-interface-v135 .mock-panel__bottom{border-top-color:var(--studio-edge)}
+body.tutorial-body .guide-interface-v135 .mock-panel--feedback :is(b,small,span,i),
+body.tutorial-body .guide-interface-v135 .mock-panel--control :is(b,small,span,i){color:#fff}
+body.tutorial-body .guide-interface-v135 .mock-app--v135{border-color:var(--studio-edge);border-radius:var(--studio-radius-card)}
+body.tutorial-body .guide-interface-v135 .mock-app__brand b{font-family:var(--studio-control-font);letter-spacing:-.04em}
+body.tutorial-body .guide-interface-v135 .mock-app__stage{filter:none}
+body.tutorial-body .guide-interface-v135 .mock-app__stage-tag{border-color:var(--studio-edge);background:var(--studio-glass-inset);color:var(--ink);font-family:var(--studio-control-font)}
+body.tutorial-body .guide-interface-v135 .interface-notes__item>span{width:30px;height:30px;font-size:12px;border-radius:var(--studio-radius-control);font-family:var(--studio-control-font)}
+body.tutorial-body .guide-interface-v135 .interface-notes__item p strong{font-family:var(--studio-control-font)}
+@media(max-width:630px){body.tutorial-body .guide-interface-v135 .mock-panel>b{font-size:12px}body.tutorial-body .guide-interface-v135 .mock-panel__top span{font-size:20px}}
+
+/* Let the closed calibration row occupy the space between its two dividers. */
+#app.studio-app.hardware-builder .hardware-calibration:not(.is-open){flex:1 0 auto;display:flex;flex-direction:column;justify-content:center;padding-block:4px;margin-bottom:0}
+
+/* Equal breathing room at both ends of each content rail, including overflow. */
+#app.studio-app:is(.digital-builder,.hardware-builder) .studio-sidebar .studio-rail-scroll{padding-block:16px}
+#app.studio-app .studio-sidebar .studio-rail-scroll>:first-child{margin-top:0}
+#app.studio-app .studio-sidebar .studio-rail-scroll>:last-child{margin-bottom:0}
+#app.studio-app .studio-sidebar--inspector .feature-panel{padding-bottom:0}
+#app.studio-app .studio-sidebar--inspector .feature-section:last-child{padding-bottom:0;margin-bottom:0}
+#app.studio-app.hardware-builder .studio-sidebar--tools .studio-rail-scroll.has-workbench-scroll-gutter .hardware-kit::after{content:none;flex:0 0 0;height:0}
+/* Four-area teaching diagram: actual rail placement, shared materials and type. */
+body.tutorial-body .guide-interface-v135 .mock-app--v135{
+ display:grid;grid-template-columns:minmax(125px,1fr) minmax(130px,1.2fr) minmax(125px,1fr);
+ grid-template-rows:52px repeat(3,minmax(104px,1fr)) 20px;gap:12px;padding:16px;
+ min-height:510px;background:var(--paper-2);background-image:none;border:1px solid var(--studio-edge);box-shadow:none;
+}
+body.tutorial-body .guide-interface-v135 .mock-app__brand{position:static;grid-column:1/-1;grid-row:1;align-self:center;gap:6px}
+body.tutorial-body .guide-interface-v135 .mock-app__brand :is(b,em,small){color:var(--ink);font-family:var(--studio-control-font)}
+body.tutorial-body .guide-interface-v135 .mock-app__brand small{color:var(--studio-text-soft);font-size:8px;letter-spacing:.04em}
+body.tutorial-body .guide-interface-v135 .mock-app__folio{display:none}
+body.tutorial-body .guide-interface-v135 .mock-panel{
+ position:relative;inset:auto;width:auto;min-height:0;padding:12px;box-shadow:none;
+ background:var(--studio-glass-inset);color:var(--ink);border:1px solid var(--studio-edge);
+ border-radius:var(--studio-radius-card);gap:4px;
+}
+body.tutorial-body .guide-interface-v135 .mock-panel--build{grid-column:1;grid-row:2/5;justify-content:center}
+body.tutorial-body .guide-interface-v135 .mock-panel--data{grid-column:3;grid-row:2}
+body.tutorial-body .guide-interface-v135 .mock-panel--feedback{grid-column:3;grid-row:3}
+body.tutorial-body .guide-interface-v135 .mock-panel--control{grid-column:3;grid-row:4}
+body.tutorial-body .guide-interface-v135 .mock-panel__top{border-color:var(--studio-edge);padding-bottom:8px;gap:8px}
+body.tutorial-body .guide-interface-v135 .mock-panel .mock-panel__top span{color:var(--accent);font-size:20px;letter-spacing:-.04em}
+body.tutorial-body .guide-interface-v135 .mock-panel .mock-panel__top i{color:var(--studio-text-soft);font-size:7px;letter-spacing:.04em}
+body.tutorial-body .guide-interface-v135 .mock-panel>b{color:var(--ink);font-size:12px;line-height:1.25;white-space:normal;letter-spacing:.01em;margin-top:5px}
+body.tutorial-body .guide-interface-v135 .mock-panel>small{color:var(--studio-text-soft);font-size:8px;line-height:1.5;font-weight:600;margin:0;letter-spacing:.01em}
+body.tutorial-body .guide-interface-v135 .mock-panel__bottom{display:none}
+body.tutorial-body .guide-interface-v135 .mock-app__stage{position:relative;inset:auto;transform:none;grid-column:2;grid-row:2/5;align-self:center;width:100%;height:200px}
+body.tutorial-body .guide-interface-v135 .mock-app__blocks{filter:none;stroke:none}
+body.tutorial-body .guide-interface-v135 .mock-app__stage-label{background:var(--studio-glass-inset);border:1px solid var(--studio-edge);border-radius:var(--studio-radius-control);box-shadow:none;padding:8px;bottom:-15px}
+body.tutorial-body .guide-interface-v135 .mock-app__stage-label strong{color:var(--ink);font:800 9px var(--studio-control-font);letter-spacing:.02em}
+body.tutorial-body .guide-interface-v135 .mock-app__stage-label small{color:var(--studio-text-soft);font:600 7px var(--studio-control-font)}
+body.tutorial-body .guide-interface-v135 .mock-app__edge-note{position:static;transform:none;grid-column:1/-1;grid-row:5;align-self:center;justify-self:center;color:var(--studio-text-soft);font-family:var(--studio-control-font);letter-spacing:.06em}
+body.tutorial-body .guide-interface-v135 .interface-notes__heading{border-bottom:1px solid var(--studio-edge)}
+body.tutorial-body .guide-interface-v135 .interface-notes__heading>strong{color:var(--ink);font-family:var(--studio-ui-font);font-size:27px;font-weight:850}
+body.tutorial-body .guide-interface-v135 .interface-notes__item{border-color:var(--studio-edge)}
+body.tutorial-body .guide-interface-v135 .interface-notes__item>span{background:var(--studio-glass-inset);border:1px solid var(--studio-edge);color:var(--accent);box-shadow:none}
+body.tutorial-body .guide-interface-v135 .interface-notes__item p{color:var(--studio-text-soft);font-family:var(--studio-ui-font)}
+body.tutorial-body .guide-interface-v135 .interface-notes__item p strong{color:var(--ink)}
+@media(max-width:630px){
+ body.tutorial-body .guide-interface-v135 .mock-app--v135{grid-template-columns:minmax(84px,1fr) minmax(0,.85fr) minmax(100px,1fr);gap:7px;padding:10px;min-height:460px;grid-template-rows:48px repeat(3,minmax(100px,1fr)) 18px}
+ body.tutorial-body .guide-interface-v135 .mock-panel{padding:8px}
+ body.tutorial-body .guide-interface-v135 .mock-panel>b{font-size:10px}
+ body.tutorial-body .guide-interface-v135 .mock-panel .mock-panel__top i{display:none}
+ body.tutorial-body .guide-interface-v135 .mock-app__stage{height:160px}
+ body.tutorial-body .guide-interface-v135 .mock-grid{width:100px}
+ body.tutorial-body .guide-interface-v135 .mock-app__stage-label{max-width:96px;min-width:0;padding:6px 4px}
+ body.tutorial-body .guide-interface-v135 .mock-app__stage-label small{display:none}
+}
+
+@media(prefers-reduced-motion:no-preference){
+ :is(#app.studio-app,.brick-page,.tutorial-page) :is(.modal-close,.custom-color-close,.rail-collapse,.grid-settings-close,.model-size-toggle,.save-modal__close,.load-modal__close,.recent-modal__close,.project-action-dialog__close,#closeHardwareSetup,#prevStep,.brick-back,.tutorial-back,.tutorial-footer a[href="#top"],.presentation-actions [data-present="exit"]):hover:not(:disabled),
+ html body .presentation-toolbar .presentation-actions [data-present="exit"]:hover:not(:disabled){box-shadow:0 5px 12px rgba(15,15,15,.1)!important;transform:translateY(-1px)!important}
+}
+@media(prefers-reduced-motion:reduce){
+ :is(#app.studio-app,.brick-page,.tutorial-page) :is(.modal-close,.custom-color-close,.rail-collapse,.grid-settings-close,.model-size-toggle,.save-modal__close,.load-modal__close,.recent-modal__close,.project-action-dialog__close,#closeHardwareSetup,#prevStep,.brick-back,.tutorial-back,.tutorial-footer a[href="#top"],.presentation-actions [data-present="exit"]):hover:not(:disabled),
+ html body .presentation-toolbar .presentation-actions [data-present="exit"]:hover:not(:disabled){box-shadow:none!important;transform:none!important}
+}
+/* Do not shrink a panel around overflowing children: the rail owns scrolling. */
+#app.studio-app.hardware-builder .studio-sidebar--tools .hardware-kit{flex:1 0 auto;min-height:min-content}
+#app.studio-app.hardware-builder .studio-sidebar--inspector .feature-panel{flex:1 0 auto;min-height:min-content;justify-content:space-between}
+
+#app.studio-app:is(.digital-builder,.hardware-builder) .studio-sidebar--inspector .studio-rail-scroll{display:block}
+#app.studio-app .studio-inspector-content{display:flex;flex-direction:column;min-height:100%}
+#app.studio-app .studio-inspector-content>:first-child{margin-top:0}
+#app.studio-app .studio-inspector-content>:last-child{margin-bottom:0}
+/* Put Inspector's breathing room inside its measured content, so the browser
+   includes the trailing space even when content overflows by only a few pixels. */
+#app.studio-app:is(.digital-builder,.hardware-builder) .studio-sidebar--inspector .studio-rail-scroll{padding-block:0}
+#app.studio-app .studio-inspector-content{padding-block:16px;box-sizing:border-box}
+
+body.tutorial-body .guide-interface-v135 .mini-builder-diagram{display:block;width:100%;height:100%;overflow:visible}
+.mini-builder-diagram .mini-plate-top{fill:var(--studio-glass-inset);stroke:var(--studio-edge);stroke-width:.7}
+.mini-builder-diagram .mini-plate-edge{fill:var(--paper-2);stroke:var(--studio-edge);stroke-width:.6}
+.mini-builder-diagram .mini-plate-grid{fill:none;stroke:var(--ink);stroke-opacity:.28;stroke-width:.45}
+.mini-builder-diagram .mini-standard-block{stroke:#8f281b;stroke-opacity:.3;stroke-width:.25;stroke-linejoin:round}
+body.tutorial-body .guide-interface-v135 .mock-app__stage-label small{font-size:6px}
+
+
+/* Digital Inspector follows Hardware's rhythm; retain full-size live controls. */
+#app.studio-app.digital-builder .studio-sidebar--inspector .stats-panel{margin-bottom:12px}
+#app.studio-app.digital-builder .studio-sidebar--inspector .stats-grid{gap:5px}
+#app.studio-app.digital-builder .studio-sidebar--inspector .feedback-card{margin-bottom:12px}
+#app.studio-app.digital-builder .studio-sidebar--inspector .stat-card{min-height:64px;padding:8px 7px}
+#app.studio-app.digital-builder #openGridSettings{height:28px;min-height:28px;width:28px}
+#app.studio-app.digital-builder .studio-sidebar--inspector .feature-panel{padding-top:0;flex:1 0 auto;min-height:min-content;justify-content:initial}
+#app.studio-app.digital-builder .studio-sidebar--inspector .feature-panel>.panel-label{display:flex;align-items:center;min-height:36px;box-sizing:border-box;padding:8px 0;margin:0;flex:0 0 auto}
+#app.studio-app.digital-builder .studio-sidebar--inspector .feature-section{display:flex;flex-direction:column;justify-content:center;flex:1 0 auto;padding:8px 0}
+#app.studio-app.digital-builder .studio-sidebar--inspector .feature-section:last-child{padding-bottom:8px}
+#app.studio-app.digital-builder .studio-sidebar--inspector .feature-heading{margin-bottom:7px}
+@media(min-width:861px) and (max-height:740px){
+ #app.studio-app.digital-builder .studio-sidebar--inspector .stat-card{min-height:54px}
+ #app.studio-app.digital-builder .studio-sidebar--inspector .feature-section{padding-block:5px}
+ #app.studio-app.digital-builder .studio-sidebar--inspector .feature-panel>.panel-label{min-height:30px;padding-block:6px}
+ #app.studio-app.digital-builder .studio-sidebar--inspector .feature-heading{margin-bottom:4px}
+}
+/* Project Files: match Workbench's header, grid and lower action spacing. */
+#app.studio-app.digital-builder .buildkit-files{border-top:1px solid var(--studio-edge);padding-top:15px}
+#app.studio-app.digital-builder .project-files-heading{margin:0 0 10px;padding:0;color:var(--studio-text-soft);font:850 10px/1.3 var(--studio-control-font);letter-spacing:.07em}
+#app.studio-app.digital-builder .buildkit-files .panel-actions--files{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0!important;padding:0}
+#app.studio-app.digital-builder .buildkit-files .panel-actions--files>button{grid-column:auto;grid-row:auto;min-height:40px;margin:0;font-size:10px}
+#app.studio-app.digital-builder .buildkit-files .panel-actions--small{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:13px 0 0;padding-top:13px;border-top:1px solid var(--studio-edge)}
+#app.studio-app.digital-builder .buildkit-files .panel-actions--small>button{min-height:37px;margin:0;font-size:10px}
+/* One Guide action treatment, including previously static demo buttons. */
+:root{--guide-hover-bg:#0f0f0f;--guide-active-hover-bg:#30302d}
+body.tutorial-body #guide-introduction button:not(:disabled){cursor:pointer;transition:background-color .18s,color .18s,border-color .18s,box-shadow .18s}
+body.tutorial-body #guide-introduction button:not(:disabled):not(:is(.guide-sensor-cell,.precision-brick-grid button)):hover{background:var(--guide-hover-bg)!important;color:#fff!important;border-color:var(--ink)!important}
+body.tutorial-body #guide-introduction button:is([aria-pressed=true],.is-active):not(:disabled):not(:is(.guide-sensor-cell,.precision-brick-grid button)):hover{background:var(--guide-active-hover-bg)!important;color:#fff!important;border-color:var(--ink)!important;box-shadow:inset 0 0 0 1px var(--ink)}
+body.tutorial-body #guide-introduction :is(.guide-sensor-cell,.precision-brick-grid button):not(:disabled):hover{filter:brightness(1.12);outline:1px solid var(--accent);outline-offset:2px}
+body.tutorial-body #guide-introduction button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+#app.studio-app.digital-builder .buildkit-files .project-file-actions #exportBuild{grid-column:1/-1!important;grid-row:1!important}
+#app.studio-app.digital-builder .buildkit-files .project-file-actions #loadBuild{grid-column:1/-1!important;grid-row:2!important}
+#app.studio-app.digital-builder .buildkit-files .project-file-actions #saveBuild{grid-column:1!important;grid-row:3!important}
+#app.studio-app.digital-builder .buildkit-files .project-file-actions #openStudioTools{grid-column:2!important;grid-row:3!important}
+/* On laptop-height windows, recover space inside the controls rather than
+   shrinking the restored statistics cards or settings action. */
+@media(min-width:861px) and (max-height:670px){
+ #app.studio-app.digital-builder .studio-sidebar--inspector .feature-section{padding-block:1px}
+ #app.studio-app.digital-builder .studio-sidebar--inspector .feature-panel>.panel-label{min-height:24px;padding-block:4px}
+}
+
+/* Control Deck heading follows Hardware's complete upper/lower spacing recipe. */
+#app.studio-app.digital-builder .studio-sidebar--inspector .feature-panel{padding-top:8px}
+#app.studio-app.digital-builder .studio-sidebar--inspector .feature-panel>.panel-label{display:block;min-height:0;padding:clamp(8px,1.2dvh,11px) 0 clamp(9px,1.2dvh,12px);margin:0 0 4px;line-height:1.25}
+/* The final control ends at the same 16 px rail inset as Hardware. */
+#app.studio-app.digital-builder .studio-sidebar--inspector .feature-section.layer-controls{flex:0 0 auto;justify-content:flex-start;padding:8px 0 0}
+/* BOM is a segmented selection: hover should not look like a second selection. */
+:root{--bom-selected-bg:#0f0f0f;--bom-selected-hover:#242424;--bom-idle-hover:rgba(15,15,15,.08)}
+body.tutorial-body #guide-introduction .hwg-bom-switch[role=group] button{transform:none!important;box-shadow:none!important}
+body.tutorial-body #guide-introduction .hwg-bom-switch[role=group] button.is-active[aria-pressed=true]{background:var(--bom-selected-bg)!important;color:#fff!important}
+body.tutorial-body #guide-introduction .hwg-bom-switch[role=group] button.is-active[aria-pressed=true]:hover:not(:disabled){background:var(--bom-selected-hover)!important;color:#fff!important;box-shadow:none!important;border-color:transparent!important}
+body.tutorial-body #guide-introduction .hwg-bom-switch[role=group] button:not(.is-active)[aria-pressed=false]:hover:not(:disabled){background:var(--bom-idle-hover)!important;color:var(--ink)!important;box-shadow:none!important;border-color:transparent!important}

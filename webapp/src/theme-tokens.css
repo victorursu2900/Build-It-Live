@@ -1,0 +1,2 @@
+/* Shared surface and interaction tokens for all pages. */
+:root{--studio-radius-control:6px;--studio-radius-card:8px;--studio-radius-menu:10px;--studio-radius-dialog:20px;--studio-glass-inset:rgba(234,232,225,.64);--studio-glass-blur:12px;--preview-selected:#245bca;--preview-valid:#268b65;--preview-invalid:#ff321c;--preview-affected:#d87700}

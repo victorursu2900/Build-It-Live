@@ -1,0 +1,278 @@
+/* V87 — Printability / export: one coherent preflight, with a readable
+   outcome, compact measurements and progressively disclosed findings.
+   This sheet is loaded last and scoped to Builders. */
+#app.studio-app .printability-report {
+  --pf-line: #d8d5ce;
+  margin: 14px 0 18px;
+  padding: 0;
+  border: 1px solid #d2cec6;
+  border-radius: 10px;
+  background: #f7f6f2;
+  color: #101010;
+  box-shadow: none;
+  overflow: hidden;
+}
+#app.studio-app .printability-report__masthead {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding: 17px 17px 16px;
+  gap: 12px;
+}
+#app.studio-app .printability-report__heading { display: grid; gap: 9px; min-width: 0; }
+#app.studio-app .printability-report__heading .printability-report__eyebrow {
+  font: 850 9px/1.2 Inter, Arial, sans-serif;
+  letter-spacing: .09em;
+  color: #77736b;
+}
+#app.studio-app .printability-report__eyebrow span { margin: 0 5px; color: #b4b0a7; }
+#app.studio-app .printability-report__heading strong {
+  font: 900 clamp(20px, 2.5vw, 25px)/1 Inter, Arial, sans-serif;
+  letter-spacing: -.05em;
+  color: #0f0f0f;
+}
+#app.studio-app .printability-report__heading strong i {
+  font: italic 700 1.04em/.9 Georgia, 'Times New Roman', serif;
+  letter-spacing: -.06em;
+  color: #e93222;
+  white-space: nowrap;
+}
+#app.studio-app .printability-refresh {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 7px;
+  min-height: 32px;
+  padding: 7px 10px;
+  border: 1px solid #d0ccc4;
+  border-radius: 6px;
+  background: #fff;
+  color: #1c1c1c;
+  cursor: pointer;
+  font: 850 9px/1 Inter, Arial, sans-serif;
+  letter-spacing: .04em;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+#app.studio-app .printability-refresh__icon { flex-shrink: 0; transition: transform .26s cubic-bezier(.2,.8,.2,1); }
+#app.studio-app .printability-refresh:hover { color: #fff; background: #151515; border-color: #151515; }
+#app.studio-app .printability-refresh:hover .printability-refresh__icon { transform: rotate(65deg); }
+#app.studio-app .printability-report__result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 86px;
+  padding: 15px 17px;
+  color: #fff;
+  background: #191919;
+}
+#app.studio-app .printability-report__result-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ffffff52;
+  border-radius: 50%;
+  color: #ff634f;
+  font: 900 15px/1 Inter, Arial, sans-serif;
+}
+#app.studio-app .printability-report[data-status='ready'] .printability-report__result-mark { color: #a9e2b8; }
+#app.studio-app .printability-report__result-copy { display: flex; flex-direction: column; min-width: 0; gap: 4px; flex: 1; }
+#app.studio-app .printability-report__result-copy > span {
+  font: 800 8px/1.2 Inter, Arial, sans-serif;
+  letter-spacing: .12em;
+  color: #b3b2af;
+}
+#app.studio-app .printability-report__result-copy strong {
+  font: 900 clamp(13px, 2vw, 17px)/1.05 Inter, Arial, sans-serif;
+  letter-spacing: -.03em;
+  color: #fff;
+}
+#app.studio-app .printability-report__result-copy small {
+  font: 550 10px/1.35 Inter, Arial, sans-serif;
+  color: #c1bfb9;
+}
+#app.studio-app .printability-report__result-count { display: flex; align-items: end; flex-direction: column; gap: 3px; padding-left: 9px; color: #ff614d; font: 900 26px/1 Inter, Arial, sans-serif; letter-spacing: -.055em; font-variant-numeric: tabular-nums; }
+#app.studio-app .printability-report[data-status='ready'] .printability-report__result-count { color: #b2daba; }
+#app.studio-app .printability-report__result-count small { color: #aaa8a2; font: 850 8px/1 Inter, Arial, sans-serif; letter-spacing: .04em; }
+#app.studio-app .printability-report__summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--pf-line);
+  background: #fffefa;
+}
+#app.studio-app .printability-report__metric {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 6px;
+  padding: 14px 17px 15px;
+}
+#app.studio-app .printability-report__metric + .printability-report__metric { border-left: 1px solid var(--pf-line); }
+#app.studio-app .printability-report__metric > span {
+  order: 2;
+  color: #78746d;
+  font: 850 8px/1.35 Inter, Arial, sans-serif;
+  letter-spacing: .065em;
+}
+#app.studio-app .printability-report__metric > strong {
+  order: 1;
+  font: 900 clamp(18px, 2.9vw, 22px)/1 Inter, Arial, sans-serif;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.055em;
+  overflow-wrap: anywhere;
+}
+#app.studio-app .printability-report__details { margin: 0; }
+#app.studio-app .printability-report__details summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 17px;
+  list-style: none;
+  cursor: pointer;
+  color: #111;
+  transition: background-color .18s ease;
+}
+#app.studio-app .printability-report__details summary::-webkit-details-marker { display: none; }
+#app.studio-app .printability-report__details summary:hover { background: #ebe8e2; }
+#app.studio-app .printability-report__details-label { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px; font: 900 10px/1.2 Inter, Arial, sans-serif; letter-spacing: .035em; }
+#app.studio-app .printability-report__details-label small { color: #858178; font: 800 9px/1 Inter, Arial, sans-serif; letter-spacing: .03em; }
+#app.studio-app .printability-report__details-action { display: inline-flex; align-items: center; gap: 11px; font: 850 9px/1 Inter, Arial, sans-serif; letter-spacing: .06em; color: #6c6961; }
+#app.studio-app .printability-report__chevron {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-right: 1.6px solid #222;
+  border-bottom: 1.6px solid #222;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform .24s cubic-bezier(.2,.8,.2,1);
+}
+#app.studio-app .printability-report__details[open] .printability-report__chevron { transform: translateY(2px) rotate(225deg); }
+#app.studio-app .printability-report__findings { display: grid; gap: 0; padding: 0 17px 16px; animation: pf-reveal .24s ease both; }
+@keyframes pf-reveal { from { transform: translateY(-4px); } to { transform: translateY(0); } }
+#app.studio-app .printability-report__issue {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 8px;
+  padding: 13px 1px;
+  border: 0;
+  border-top: 1px solid var(--pf-line);
+  border-radius: 0;
+  background: none;
+}
+#app.studio-app .printability-report__issue-number { color: #9f9b93; font: 900 10px/1.4 Inter, Arial, sans-serif; }
+#app.studio-app .printability-report__issue-body { min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+#app.studio-app .printability-report__issue-top { display: flex; flex-direction: row; gap: 9px; align-items: flex-start; justify-content: space-between; }
+#app.studio-app .printability-report__issue-top b { min-width: 0; font: 900 11px/1.3 Inter, Arial, sans-serif; letter-spacing: -.01em; color: #181818; }
+#app.studio-app .printability-report__issue.is-error .printability-report__issue-top b, #app.studio-app .printability-report__issue.is-warning .printability-report__issue-top b { color: #ad3825; }
+#app.studio-app .printability-report__severity {
+  flex: 0 0 auto;
+  width: auto;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  color: #878178;
+  font: 850 8px/1.35 Inter, Arial, sans-serif;
+  letter-spacing: .065em;
+}
+#app.studio-app .printability-report__issue.is-warning .printability-report__severity, #app.studio-app .printability-report__issue.is-error .printability-report__severity { color: #ad3825; }
+#app.studio-app .printability-report__issue-body p { margin: 0; color: #6b665e; font: 550 10px/1.5 Inter, Arial, sans-serif; }
+#app.studio-app .printability-report__footnote { display: flex; align-items: flex-start; gap: 9px; border-top: 1px solid var(--pf-line); padding: 11px 17px; background: #efede7; }
+#app.studio-app .printability-report__footnote > span { margin-top: 1px; font: 800 13px/1 Inter, Arial, sans-serif; color: #67635d; }
+#app.studio-app .printability-report__footnote p { margin: 0; font: 550 9px/1.5 Inter, Arial, sans-serif; color: #726d64; }
+#app.studio-app .printability-refresh:focus-visible, #app.studio-app .printability-report__details summary:focus-visible { outline: 2px solid #e93222; outline-offset: -2px; }
+
+/* Recent Models: use precisely the same CSS-drawn close icon in the modal
+   and on saved project cards. Higher specificity defeats V85's special
+   red project-delete control and restores the shared neutral X treatment. */
+#app.studio-app .recent-modal__header #closeRecentModal,
+#app.studio-app .recent-item__actions button.recent-delete {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 30px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  min-width: 30px;
+  max-width: 30px;
+  height: 30px;
+  min-height: 30px;
+  max-height: 30px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(17,17,17,.16);
+  border-radius: 7px;
+  background: rgba(255,255,255,.70);
+  box-shadow: none;
+  color: #111;
+  font-size: 0;
+  line-height: 0;
+  letter-spacing: 0;
+  transform: none;
+  cursor: pointer;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+#app.studio-app .recent-modal__header #closeRecentModal::before,
+#app.studio-app .recent-modal__header #closeRecentModal::after,
+#app.studio-app .recent-item__actions button.recent-delete::before,
+#app.studio-app .recent-item__actions button.recent-delete::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 13px; height: 1.8px;
+  border-radius: 2px;
+  background: currentColor;
+  pointer-events: none;
+}
+#app.studio-app .recent-modal__header #closeRecentModal::before,
+#app.studio-app .recent-item__actions button.recent-delete::before { transform: translate(-50%,-50%) rotate(45deg); }
+#app.studio-app .recent-modal__header #closeRecentModal::after,
+#app.studio-app .recent-item__actions button.recent-delete::after { transform: translate(-50%,-50%) rotate(-45deg); }
+#app.studio-app .recent-modal__header #closeRecentModal:hover,
+#app.studio-app .recent-item__actions button.recent-delete:hover { color: #fff; background: #111; border-color: #111; transform: none; }
+#app.studio-app .recent-modal__header #closeRecentModal:focus-visible,
+#app.studio-app .recent-item__actions button.recent-delete:focus-visible { outline: 2px solid #e93222; outline-offset: 2px; }
+
+@media (max-width: 600px) {
+  #app.studio-app .printability-report { margin: 12px 0 16px; }
+  #app.studio-app .printability-report__masthead { padding: 14px 12px; gap: 8px; }
+  #app.studio-app .printability-report__heading strong { font-size: 20px; }
+  #app.studio-app .printability-report__result { min-height: 79px; padding: 13px 12px; gap: 9px; }
+  #app.studio-app .printability-report__result-mark { flex-basis: 25px; width: 25px; height: 25px; }
+  #app.studio-app .printability-report__result-copy strong { font-size: 13px; }
+  #app.studio-app .printability-report__result-count { font-size: 22px; }
+  #app.studio-app .printability-report__metric { padding: 12px 9px; }
+  #app.studio-app .printability-report__metric > strong { font-size: 19px; }
+  #app.studio-app .printability-report__metric > span { font-size: 7px; }
+  #app.studio-app .printability-report__details summary { padding: 13px 12px; }
+  #app.studio-app .printability-report__findings { padding: 0 12px 12px; }
+  #app.studio-app .printability-report__footnote { padding: 11px 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #app.studio-app .printability-refresh,
+  #app.studio-app .printability-refresh__icon,
+  #app.studio-app .printability-report__details summary,
+  #app.studio-app .printability-report__chevron,
+  #app.studio-app .printability-report__findings,
+  #app.studio-app .recent-modal__header #closeRecentModal,
+  #app.studio-app .recent-item__actions button.recent-delete { transition: none; animation: none; }
+}
+/* Neutralize older global rule giving every issue span a 170px flex basis. */
+#app.studio-app .printability-report__issue span.printability-report__issue-number,
+#app.studio-app .printability-report__issue span.printability-report__severity { flex: 0 0 auto; }
+#app.studio-app .printability-report__issue.is-warning span.printability-report__severity,
+#app.studio-app .printability-report__issue.is-error span.printability-report__severity { color: #ad3825; }
+#app.studio-app .printability-report__issue.is-info span.printability-report__severity { color: #827b71; }
+#app.studio-app .printability-report[data-status='review'],
+#app.studio-app .printability-report[data-status='invalid'],
+#app.studio-app .printability-report[data-status='ready'] { border-color: #d2cec6; }
+
+/* Keep the delete action pinned to the end of each project-card action row. */
+#app.studio-app .recent-item__actions button.recent-delete { margin-left: auto; }
