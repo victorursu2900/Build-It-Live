@@ -43,8 +43,8 @@ The web application hosts the user manual, 3D visualization canvas, and the **Br
 
 1. Clone the repository:
 ```bash
-git clone [https://github.com/](https://github.com/)<your-username>/<your-repo-name>.git
-cd <your-repo-name>/webapp
+git clone https://github.com/victorursu2900/Build-It-Live.git
+cd Build-It-Live/webapp
 
 ```
 
