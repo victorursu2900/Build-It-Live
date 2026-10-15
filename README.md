@@ -25,6 +25,7 @@ This project links 3D-printed voxel blocks with an interactive web dashboard usi
 ├── firmware/         # C++ / PlatformIO firmware for the ESP32-C6
 ├── webapp/           # Frontend web application & 3D voxel engine
 └── README.md
+└── block.gcode.3mf   # Slicer file of the block model with a print pause
 
 ```
 
